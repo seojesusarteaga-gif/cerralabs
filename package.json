@@ -8,10 +8,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "og": "node scripts/generate-og.mjs"
+    "og": "node scripts/generate-og.mjs",
+    "test:webhook": "node scripts/test-webhook.mjs",
+    "test:mensaje": "node --experimental-strip-types scripts/test-mensaje.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^11.0.8",
     "astro": "^7.2.9"
+  },
+  "overrides": {
+    "path-to-regexp": "6.3.0"
   }
 }

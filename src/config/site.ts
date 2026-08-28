@@ -9,19 +9,44 @@
 // TBD DOMINIO: al comprar cerralabs.com, cambiar aquí y en astro.config.mjs.
 export const SITE_URL = 'https://cerralabs.vercel.app';
 
-// TBD CAL.COM: sustituir por el enlace real cuando exista la cuenta y los
-// tipos de evento. `enabled: false` mantiene los CTA visibles pero inertes,
-// para no publicar enlaces rotos.
+/* ─── Cal.com ──────────────────────────────────────────────────────────────
+ *
+ * Para activar el booking hacen falta dos cosas:
+ *
+ *   1. `CALCOM_USERNAME` con el usuario real de la cuenta de Cal.com.
+ *   2. `BOOKING_ENABLED = true`.
+ *
+ * Los slugs de abajo son los que hay que crear en Cal.com como tipos de
+ * evento. Si allí se nombran distinto, se corrigen aquí y no hace falta tocar
+ * ninguna página: los CTA leen de este archivo.
+ *
+ * Mientras `BOOKING_ENABLED` sea false, los botones se renderizan visibles
+ * pero inertes, para no publicar enlaces rotos.
+ */
+
+// TBD CAL.COM: sustituir por el usuario real de la cuenta.
+const CALCOM_USERNAME = 'cerralabs';
+
+const BOOKING_ENABLED = false;
+
+export const CALCOM_EVENT_GENERAL = 'diagnostico';
+export const CALCOM_EVENT_AGENCIAS = 'diagnostico-agencias';
+export const CALCOM_EVENT_SAAS = 'diagnostico-saas';
+export const CALCOM_EVENT_INFOPRODUCTORES = 'diagnostico-infoproductores';
+export const CALCOM_EVENT_CLINICAS = 'diagnostico-clinicas';
+export const CALCOM_EVENT_CLOSER = 'entrevista-closer';
+
 export const BOOKING = {
-  enabled: false,
-  base: 'https://cal.com/cerralabs',
+  enabled: BOOKING_ENABLED,
+  username: CALCOM_USERNAME,
+  base: `https://cal.com/${CALCOM_USERNAME}`,
   events: {
-    general: 'diagnostico',
-    agencias: 'diagnostico-agencias',
-    saas: 'diagnostico-saas',
-    infoproductores: 'diagnostico-infoproductores',
-    clinicas: 'diagnostico-clinicas',
-    closer: 'entrevista-closer',
+    general: CALCOM_EVENT_GENERAL,
+    agencias: CALCOM_EVENT_AGENCIAS,
+    saas: CALCOM_EVENT_SAAS,
+    infoproductores: CALCOM_EVENT_INFOPRODUCTORES,
+    clinicas: CALCOM_EVENT_CLINICAS,
+    closer: CALCOM_EVENT_CLOSER,
   },
 } as const;
 
@@ -31,6 +56,32 @@ export function bookingUrl(event: BookingEvent = 'general'): string | null {
   if (!BOOKING.enabled) return null;
   return `${BOOKING.base}/${BOOKING.events[event]}`;
 }
+
+/** Etiqueta legible de cada evento, para el aviso de lead. */
+export const BOOKING_EVENT_LABELS: Record<string, string> = {
+  [CALCOM_EVENT_GENERAL]: 'Diagnóstico general',
+  [CALCOM_EVENT_AGENCIAS]: 'Diagnóstico · Agencias',
+  [CALCOM_EVENT_SAAS]: 'Diagnóstico · SaaS',
+  [CALCOM_EVENT_INFOPRODUCTORES]: 'Diagnóstico · Infoproductores',
+  [CALCOM_EVENT_CLINICAS]: 'Diagnóstico · Clínicas',
+  [CALCOM_EVENT_CLOSER]: 'Entrevista de closer',
+};
+
+/**
+ * Preguntas de pre-cualificación. Se configuran en Cal.com, en cada tipo de
+ * evento, con estas mismas identificaciones para que el webhook las reconozca
+ * y las ordene igual en el aviso. Si cambia un identificador en Cal.com, hay
+ * que cambiarlo aquí también.
+ */
+export const BOOKING_QUESTIONS = [
+  { id: 'empresa', label: 'Empresa y web' },
+  { id: 'facturacion', label: 'Facturación anual aproximada' },
+  { id: 'leads-mes', label: 'Leads calificados al mes' },
+  { id: 'ticket-medio', label: 'Ticket medio' },
+  { id: 'ciclo-venta', label: 'Ciclo de venta actual' },
+  { id: 'expectativas', label: 'Qué espera de Cerra Labs' },
+  { id: 'timeline', label: 'Cuándo quiere empezar' },
+] as const;
 
 export const BRAND = {
   name: 'Cerra Labs',
