@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import FitCriteria from './FitCriteria.astro';
+import Faq from './Faq.astro';
+import CtaBand from './CtaBand.astro';
+import { SITE_URL, VERTICALS, type BookingEvent } from '../config/site';
+
+interface Props {
+  slug: string;
+  event: BookingEvent;
+  metaTitle: string;
+  metaDescription: string;
+  eyebrow: string;
+  h1: string;
+  lede: string;
+  diagnosis: { title: string; body: string }[];
+  diagnosisTitle: string;
+  profile: { label: string; value: string }[];
+  how: { title: string; body: string };
+  fitYes: string[];
+  fitNo: string[];
+  faqs: { q: string; a: string }[];
+  serviceName: string;
+  serviceDescription: string;
+  /** Encabezado del bloque de encaje. Único por vertical: si se repite entre
+   *  páginas, Screaming Frog lo marca como H2 duplicado. */
+  profileHeading: string;
+}
+
+const {
+  slug,
+  event,
+  metaTitle,
+  metaDescription,
+  eyebrow,
+  h1,
+  lede,
+  diagnosis,
+  diagnosisTitle,
+  profile,
+  how,
+  fitYes,
+  fitNo,
+  faqs,
+  serviceName,
+  serviceDescription,
+  profileHeading,
+} = Astro.props;
+
+const current = VERTICALS.find((v) => v.slug === slug);
+const others = VERTICALS.filter((v) => v.slug !== slug);
+const crumbs = [{ label: current?.nav ?? eyebrow, href: `/${slug}` }];
+
+const schema = [
+  {
+    '@type': 'Service',
+    '@id': `${SITE_URL}/${slug}#service`,
+    name: serviceName,
+    description: serviceDescription,
+    serviceType: 'Closing de ventas B2B',
+    provider: { '@id': `${SITE_URL}/#organization` },
+    areaServed: 'ES',
+    url: `${SITE_URL}/${slug}`,
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE_URL}/${slug}#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  schema={schema}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero eyebrow={eyebrow} title={h1} lede={lede} event={event} />
+
+  <section class="section">
+    <div class="wrap">
+      <h2>{diagnosisTitle}</h2>
+      <div class="grid grid-2 diag">
+        {
+          diagnosis.map((item) => (
+            <div class="card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Perfil de encaje</p>
+          <h2>{profileHeading}</h2>
+          <p class="lede">
+            Estos son los números a partir de los cuales el modelo tiene sentido
+            para las dos partes. Si te quedas cerca, merece la pena la llamada
+            igualmente.
+          </p>
+        </div>
+        <dl class="profile">
+          {
+            profile.map((row) => (
+              <div>
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">El closer en tu cuenta</p>
+      <h2>{how.title}</h2>
+      <p class="lede how-body">{how.body}</p>
+      <p><a href="/servicio">Ver la metodología completa</a></p>
+    </div>
+  </section>
+
+  <FitCriteria yes={fitYes} no={fitNo} />
+
+  <Faq items={faqs} title="Preguntas de este sector" />
+
+  <section class="section-tight others">
+    <div class="wrap">
+      <h2>¿No es exactamente tu caso?</h2>
+      <p class="muted">
+        Trabajamos otros tres tipos de venta. Cada página tiene su propio perfil
+        de encaje con números concretos.
+      </p>
+      <ul>
+        {
+          others.map((v) => (
+            <li>
+              <a href={`/${v.slug}`}>
+                <strong>{v.nav}</strong>
+                <span>{v.summary}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="others-more">
+        <a href="/servicio">Ver la metodología</a> ·
+        <a href="/casos">Cómo medimos resultados</a> ·
+        <a href="/sobre-nosotros">Quiénes somos</a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand event={event} />
+</BaseLayout>
+
+<style>
+  .diag {
+    margin-top: 2.25rem;
+  }
+
+  .diag h3 {
+    font-size: var(--step-1);
+  }
+
+  .diag p {
+    color: var(--ink-soft);
+  }
+
+  .split {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .split .lede {
+    max-width: 48ch;
+    margin-bottom: 0;
+  }
+
+  .profile {
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .profile > div {
+    display: grid;
+    gap: 0.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 560px) {
+    .profile > div {
+      grid-template-columns: 13rem 1fr;
+      gap: 1.25rem;
+      align-items: baseline;
+    }
+  }
+
+  .profile dt {
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .profile dd {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .how-body {
+    max-width: 66ch;
+  }
+
+  .others {
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .others h2 {
+    font-size: var(--step-2);
+  }
+
+  .others > div > .muted {
+    max-width: 60ch;
+    font-size: 0.9375rem;
+  }
+
+  .others ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 800px) {
+    .others ul {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .others li a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease;
+  }
+
+  .others li a:hover {
+    border-color: var(--ink);
+    color: inherit;
+  }
+
+  .others strong {
+    font-weight: 500;
+  }
+
+  .others span {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .others-more {
+    margin: 1.75rem 0 0;
+    font-size: 0.9375rem;
+  }
+</style>

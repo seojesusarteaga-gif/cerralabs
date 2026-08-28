@@ -1,0 +1,92 @@
+---
+import VerticalPage from '../components/VerticalPage.astro';
+
+const diagnosis = [
+  {
+    title: 'Las demos se convierten en soporte técnico',
+    body: 'Cuando quien enseña el producto es perfil técnico, la llamada deriva en explicar funcionalidades. Se resuelven dudas, pero no se detecta presupuesto, urgencia ni quién firma.',
+  },
+  {
+    title: 'El ratio de cierre se estanca por debajo del 25 %',
+    body: 'Entra volumen suficiente de demos cualificadas, pero la conversión no sube. El problema rara vez está arriba del embudo: está en cómo se conduce la conversación.',
+  },
+  {
+    title: 'El pipeline está lleno de oportunidades zombis',
+    body: 'Muchas demos acaban en un “lo comentamos internamente” que nunca se cierra ni se pierde formalmente. El forecast se vuelve inútil y nadie sabe cuánto se va a facturar.',
+  },
+  {
+    title: 'Contratar un AE sale caro y tarda',
+    body: 'Entre selección, fijo, variable y rampa, un account executive cuesta meses y bastante dinero antes de saber si funciona. Y si no funciona, el coste ya está pagado.',
+  },
+];
+
+const profile = [
+  { label: 'ARR', value: 'Entre 500.000 € y 5 millones' },
+  { label: 'Demos cualificadas', value: '20 o más al mes' },
+  { label: 'Ratio de cierre actual', value: 'Por debajo del 25 %' },
+  { label: 'Ticket', value: 'Contrato anual desde 2.000 €' },
+  { label: 'Proceso de venta', value: 'Multi-contacto con llamada comercial' },
+  { label: 'Perfil del closer', value: 'Con experiencia previa en venta de software B2B' },
+];
+
+const fitYes = [
+  'Recibes al menos 20 demos cualificadas al mes de forma sostenida.',
+  'Tu ratio de cierre está por debajo del 25 % y crees que el problema es de conversación, no de producto.',
+  'Tu contrato anual medio supera los 2.000 €.',
+  'Tienes el CRM al día, con etapas definidas y motivos de pérdida registrados.',
+  'Puedes dar acceso a un entorno de demo y a documentación de producto durante el onboarding.',
+];
+
+const fitNo = [
+  'Tu producto se compra en autoservicio con tarjeta y sin llamada.',
+  'Recibes menos de 20 demos al mes: no hay volumen para que el closer coja ritmo.',
+  'Vendes contratos enterprise de ciclo muy largo con comités de compra de seis o más personas.',
+  'Tu churn indica que el problema está en el producto o en la activación, no en el cierre.',
+];
+
+const faqs = [
+  {
+    q: '¿El closer va a entender mi producto técnico?',
+    a: 'Los closers asignados a SaaS tienen experiencia previa vendiendo software B2B. Aun así, el onboarding incluye acceso al entorno de demo, sesiones con tu equipo de producto y revisión de grabaciones de demos anteriores. No entra a llamar hasta que sabe sostener una demo sin ayuda.',
+  },
+  {
+    q: '¿Hace la demo o solo el cierre?',
+    a: 'Se decide contigo. El reparto más frecuente es que el closer lleve la llamada de descubrimiento y la de cierre, y que un perfil técnico tuyo entre solo en la demo profunda cuando la oportunidad ya está cualificada. Así tu equipo técnico deja de gastar horas en curiosos.',
+  },
+  {
+    q: '¿Cómo encaja esto con mi equipo de ventas actual?',
+    a: 'Como capacidad adicional, no como sustitución. Lo habitual es asignar al closer un segmento concreto: un rango de ticket, una región o el flujo inbound, mientras tu equipo sigue con el resto. Las reglas de reparto se fijan por escrito para que no haya conflicto de atribución.',
+  },
+  {
+    q: '¿Qué hacéis con las oportunidades paradas?',
+    a: 'Se trabajan igual que las nuevas. Una parte relevante del pipeline estancado se puede reactivar con seguimiento sistemático, y suele ser de lo primero que abordamos porque da resultado rápido sin depender de leads nuevos.',
+  },
+  {
+    q: '¿Trabajáis con nuestro CRM o con el vuestro?',
+    a: 'Con el tuyo, siempre. El closer trabaja dentro de tu HubSpot, Pipedrive o Salesforce, respetando tus etapas y tus campos obligatorios. No mantenemos un pipeline paralelo: si el dato no está en tu CRM, para nosotros no existe.',
+  },
+];
+---
+
+<VerticalPage
+  slug="saas"
+  event="saas"
+  metaTitle="Closers para SaaS y tecnología B2B"
+  metaDescription="Subimos el ratio de cierre de tus demos cualificadas con closers especializados en venta de software B2B. Rev-share sin fijo mensual ni coste de rampa."
+  eyebrow="Vertical · SaaS y tecnología B2B"
+  h1="Convierte tus demos cualificadas en contratos firmados"
+  lede="Si recibes demos de forma constante pero el ratio de cierre no pasa del 25 %, el problema está en la conversación comercial. Ponemos closers con experiencia en software B2B a trabajar tu pipeline, sin coste de contratación ni de rampa."
+  diagnosisTitle="Lo que vemos en empresas de software B2B"
+  diagnosis={diagnosis}
+  profile={profile}
+  profileHeading="Con qué empresas de software funciona bien"
+  how={{
+    title: 'Cómo trabaja el closer en un SaaS',
+    body: 'Toma la llamada de descubrimiento antes de que nadie enseñe pantallas: para qué quieren la herramienta, qué usan ahora, qué les cuesta ese problema al mes, quién firma y con qué presupuesto. Solo cuando eso está claro se pasa a la demo, que deja de ser un recorrido de funcionalidades y se convierte en una respuesta a un problema concreto. A partir de ahí sostiene el multi-contacto hasta la firma y registra en tu CRM cada motivo de pérdida, que es la información que te permite corregir el producto o el precio con datos.',
+  }}
+  fitYes={fitYes}
+  fitNo={fitNo}
+  faqs={faqs}
+  serviceName="Closing de ventas para SaaS y tecnología B2B"
+  serviceDescription="Servicio externalizado de cierre de ventas para empresas SaaS con ARR entre 500.000 € y 5 millones que reciben demos cualificadas de forma recurrente."
+/>

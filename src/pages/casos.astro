@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+/**
+ * Cuando existan casos reales, se añaden a este array y la página los renderiza
+ * automáticamente. Formato de cada caso:
+ *
+ * {
+ *   vertical: 'Agencia de marketing',
+ *   context: 'Contexto de partida en una o dos frases.',
+ *   action: 'Qué hicimos.',
+ *   metrics: [
+ *     { label: 'Ratio de cierre', before: '18 %', after: '31 %' },
+ *   ],
+ *   period: 'Seis meses',
+ * }
+ *
+ * Regla dura: ninguna cifra que no se pueda respaldar con el CRM del cliente.
+ * Anonimizar el nombre es aceptable; inventar el número no lo es.
+ */
+const cases: {
+  vertical: string;
+  context: string;
+  action: string;
+  metrics: { label: string; before: string; after: string }[];
+  period: string;
+}[] = [];
+
+const measured = [
+  'Ratio de cierre antes y después, sobre el mismo tipo de lead.',
+  'Número de llamadas celebradas frente a agendadas.',
+  'Importe medio de las operaciones cerradas.',
+  'Duración media del ciclo desde primera llamada hasta firma.',
+  'Porcentaje de propuestas que se pierden por silencio.',
+];
+const crumbs = [{ label: 'Casos', href: '/casos' }];
+---
+
+<BaseLayout
+  title="Casos y criterio de publicación"
+  description="Cómo documentamos los resultados en Cerra Labs: qué métricas publicamos, con qué contexto y por qué todavía no hay casos publicados."
+  schema={[]} breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Resultados"
+    title="Casos y cómo los publicamos"
+    lede="Esta página existe para explicar con qué criterio publicaremos resultados. Preferimos tenerla vacía un tiempo a llenarla con cifras que no podamos respaldar."
+    showCta={false}
+  />
+
+  {
+    cases.length > 0 ? (
+      <section class="section">
+        <div class="wrap">
+          <div class="grid grid-2">
+            {cases.map((c) => (
+              <article class="card">
+                <p class="eyebrow">{c.vertical}</p>
+                <p>{c.context}</p>
+                <p>{c.action}</p>
+                <dl class="metrics">
+                  {c.metrics.map((m) => (
+                    <div>
+                      <dt>{m.label}</dt>
+                      <dd>
+                        {m.before} → <strong>{m.after}</strong>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <p class="muted period">Periodo medido: {c.period}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="section">
+        <div class="wrap wrap-narrow">
+          <div class="notice">
+            <h2>Todavía no hay casos publicados</h2>
+            <p>
+              Cerra Labs es una agencia joven. Publicaremos casos cuando tengamos
+              resultados verificables contra el CRM del cliente y su permiso para
+              contarlos, aunque sea de forma anónima.
+            </p>
+            <p>
+              Podríamos rellenar esta página con testimonios sin apellidos y
+              porcentajes redondos, como hace buena parte del sector. No lo vamos
+              a hacer: si un número no se puede comprobar, no vale como prueba.
+            </p>
+          </div>
+
+          <h2>Qué publicaremos cuando los haya</h2>
+          <ul class="list-check">
+            {measured.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="muted after-list">
+            Siempre con el punto de partida, el periodo medido y el volumen de
+            leads sobre el que se trabajó. Un ratio de cierre sin denominador no
+            informa de nada.
+          </p>
+
+          <h2>Mientras tanto</h2>
+          <p>
+            Lo que sí podemos ofrecerte hoy es verificable de entrada: nuestro
+            modelo económico no te pide dinero por adelantado, así que no
+            necesitas creerte ningún caso para probar. Y antes de firmar puedes
+            escuchar grabaciones de discovery del closer que te asignaríamos.
+          </p>
+          <p>
+            <a href="/servicio">Ver la metodología completa</a> ·
+            <a href="/contacto">Agendar diagnóstico</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand
+    title="Prueba sin creerte nada"
+    body="No cobramos por empezar. Si no cerramos, no facturamos. Esa es la única garantía que no depende de que confíes en un caso de éxito."
+  />
+</BaseLayout>
+
+<style>
+  .notice {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .notice h2 {
+    font-size: var(--step-2);
+  }
+
+  .notice p:last-child {
+    margin-bottom: 0;
+  }
+
+  .after-list {
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+    max-width: 64ch;
+  }
+
+  .metrics {
+    margin: 1.25rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .metrics > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .metrics dt {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+
+  .metrics dd {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .period {
+    margin: 1rem 0 0;
+    font-size: 0.875rem;
+  }
+</style>

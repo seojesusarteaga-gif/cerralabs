@@ -1,0 +1,41 @@
+---
+import { bookingUrl, type BookingEvent } from '../config/site';
+
+interface Props {
+  event?: BookingEvent;
+  label?: string;
+  compact?: boolean;
+  outline?: boolean;
+}
+
+const {
+  event = 'general',
+  label = 'Agenda tu diagnóstico',
+  compact = false,
+  outline = false,
+} = Astro.props;
+
+const href = bookingUrl(event);
+const cls = ['btn', outline ? 'btn-outline' : '', compact ? 'btn-compact' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a class={cls} href={href} rel="noopener">
+      {label}
+    </a>
+  ) : (
+    <span class={cls} aria-disabled="true" title="Agenda disponible en breve">
+      {label}
+    </span>
+  )
+}
+
+<style>
+  .btn-compact {
+    padding: 0.6rem 1.05rem;
+    font-size: 0.9375rem;
+  }
+</style>

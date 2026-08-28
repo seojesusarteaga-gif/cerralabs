@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BRAND } from '../config/site';
+
+const prep = [
+  {
+    title: 'Cuántos leads calificados generas al mes',
+    body: 'El número aproximado de los últimos tres meses vale. Si distingues por canal, mejor.',
+  },
+  {
+    title: 'Cuántos acaban en venta',
+    body: 'Aunque sea una estimación. Si no lo sabes con precisión, dilo: es información útil en sí misma.',
+  },
+  {
+    title: 'Tu ticket medio',
+    body: 'El importe medio de una operación cerrada, y si hay tramos muy distintos, cuáles son.',
+  },
+  {
+    title: 'Cuánto dura tu ciclo',
+    body: 'Desde el primer contacto hasta la firma. Sirve el rango habitual, no hace falta la media exacta.',
+  },
+];
+---
+
+<BaseLayout
+  title="Llamada confirmada"
+  description="Tu llamada de diagnóstico con Cerra Labs está confirmada. Esto es lo que conviene tener a mano para aprovechar los treinta minutos."
+  schema={[]}
+  noindex
+>
+  <section class="section thanks">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">Confirmado</p>
+      <h1>Tu llamada está reservada</h1>
+      <p class="lede">
+        Recibirás la confirmación con el enlace por correo. Si necesitas cambiar
+        la hora, puedes hacerlo desde ese mismo email sin escribirnos.
+      </p>
+
+      <h2>Qué conviene tener a mano</h2>
+      <p>
+        Son treinta minutos y la mitad del valor está en trabajar sobre números
+        reales en vez de sobre impresiones. No hace falta que prepares nada por
+        escrito: basta con que tengas estos cuatro datos localizables.
+      </p>
+
+      <ol class="prep">
+        {
+          prep.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="note">
+        <h2>Una advertencia honesta</h2>
+        <p>
+          Si en la llamada vemos que tu problema es de captación y no de cierre,
+          o que tu ticket no sostiene una comisión, te lo diremos ahí mismo y no
+          habrá propuesta. Ocurre en una parte de las llamadas y es el resultado
+          correcto cuando ocurre.
+        </p>
+      </div>
+
+      <p class="links">
+        Mientras tanto: <a href="/servicio">cómo trabajamos</a> ·
+        <a href="/casos">cómo medimos los resultados</a>
+      </p>
+      <p class="muted">
+        ¿Alguna duda antes de la llamada? Escríbenos a
+        <span class="email">{BRAND.email}</span>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks {
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  .thanks h1 {
+    max-width: 18ch;
+  }
+
+  .thanks .lede {
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .thanks h2 {
+    font-size: var(--step-2);
+    margin-top: 2.5rem;
+  }
+
+  .prep {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+
+  .prep li {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .prep li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .prep h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prep p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .note {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+    padding: 1.5rem 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .note h2 {
+    margin-top: 0;
+    font-size: var(--step-1);
+  }
+
+  .note p {
+    margin-bottom: 0;
+    color: var(--ink-soft);
+  }
+
+  .links {
+    margin-top: 2.5rem;
+  }
+
+  .email {
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+</style>

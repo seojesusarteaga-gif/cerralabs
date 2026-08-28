@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const principles = [
+  {
+    title: 'Cobramos de lo que se cierra',
+    body: 'Sin cuota de entrada ni fijo mensual. Es una decisión estructural, no una oferta de lanzamiento: nos obliga a rechazar los encajes malos, porque un cliente en el que no vamos a poder mover el dato solo nos cuesta tiempo.',
+  },
+  {
+    title: 'Decimos que no en la primera llamada',
+    body: 'Si tu problema es de captación y no de cierre, o si tu ticket no sostiene una comisión, te lo decimos en el diagnóstico. Es más barato para los dos que descubrirlo tres meses después.',
+  },
+  {
+    title: 'El dato es tuyo',
+    body: 'Trabajamos dentro de tu CRM, no en un panel nuestro al que solo nosotros tenemos acceso. El histórico de oportunidades, motivos de pérdida y grabaciones se queda contigo aunque dejemos de colaborar.',
+  },
+  {
+    title: 'No inventamos resultados',
+    body: 'Somos una agencia joven. Cuando tengamos casos con números verificables los publicaremos con su contexto completo. Mientras tanto preferimos enseñar cómo medimos que rellenar la web con testimonios sin apellidos.',
+  },
+];
+
+const roles = [
+  {
+    title: 'Fundador',
+    body: 'Jesús Arteaga. Lleva de forma personal las cuentas del vertical de agencias y supervisa la calidad del resto. Es quien está en la llamada de diagnóstico.',
+  },
+  {
+    title: 'Closers asignados',
+    body: 'Profesionales con experiencia previa demostrable en venta B2B o high-ticket, seleccionados mediante prueba grabada de discovery y asignados por vertical.',
+  },
+  {
+    title: 'Control de calidad',
+    body: 'Revisión periódica de llamadas grabadas frente al guion acordado y a los criterios de cualificación, con retorno concreto al closer.',
+  },
+  {
+    title: 'Operaciones',
+    body: 'Integración con el CRM del cliente, mantenimiento del embudo, elaboración del informe semanal y preparación de la revisión mensual.',
+  },
+];
+const crumbs = [{ label: 'Quiénes somos', href: '/sobre-nosotros' }];
+---
+
+<BaseLayout
+  title="Quiénes somos"
+  description="Agencia española de closing B2B con modelo de rev-share. Cómo trabajamos, qué principios seguimos y quién interviene en cada cuenta."
+  schema={[]} breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Quiénes somos"
+    title="Una agencia de closing que cobra solo si cierra"
+    lede="Cerra Labs nace de una observación repetida: hay muchas empresas B2B en España con un flujo de leads decente y un proceso de cierre improvisado. Ese hueco no se arregla con más publicidad, sino con alguien que sepa conducir la conversación de venta."
+    showCta={false}
+  />
+
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <h2>Por qué existimos</h2>
+      <p>
+        En la mayoría de empresas B2B que facturan entre 300.000 € y unos pocos
+        millones, la venta la sostiene el fundador. Funciona durante un tiempo y
+        deja de funcionar exactamente cuando el negocio empieza a ir bien: entran
+        más oportunidades de las que una sola agenda puede atender, y las que no
+        se atienden a tiempo se pierden sin que nadie registre por qué.
+      </p>
+      <p>
+        La respuesta habitual es contratar un comercial. Entre selección, sueldo
+        fijo, variable y rampa, esa decisión cuesta varios meses y bastante
+        dinero antes de saber si ha sido acertada. Y si no lo ha sido, el coste
+        ya está pagado.
+      </p>
+      <p>
+        Nuestra alternativa es sencilla de enunciar: ponemos un closer con
+        experiencia sobre los leads que ya generas y cobramos un porcentaje de lo
+        que se cierra. Si no cerramos, no cobramos. El riesgo de que la apuesta
+        salga mal lo asumimos nosotros.
+      </p>
+      <p>
+        Eso tiene una consecuencia que conviene decir en voz alta: no nos
+        interesa entrar en cualquier empresa. Solo funciona donde ya hay leads
+        calificados, el ticket sostiene una comisión y la venta pasa por una
+        conversación. En el resto de casos preferimos decirlo en la primera
+        llamada.
+      </p>
+      <p>
+        Puedes ver <a href="/servicio">la metodología completa fase por fase</a>
+        o ir directamente al perfil de encaje de tu sector:
+        <a href="/agencias">agencias</a>, <a href="/saas">SaaS</a>,
+        <a href="/infoproductores">infoproducto</a> o
+        <a href="/clinicas">clínicas privadas</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Principios</p>
+      <h2>Cómo trabajamos</h2>
+      <div class="grid grid-2 principles">
+        {
+          principles.map((p) => (
+            <div class="card">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Equipo</p>
+      <h2>Quién interviene en una cuenta</h2>
+      <p class="lede roles-lede">
+        Cuatro funciones. En una agencia de nuestro tamaño una misma persona
+        puede cubrir más de una, y preferimos describir el trabajo que inflar el
+        organigrama.
+      </p>
+      <div class="grid grid-2 roles">
+        {
+          roles.map((r) => (
+            <div class="card">
+              <h3>{r.title}</h3>
+              <p>{r.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="note muted">
+        No publicamos fotografías ni biografías de personas que no formen parte
+        real del equipo. Los perfiles concretos de quien trabajaría en tu cuenta
+        se comparten en la llamada de diagnóstico, con grabaciones incluidas.
+        Si eres closer y quieres trabajar con nosotros, la información está en
+        <a href="/unete-como-closer">únete como closer</a>. Y si quieres saber
+        con qué criterio publicaremos resultados,
+        <a href="/casos">lo explicamos aquí</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .principles,
+  .roles {
+    margin-top: 2.25rem;
+  }
+
+  .principles h3,
+  .roles h3 {
+    font-size: var(--step-1);
+  }
+
+  .principles p,
+  .roles p {
+    color: var(--ink-soft);
+  }
+
+  .roles-lede {
+    max-width: 62ch;
+  }
+
+  .note {
+    margin-top: 1.75rem;
+    font-size: 0.9375rem;
+    max-width: 64ch;
+  }
+</style>

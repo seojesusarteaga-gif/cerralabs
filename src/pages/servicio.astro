@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE_URL, VERTICALS } from '../config/site';
+
+const steps = [
+  {
+    title: 'Diagnóstico',
+    body: 'Una llamada de treinta minutos en la que revisamos cuántos leads calificados generas al mes, qué porcentaje acaba en venta hoy, cuál es tu ticket medio y cuánto dura tu ciclo. Con esos cuatro números se calcula qué margen de mejora existe y si compensa a las dos partes.',
+    detail: 'Si el encaje no está claro, lo decimos en esa misma llamada. Preferimos perder un cliente potencial a entrar donde no vamos a poder mover el dato.',
+  },
+  {
+    title: 'Onboarding del closer',
+    body: 'Asignamos al closer con experiencia previa en tu tipo de venta y dedicamos entre siete y diez días a formarlo: producto o servicio, precios y márgenes de negociación, objeciones reales extraídas de tus llamadas anteriores, criterios para descartar un lead y casos de clientes que funcionaron bien y mal. Antes de firmar puedes escuchar grabaciones de discovery de ese closer.',
+    detail: 'El guion resultante queda documentado y es tuyo. Si dejamos de trabajar juntos, se queda contigo.',
+  },
+  {
+    title: 'Integración con tu CRM',
+    body: 'El closer trabaja dentro de tu herramienta, con tus etapas y tus campos obligatorios. Cada oportunidad registra su estado, su importe, su fecha prevista de decisión y su motivo de pérdida cuando se cae. No mantenemos un pipeline paralelo: si un dato no está en tu CRM, para nosotros no existe.',
+    detail: 'HubSpot, Pipedrive, Salesforce, Zoho o el que uses. Si no tienes ninguno, lo montamos en el onboarding.',
+  },
+  {
+    title: 'Reporting continuo',
+    body: 'Cada semana recibes el embudo completo con los números de esa semana y la comparativa con la anterior, más acceso a las grabaciones. Cada mes hacemos una revisión conjunta para ajustar guion, criterios de cualificación o precio según lo que muestren los datos.',
+    detail: 'El informe incluye las fases que caen, no solo las que suben.',
+  },
+];
+
+const funnel = [
+  {
+    label: 'Llamadas agendadas',
+    body: 'Sobre los leads calificados que tu empresa ya genera. No hacemos captación.',
+  },
+  {
+    label: 'Llamadas celebradas',
+    body: 'Con el motivo registrado cuando una llamada no llega a celebrarse, para poder corregir el proceso de confirmación.',
+  },
+  {
+    label: 'Propuestas enviadas',
+    body: 'Con importe, fecha prevista de decisión y quién es la persona que firma.',
+  },
+  {
+    label: 'Ventas cerradas',
+    body: 'Con contrato o pedido firmado. Es la única fase sobre la que facturamos.',
+  },
+  {
+    label: 'Facturación atribuida',
+    body: 'El importe cerrado del periodo, que es la base sobre la que se calcula nuestra comisión.',
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Cuánto se tarda desde la primera llamada hasta el primer cierre?',
+    a: 'El onboarding lleva entre siete y diez días desde la firma. A partir de ahí el primer cierre depende por completo de la duración de tu ciclo de venta: en ciclos cortos puede llegar en dos o tres semanas, y en ciclos consultivos largos es razonable esperar entre sesenta y noventa días para tener una lectura fiable.',
+  },
+  {
+    q: '¿Qué necesitáis de mi parte durante el onboarding?',
+    a: 'Un par de horas de alguien que conozca a fondo el producto y la venta, acceso al CRM, acceso a grabaciones de llamadas anteriores si las tenéis, y la lista de precios con sus márgenes de negociación. Cuanto más completo sea ese material, antes empieza a producir el closer.',
+  },
+  {
+    q: '¿Hay permanencia?',
+    a: 'Se acuerda por escrito en cada caso. Como no cobramos cuota de entrada ni fijo, lo habitual es fijar un periodo mínimo que permita completar al menos un ciclo de venta entero, porque medir antes de eso no da información útil a ninguna de las dos partes.',
+  },
+  {
+    q: '¿Qué pasa con las oportunidades abiertas antes de empezar?',
+    a: 'Lo normal es dejarlas fuera del acuerdo y trabajar solo sobre lo que entre a partir de la fecha de arranque. Si prefieres incluirlas, se acuerda una comisión distinta para ese bloque. En cualquier caso se define por escrito antes de la primera llamada, no después.',
+  },
+  {
+    q: '¿Puedo escuchar las llamadas?',
+    a: 'Sí, todas. El acceso a las grabaciones forma parte del servicio y no está limitado. También es el mecanismo que te permite verificar por tu cuenta cómo se está representando tu marca, sin depender de que te lo contemos nosotros.',
+  },
+  {
+    q: '¿Cómo se calcula exactamente la comisión?',
+    a: 'Como un porcentaje del importe cerrado y cobrado, no del importe firmado. Esto es deliberado: nos alinea contigo también en la calidad del cliente, porque un cierre que luego no paga no nos beneficia. El porcentaje concreto depende del ticket, del ciclo y del volumen previsto.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE_URL}/servicio#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+const crumbs = [{ label: 'Cómo trabajamos', href: '/servicio' }];
+---
+
+<BaseLayout
+  title="Metodología de closing en cuatro fases"
+  description="Diagnóstico, onboarding del closer, integración con tu CRM y reporting semanal. Nuestra metodología fase por fase y qué necesitamos de tu parte."
+  schema={schema} breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Metodología"
+    title="Cómo trabajamos, fase por fase"
+    lede="Cuatro fases. Ninguna empieza hasta que la anterior está cerrada y documentada. Esto es lo que ocurre desde la primera llamada hasta el informe semanal."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Las cuatro fases</h2>
+      <p class="lede phases-lede">
+        De la primera llamada al primer informe semanal pasan entre siete y diez
+        días. Esto es lo que ocurre en cada tramo y qué necesitamos de ti.
+      </p>
+      <ProcessSteps steps={steps} />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Medición</p>
+      <h2>El embudo que vas a ver cada semana</h2>
+      <p class="lede funnel-lede">
+        Estas cinco fases son las mismas en todas las cuentas. No cambiamos la
+        forma de medir según convenga el resultado del mes.
+      </p>
+      <ol class="funnel-detail">
+        {
+          funnel.map((stage, i) => (
+            <li>
+              <span class="n" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3>{stage.label}</h3>
+                <p>{stage.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Alcance</p>
+      <h2>Qué hacemos y qué no</h2>
+      <div class="grid grid-2 scope">
+        <div class="card">
+          <h3>Sí hacemos</h3>
+          <ul class="list-check">
+            <li>Llamadas de descubrimiento sobre tus leads calificados.</li>
+            <li>Seguimiento sistemático de propuestas enviadas.</li>
+            <li>Reactivación de oportunidades paradas en tu pipeline.</li>
+            <li>Registro completo en tu CRM, incluidos motivos de pérdida.</li>
+            <li>Reporting semanal y revisión mensual conjunta.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>No hacemos</h3>
+          <ul class="list-check list-cross">
+            <li>Captación de leads ni generación de demanda.</li>
+            <li>Llamada a puerta fría sobre listas compradas.</li>
+            <li>Campañas de publicidad, SEO ni contenido.</li>
+            <li>Entrega o ejecución de tu servicio tras la venta.</li>
+            <li>Cobros y gestión de impagados.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Verticales</p>
+      <h2>Cómo cambia esto según tu sector</h2>
+      <p class="lede vert-lede">
+        La metodología es la misma; el guion, el perfil del closer y los
+        criterios de cualificación no.
+      </p>
+      <div class="grid grid-4">
+        {
+          VERTICALS.map((v) => (
+            <a class="card vcard" href={`/${v.slug}`}>
+              <h3>{v.nav}</h3>
+              <p>{v.fit}</p>
+              <span class="vlink">Ver detalle</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Preguntas sobre el proceso" />
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .funnel-lede,
+  .vert-lede,
+  .phases-lede {
+    max-width: 62ch;
+  }
+
+  .funnel-detail {
+    list-style: none;
+    padding: 0;
+    margin: 2.25rem 0 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .funnel-detail li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .funnel-detail li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .funnel-detail .n {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+    margin-top: 0.15rem;
+  }
+
+  .funnel-detail h3 {
+    font-size: var(--step-1);
+    margin-bottom: 0.3rem;
+  }
+
+  .funnel-detail p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 66ch;
+  }
+
+  .scope {
+    margin-top: 2.25rem;
+  }
+
+  .scope h3 {
+    font-size: var(--step-1);
+  }
+
+  .vcard {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease;
+  }
+
+  .vcard:hover {
+    border-color: var(--ink);
+    color: inherit;
+  }
+
+  .vcard h3 {
+    font-size: 1.0625rem;
+  }
+
+  .vcard p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    flex-grow: 1;
+  }
+
+  .vlink {
+    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+</style>

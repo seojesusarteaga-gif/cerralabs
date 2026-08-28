@@ -1,0 +1,599 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingButton from '../components/BookingButton.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import FitCriteria from '../components/FitCriteria.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { VERTICALS, SITE_URL } from '../config/site';
+
+const pains = [
+  {
+    title: 'Entran leads, pero se enfrían',
+    body: 'Los contactos llegan y nadie los llama el mismo día. Cuando se les atiende, ya han hablado con otro o han perdido el interés.',
+  },
+  {
+    title: 'El fundador es el único que cierra',
+    body: 'Vendes tú porque nadie lo hace igual de bien. El problema es que tu agenda es el techo del negocio y ya está llena.',
+  },
+  {
+    title: 'No sabes tu ratio de cierre real',
+    body: 'Se habla de sensaciones, no de números. Sin un dato fiable de cuántas oportunidades acaban en venta, no hay nada que corregir.',
+  },
+  {
+    title: 'Probaste un closer freelance y no salió',
+    body: 'Sin guion, sin CRM, sin seguimiento y sin nadie revisando llamadas. El resultado se atribuyó a la persona cuando el fallo era de sistema.',
+  },
+];
+
+const steps = [
+  {
+    title: 'Diagnóstico',
+    body: 'Revisamos tu volumen de leads, tu ratio de cierre actual, tu ticket medio y cómo es hoy tu proceso de venta. Salimos de la llamada con un número concreto de oportunidad, no con una sensación.',
+    detail: 'Treinta minutos. Sin coste y sin compromiso.',
+  },
+  {
+    title: 'Onboarding del closer',
+    body: 'Asignamos al closer con experiencia en tu tipo de venta y lo formamos en tu producto, tus objeciones reales y tus criterios de cualificación. Antes de empezar puedes escuchar grabaciones suyas de discovery.',
+    detail: 'Entre siete y diez días desde la firma.',
+  },
+  {
+    title: 'Integración con tu CRM',
+    body: 'Trabajamos dentro de tu herramienta, no en una hoja aparte. Cada oportunidad queda registrada con su estado, su motivo de pérdida y su siguiente paso, de forma que el histórico es tuyo desde el primer día.',
+    detail: 'HubSpot, Pipedrive, Salesforce o el CRM que ya uses.',
+  },
+  {
+    title: 'Reporting continuo',
+    body: 'Cada semana recibes el embudo completo con los números reales y las grabaciones de las llamadas. Si algo no funciona se ve en el dato antes de que se note en la facturación.',
+    detail: 'Informe semanal y revisión mensual conjunta.',
+  },
+];
+
+const funnel = [
+  { label: 'Llamadas agendadas', note: 'Sobre los leads que ya generas' },
+  { label: 'Llamadas celebradas', note: 'Con motivo registrado si no se celebran' },
+  { label: 'Propuestas enviadas', note: 'Con importe y fecha de decisión' },
+  { label: 'Ventas cerradas', note: 'Con contrato firmado' },
+  { label: 'Facturación atribuida', note: 'La base sobre la que cobramos' },
+];
+
+const fitYes = [
+  'Ya generas leads calificados de forma recurrente. No hacemos captación: trabajamos sobre lo que entra.',
+  'Tu ticket medio está por encima de 2.000 €.',
+  'Tu venta incluye al menos una llamada o videollamada. Si se compra desde la web sin hablar, no aportamos nada.',
+  'Tienes un CRM en marcha, o estás dispuesto a implantarlo durante el onboarding.',
+  'Puedes atender y entregar el volumen adicional que se cierre.',
+  'Alguien con capacidad de decisión puede dedicarnos un par de horas en el onboarding.',
+];
+
+const fitNo = [
+  'Todavía no tienes flujo de leads y esperas que lo generemos nosotros.',
+  'Tu ticket está por debajo de 2.000 € o el margen no soporta una comisión de cierre.',
+  'La venta es autoservicio, sin llamada de por medio.',
+  'Buscas a alguien que llame a puerta fría sobre una lista comprada.',
+  'Necesitas resultados en dos semanas. El primer ciclo completo rara vez baja de sesenta días.',
+];
+
+const faqs = [
+  {
+    q: '¿Cómo cobráis exactamente?',
+    a: 'Un porcentaje de las ventas que cerramos nosotros, sin cuota de entrada ni fijo mensual. El porcentaje concreto depende de tu ticket, tu ciclo de venta y el volumen, y se fija por escrito antes de empezar. Si no cerramos, no facturamos.',
+  },
+  {
+    q: '¿Por qué trabajáis a rev-share y no con un fijo?',
+    a: 'Porque alinea los incentivos y porque nos obliga a decir que no a los encajes malos. Si cobrásemos un fijo nos convendría aceptar a cualquiera; cobrando solo de lo cerrado, solo nos interesa entrar donde de verdad hay recorrido.',
+  },
+  {
+    q: '¿Qué pasa si el closer no funciona?',
+    a: 'Lo sustituimos. Antes de firmar puedes escuchar grabaciones de discovery del closer asignado, y durante la colaboración el reporting semanal deja ver muy pronto si algo no encaja. El coste de cambiar lo asumimos nosotros.',
+  },
+  {
+    q: '¿Los leads los generáis vosotros?',
+    a: 'No. Trabajamos sobre los leads calificados que tu empresa ya genera. Si tu problema es de volumen y no de cierre, no somos el proveedor adecuado y te lo diremos en la primera llamada.',
+  },
+  {
+    q: '¿Cuánto tardáis en arrancar?',
+    a: 'Entre siete y diez días desde la firma hasta que el closer empieza a llamar. Ese tiempo se va en formación de producto, objeciones y criterios de cualificación, más la integración con tu CRM.',
+  },
+  {
+    q: '¿Con qué CRM trabajáis?',
+    a: 'Con el tuyo. Nos integramos en HubSpot, Pipedrive, Salesforce o el que uses. Si todavía no tienes ninguno, lo montamos durante el onboarding, y la configuración queda tuya aunque dejemos de trabajar juntos.',
+  },
+  {
+    q: '¿Los closers son empleados vuestros?',
+    a: 'Trabajan bajo nuestra dirección, nuestros procesos y nuestro control de calidad. Pasan un proceso de selección con prueba grabada de discovery, y su trabajo se revisa con las mismas métricas para todos.',
+  },
+  {
+    q: '¿Con cuántos clientes trabajáis a la vez?',
+    a: 'Pocos y de forma deliberada. Cada closer lleva un número limitado de cuentas para poder conocer el producto a fondo. Cuando no tenemos capacidad lo decimos en la llamada de diagnóstico en vez de aceptar y repartir peor la atención.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE_URL}/#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+    about: { '@id': `${SITE_URL}/#organization` },
+  },
+];
+---
+
+<BaseLayout
+  title="Agencia de closing B2B a rev-share"
+  description="Ponemos closers vetados a cerrar los leads calificados que tu empresa ya genera. Cobramos un porcentaje de lo cerrado, sin cuota de entrada."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Closing B2B · Agencias, SaaS, infoproductores y clínicas</p>
+      <h1>Cerramos las ventas que tus leads ya te están pidiendo</h1>
+      <p class="lede">
+        Si tu empresa genera leads calificados pero el cierre depende de ti o de
+        un equipo que no da abasto, ponemos closers con experiencia a trabajar
+        sobre ese flujo. Cobramos un porcentaje de lo que se cierra. Nada por
+        adelantado.
+      </p>
+      <div class="hero-cta">
+        <BookingButton />
+        <a class="btn btn-outline" href="/servicio">Ver cómo trabajamos</a>
+      </div>
+      <p class="hero-note muted">
+        Trabajamos sobre leads que ya existen. No hacemos captación ni llamada
+        a puerta fría.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight ai-block">
+    <div class="wrap wrap-narrow">
+      <p>
+        Cerra Labs es una agencia de closing B2B con sede en España que aporta
+        closers vetados a empresas de agencia, SaaS, infoproducto y clínicas
+        privadas que ya generan leads calificados pero necesitan mejorar su tasa
+        de cierre. Su modelo es de rev-share puro, sin cuota de entrada: cobra
+        únicamente un porcentaje de las ventas cerradas. Trabaja con tickets
+        desde 2.000 € y ciclos de venta consultivos que incluyen al menos una
+        llamada. Los closers se integran en el CRM del cliente y entregan
+        reporting semanal del embudo completo, desde la llamada agendada hasta
+        la facturación atribuida.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <h2>Cuatro situaciones que nos encontramos casi siempre</h2>
+      <div class="grid grid-2 pain-grid">
+        {
+          pains.map((pain) => (
+            <div class="card">
+              <h3>{pain.title}</h3>
+              <p>{pain.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="model">
+        <div>
+          <p class="eyebrow">Modelo económico</p>
+          <h2>Rev-share puro. Sin cuota de entrada.</h2>
+          <p class="lede">
+            Cobramos un porcentaje de las ventas que cerramos. Si un mes no se
+            cierra nada, ese mes no nos pagas nada. El riesgo de que esto no
+            funcione lo asumimos nosotros, no tú.
+          </p>
+          <p class="muted">
+            El porcentaje se fija por escrito antes de empezar, en función de tu
+            ticket, tu ciclo de venta y el volumen previsto.
+          </p>
+        </div>
+        <ul class="model-points">
+          <li><strong>0 €</strong><span>de setup o alta</span></li>
+          <li><strong>0 €</strong><span>de fijo mensual</span></li>
+          <li><strong>0 €</strong><span>si no se cierra</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Metodología</p>
+      <h2>Cómo trabajamos</h2>
+      <p class="lede process-lede">
+        Cuatro fases. Ninguna empieza hasta que la anterior está cerrada y
+        documentada.
+      </p>
+      <ProcessSteps steps={steps} />
+      <p class="process-more">
+        <a href="/servicio">Ver la metodología en detalle</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Transparencia</p>
+      <h2>Qué medimos y qué recibes cada semana</h2>
+      <p class="lede measure-lede">
+        Somos una agencia joven y preferimos decirlo a inventarnos un historial.
+        Lo que sí podemos enseñarte desde el primer día es exactamente cómo
+        medimos el trabajo, porque es el mismo embudo que verás en tu informe.
+      </p>
+
+      <ol class="funnel">
+        {
+          funnel.map((stage, i) => (
+            <li>
+              <span class="funnel-step" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div>
+                <strong>{stage.label}</strong>
+                <span class="muted">{stage.note}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="grid grid-3 measure-grid">
+        <div class="card">
+          <h3>Informe semanal</h3>
+          <p>
+            El embudo completo con los números de la semana y la comparativa con
+            la anterior. Sin maquillaje: si una fase cae, aparece en el informe.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Grabaciones de llamadas</h3>
+          <p>
+            Acceso a las grabaciones de discovery y de cierre. Puedes escuchar
+            cómo se está vendiendo tu producto cuando quieras.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Tu CRM, tu dato</h3>
+          <p>
+            Todo queda registrado en tu herramienta. Si un día dejamos de
+            trabajar juntos, el histórico completo se queda contigo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Verticales</p>
+      <h2>Dónde tenemos criterio</h2>
+      <p class="lede vertical-lede">
+        No cerramos cualquier cosa. Trabajamos en cuatro tipos de venta que
+        conocemos, con closers asignados por perfil.
+      </p>
+      <div class="grid grid-4">
+        {
+          VERTICALS.map((v) => (
+            <a class="card vertical-card" href={`/${v.slug}`}>
+              <h3>{v.card}</h3>
+              <p>{v.summary}</p>
+              <span class="vertical-link">Ver encaje</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FitCriteria yes={fitYes} no={fitNo} />
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Integración</p>
+      <h2>Trabajamos dentro de tus herramientas</h2>
+      <p class="lede stack-lede">
+        No pedimos que cambies de CRM ni que aprendas un panel nuevo. Nos
+        adaptamos a lo que ya usas.
+      </p>
+      <ul class="stack">
+        <li>HubSpot</li>
+        <li>Pipedrive</li>
+        <li>Salesforce</li>
+        <li>Zoho CRM</li>
+        <li>Cal.com</li>
+        <li>Calendly</li>
+        <li>Slack</li>
+        <li>Google Workspace</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Equipo</p>
+      <h2>Quién trabaja en tu cuenta</h2>
+      <div class="grid grid-4 team">
+        <div class="card">
+          <h3>Fundador</h3>
+          <p>
+            Jesús Arteaga. Lleva personalmente las cuentas de agencias y
+            supervisa el resto.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Closer asignado</h3>
+          <p>
+            Un closer con experiencia previa en tu tipo de venta. Puedes escuchar
+            grabaciones suyas antes de firmar.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Control de calidad</h3>
+          <p>
+            Revisión periódica de llamadas grabadas frente al guion y a los
+            criterios de cualificación acordados.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Operaciones</h3>
+          <p>
+            Integración con tu CRM, mantenimiento del embudo y elaboración del
+            informe semanal.
+          </p>
+        </div>
+      </div>
+      <p class="team-note muted">
+        Nombres y perfiles concretos se comparten en la llamada de diagnóstico.
+        No publicamos fotos ni biografías de personas que no formen parte real
+        del equipo.
+      </p>
+    </div>
+  </section>
+
+  <Faq items={faqs} />
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 9vw, 6.5rem) clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .hero h1 {
+    max-width: 17ch;
+  }
+
+  .hero .lede {
+    max-width: 60ch;
+    font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-note {
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .pain-grid {
+    margin-top: 2.25rem;
+  }
+
+  .model {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .model {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .model h2 {
+    max-width: 18ch;
+  }
+
+  .model .lede {
+    max-width: 54ch;
+  }
+
+  .model .muted {
+    font-size: 0.9375rem;
+    max-width: 50ch;
+    margin-bottom: 0;
+  }
+
+  .model-points {
+    list-style: none;
+    padding: 1.5rem;
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+  }
+
+  .model-points li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .model-points strong {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    min-width: 3.2rem;
+  }
+
+  .model-points span {
+    color: var(--ink-soft);
+  }
+
+  .ai-block {
+    border-block: 1px solid var(--line-soft);
+  }
+
+  .ai-block p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+  }
+
+  .process-lede,
+  .measure-lede,
+  .vertical-lede,
+  .stack-lede {
+    max-width: 62ch;
+  }
+
+  .process-more {
+    margin: 1.75rem 0 0;
+  }
+
+  .funnel {
+    list-style: none;
+    padding: 0;
+    margin: 2.25rem 0 2.5rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .funnel {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+  }
+
+  .funnel li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .funnel li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .funnel strong {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+  }
+
+  .funnel span.muted {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .funnel-step {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+  }
+
+  .measure-grid h3 {
+    font-size: var(--step-1);
+  }
+
+  .vertical-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease;
+  }
+
+  .vertical-card:hover {
+    border-color: var(--ink);
+    color: inherit;
+  }
+
+  .vertical-card h3 {
+    font-size: 1.0625rem;
+  }
+
+  .vertical-card p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    flex-grow: 1;
+  }
+
+  .vertical-link {
+    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .stack {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .stack li {
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .team {
+    margin-top: 2.25rem;
+  }
+
+  .team h3 {
+    font-size: 1.0625rem;
+  }
+
+  .team p {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .team-note {
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+    max-width: 62ch;
+  }
+</style>

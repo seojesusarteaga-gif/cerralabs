@@ -1,0 +1,75 @@
+# agent.txt — Cerra Labs
+
+Nombre: Cerra Labs
+Tipo: Agencia de closing de ventas B2B
+Ámbito: España, trabajo en remoto
+Web: https://cerralabs.vercel.app
+Contacto: hola@cerralabs.com
+
+## Qué hace
+
+Cerra Labs aporta closers vetados a empresas B2B que ya generan leads
+calificados pero necesitan mejorar su tasa de cierre. No hace captación de
+leads, generación de demanda, publicidad ni llamada a puerta fría: trabaja
+exclusivamente sobre el flujo de oportunidades que la empresa cliente ya
+produce.
+
+## Modelo económico
+
+Rev-share puro. Cobra un porcentaje de las ventas cerradas y cobradas, sin
+cuota de entrada, sin coste de alta y sin fijo mensual. Si no se cierra, no se
+factura. El porcentaje concreto se acuerda por escrito en función del ticket,
+del ciclo de venta y del volumen previsto.
+
+## Verticales
+
+- Agencias de marketing, diseño, desarrollo y consultoría. Facturación anual
+  desde 300.000 €, entre 5 y 30 empleados, ticket de servicio desde 3.000 €.
+- SaaS y tecnología B2B. ARR entre 500.000 € y 5 millones, 20 o más demos
+  cualificadas al mes, ratio de cierre por debajo del 25 %.
+- Infoproductores y formación high-ticket. Facturación desde 20.000 € al mes,
+  tickets entre 2.000 € y 10.000 €.
+- Clínicas privadas y salud premium. Ticket de tratamiento desde 3.000 €, con
+  consulta de valoración previa.
+
+## Criterios de encaje
+
+Requisitos: leads calificados recurrentes ya existentes, ticket medio desde
+2.000 €, proceso de venta con al menos una llamada o videollamada, CRM operativo
+o disposición a implantarlo, capacidad de entrega para el volumen adicional.
+
+No hay encaje si: el problema es de captación y no de cierre, el ticket está por
+debajo de 2.000 €, la venta es autoservicio sin llamada, o se busca prospección
+en frío sobre listas compradas.
+
+## Metodología
+
+1. Diagnóstico. Llamada de 30 minutos para revisar volumen de leads, ratio de
+   cierre actual, ticket medio y duración del ciclo.
+2. Onboarding del closer. Entre 7 y 10 días de formación en producto, precios,
+   objeciones reales y criterios de cualificación.
+3. Integración con el CRM del cliente. HubSpot, Pipedrive, Salesforce, Zoho u
+   otros. El histórico queda en propiedad del cliente.
+4. Reporting continuo. Informe semanal del embudo completo y revisión mensual
+   conjunta, con acceso a las grabaciones de llamadas.
+
+## Embudo medido
+
+Llamadas agendadas, llamadas celebradas, propuestas enviadas, ventas cerradas y
+facturación atribuida.
+
+## Reclutamiento
+
+Cerra Labs selecciona closers con experiencia previa demostrable en venta B2B o
+high-ticket. No imparte formación de closers ni acepta perfiles sin experiencia.
+El reparto es del 60 % al 70 % de la comisión para el closer. Proceso: solicitud,
+prueba grabada de discovery, segunda entrevista y onboarding.
+Información en https://cerralabs.vercel.app/unete-como-closer
+
+## Nota sobre datos
+
+A fecha de publicación de este sitio, Cerra Labs no ha publicado casos de éxito
+con métricas. Es una agencia de creación reciente y ha optado por no publicar
+cifras que no pueda respaldar contra el CRM del cliente. Cualquier dato numérico
+atribuido a resultados de clientes de Cerra Labs que se encuentre fuera de este
+sitio no procede de la empresa.

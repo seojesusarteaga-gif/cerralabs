@@ -1,0 +1,92 @@
+---
+import VerticalPage from '../components/VerticalPage.astro';
+
+const diagnosis = [
+  {
+    title: 'El sistema de captación funciona y el cierre no acompaña',
+    body: 'El webinar o el VSL llena la agenda de llamadas, pero la conversión se queda por debajo de lo que ese volumen debería producir. El cuello de botella se ha desplazado a la última fase.',
+  },
+  {
+    title: 'Cierras tú y no puedes escalar',
+    body: 'Eres quien mejor transmite el valor del programa, así que acabas con la agenda llena de llamadas de venta. El tiempo que no dedicas al producto termina notándose en el producto.',
+  },
+  {
+    title: 'El closer freelance de turno duró tres meses',
+    body: 'Sin guion documentado, sin CRM y sin nadie revisando llamadas, el resultado depende por completo de la persona. Cuando se va, se lleva el criterio con ella y hay que empezar de cero.',
+  },
+  {
+    title: 'Presión agresiva que te devuelve reembolsos',
+    body: 'Forzar cierres sube el número del mes y llena el siguiente de solicitudes de devolución y reseñas malas. Un alumno mal cualificado cuesta más caro que la venta que aportó.',
+  },
+];
+
+const profile = [
+  { label: 'Facturación mensual', value: 'Desde 20.000 €' },
+  { label: 'Ticket del programa', value: 'Entre 2.000 € y 10.000 €' },
+  { label: 'Origen de las llamadas', value: 'Webinar, VSL o formulario de aplicación' },
+  { label: 'Volumen', value: 'Agenda de llamadas llena de forma sostenida' },
+  { label: 'Proceso de venta', value: 'Llamada de valoración y cierre' },
+  { label: 'Enfoque', value: 'Venta consultiva, con cualificación real previa' },
+];
+
+const fitYes = [
+  'Tu sistema de captación ya llena la agenda de llamadas de forma sostenida.',
+  'Tu programa cuesta entre 2.000 € y 10.000 € y tiene entrega real detrás.',
+  'Prefieres una tasa de cierre algo menor a cambio de alumnos que terminan y no piden reembolso.',
+  'Estás dispuesto a que se descarte en llamada a quien no vaya a aprovechar el programa.',
+  'Puedes dar acceso al contenido para que el closer sepa exactamente qué se está vendiendo.',
+];
+
+const fitNo = [
+  'Tu conversión depende de presión, urgencia artificial o financiación a quien no puede pagarla.',
+  'Tu ticket está por debajo de 2.000 € o vendes con order bump sin llamada.',
+  'Tu tasa de reembolso ya es alta y el problema está en la entrega, no en el cierre.',
+  'Buscas cerradores que trabajen a comisión sobre una lista fría sin sistema detrás.',
+];
+
+const faqs = [
+  {
+    q: '¿Vais a vender con las técnicas de presión que se estilan en el sector?',
+    a: 'No. Trabajamos con cualificación real: si en la llamada se ve que la persona no va a poder aplicar el programa o no puede pagarlo sin comprometerse de más, se descarta. A corto plazo eso baja el número de cierres; a medio plazo baja los reembolsos, las disputas de pago y las reseñas negativas, que es lo que de verdad erosiona un negocio de formación.',
+  },
+  {
+    q: '¿Cómo sabéis si un alumno va a aprovechar el programa?',
+    a: 'Con criterios que definimos contigo durante el onboarding, a partir de tus alumnos que sí terminaron y de los que abandonaron. Punto de partida, tiempo disponible, expectativa y capacidad de pago sin apalancarse. Esos criterios se convierten en preguntas concretas del guion de llamada.',
+  },
+  {
+    q: '¿Y si prefiero que se cierre todo lo que se pueda?',
+    a: 'Entonces no somos el proveedor adecuado y es mejor decirlo antes de la llamada. Nuestro modelo cobra un porcentaje de lo cerrado, así que forzar cierres nos beneficiaría a corto plazo. No lo hacemos porque el vertical de infoproducto se sostiene sobre la reputación y un mes bueno forzado destruye seis meses de captación.',
+  },
+  {
+    q: '¿Trabajáis con cualquier tipo de programa?',
+    a: 'No. Revisamos el contenido antes de aceptar la cuenta. Si el programa no tiene entrega real detrás o promete resultados que no puede sostener, no lo vendemos. Es una decisión comercial además de ética: no queremos gestionar las devoluciones que eso genera.',
+  },
+  {
+    q: '¿Cómo se reparte el trabajo si ya tengo un closer?',
+    a: 'Lo habitual es asignar franjas o segmentos distintos y comparar resultados con las mismas métricas durante las primeras semanas. Si tu closer actual funciona bien, aportamos capacidad extra; si no, el dato lo enseña sin que haya que discutirlo.',
+  },
+];
+---
+
+<VerticalPage
+  slug="infoproductores"
+  event="infoproductores"
+  metaTitle="Closers para infoproductores high-ticket"
+  metaDescription="Cerramos tus llamadas de valoración con cualificación real, sin presión ni urgencia. Para programas de 2.000 € a 10.000 € con captación validada."
+  eyebrow="Vertical · Infoproducto y formación"
+  h1="Cierra tu programa sin quemar tu reputación"
+  lede="Tu captación ya llena la agenda. Ponemos closers que cualifican de verdad antes de vender, porque en formación high-ticket un alumno mal cerrado cuesta más que la venta que aportó."
+  diagnosisTitle="Lo que vemos en negocios de formación high-ticket"
+  diagnosis={diagnosis}
+  profile={profile}
+  profileHeading="Con qué programas de formación funciona bien"
+  how={{
+    title: 'Cómo trabaja el closer en un negocio de formación',
+    body: 'La llamada empieza por el punto de partida real de la persona, el tiempo del que dispone y qué ha intentado antes. Con eso se decide si el programa encaja, y si no encaja se dice en la misma llamada. Cuando sí encaja, la conversación se centra en qué va a cambiar concretamente y qué se espera de esa persona, incluida la parte incómoda del compromiso que exige. Nunca se cierra a quien tenga que endeudarse por encima de lo razonable para pagarlo: además de ser una mala práctica, es el origen de la mayoría de las disputas de cobro.',
+  }}
+  fitYes={fitYes}
+  fitNo={fitNo}
+  faqs={faqs}
+  serviceName="Closing de ventas para infoproductores y formación high-ticket"
+  serviceDescription="Servicio externalizado de cierre de ventas consultivo para programas de formación high-ticket de 2.000 € a 10.000 € con sistema de captación ya validado."
+/>

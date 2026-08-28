@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE_URL } from '../config/site';
+
+const steps = [
+  {
+    title: 'Aplicación',
+    body: 'Nos cuentas qué has vendido, con qué ticket, en qué sectores y durante cuánto tiempo. Interesa el detalle concreto: producto, ciclo y volumen, no adjetivos.',
+    detail: 'Respondemos a todas las solicitudes, también cuando la respuesta es que no.',
+  },
+  {
+    title: 'Prueba grabada de discovery',
+    body: 'Una llamada de descubrimiento simulada sobre un caso real de uno de nuestros verticales. Se graba y se evalúa con los mismos criterios para todo el mundo: calidad de las preguntas, escucha, manejo de la objeción y cualificación.',
+    detail: 'Se valora más descartar bien un mal encaje que forzar un cierre.',
+  },
+  {
+    title: 'Segunda entrevista',
+    body: 'Conversación sobre método, disponibilidad real y expectativas económicas. También es tu oportunidad de preguntar cómo funciona el reparto, cómo se asignan las cuentas y qué pasa si una cuenta no funciona.',
+    detail: 'Aquí se concreta el porcentaje y el vertical al que te asignaríamos.',
+  },
+  {
+    title: 'Onboarding',
+    body: 'Formación en el producto del cliente, su guion, sus objeciones y sus criterios de cualificación, más el acceso a su CRM. No entras a llamar hasta que puedes sostener la conversación sin ayuda.',
+    detail: 'Entre siete y diez días antes de la primera llamada real.',
+  },
+];
+
+const gives = [
+  'Cuentas ya cerradas con leads calificados entrando. No prospectas en frío ni compras listas.',
+  'Guion documentado, criterios de cualificación y material de producto antes de tu primera llamada.',
+  'Un CRM operativo donde registrar el trabajo, que no tienes que montar tú.',
+  'Revisión periódica de tus llamadas grabadas con retorno concreto, no una puntuación genérica.',
+  'Un vertical asignado según tu experiencia, para que acumules criterio en vez de saltar de sector.',
+];
+
+const asks = [
+  'Experiencia previa demostrable cerrando ventas B2B o high-ticket. No formamos desde cero.',
+  'Disponibilidad estable en horario comercial español.',
+  'Disciplina de registro: si no está en el CRM, no ha ocurrido.',
+  'Aceptar que se graban y se revisan las llamadas.',
+  'Descartar a quien no encaja aunque eso reduzca tu número del mes.',
+];
+
+const faqs = [
+  {
+    q: '¿Cómo se cobra?',
+    a: 'Un porcentaje de la comisión que Cerra Labs factura por los cierres que tú produces, en una horquilla del 60 % al 70 % según el vertical y el volumen. No hay fijo. El porcentaje concreto se acuerda por escrito en la segunda entrevista, antes de que empieces.',
+  },
+  {
+    q: '¿Cuánto puedo ganar?',
+    a: 'Depende del ticket de la cuenta, de tu ratio de cierre y del volumen de leads que entren, así que cualquier cifra que pusiéramos aquí sería marketing. En la segunda entrevista te enseñamos los números reales de la cuenta concreta que te asignaríamos y calculas tú mismo el escenario.',
+  },
+  {
+    q: '¿Es empleo por cuenta ajena?',
+    a: 'No. La colaboración es mercantil y necesitas estar dado de alta como autónomo para facturar. Trabajas bajo nuestros procesos y nuestro control de calidad, con la organización de tu tiempo que el servicio permita.',
+  },
+  {
+    q: '¿Formáis a gente sin experiencia?',
+    a: 'No. Cerra Labs no vende formación de closers ni acepta perfiles que empiezan. Nuestro modelo cobra solo de lo que se cierra, así que no podemos permitirnos la curva de aprendizaje de alguien que no ha vendido antes.',
+  },
+  {
+    q: '¿Qué pasa si la cuenta que me asignáis no funciona?',
+    a: 'Se analiza con datos antes de atribuirlo a nadie. Si el problema es de encaje de la cuenta, es responsabilidad nuestra y la cuenta se cierra o se reorienta. Si es de desempeño, te lo decimos con las grabaciones delante y se decide si tiene arreglo.',
+  },
+  {
+    q: '¿Puedo trabajar a la vez con otros clientes propios?',
+    a: 'Sí, siempre que no haya conflicto directo con las cuentas que te asignemos y que puedas sostener la disponibilidad comprometida. Se habla abiertamente en la segunda entrevista.',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE_URL}/unete-como-closer#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+const crumbs = [{ label: 'Únete como closer', href: '/unete-como-closer' }];
+---
+
+<BaseLayout
+  title="Únete como closer"
+  description="Buscamos closers con experiencia en venta B2B o high-ticket. Cuentas con leads calificados, guion documentado y del 60 % al 70 % de la comisión."
+  schema={schema} breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Trabaja con nosotros"
+    title="Buscamos closers con experiencia, no aspirantes"
+    lede="Si ya has cerrado ventas B2B o high-ticket y quieres trabajar sobre cuentas con leads calificados entrando, guion documentado y CRM montado, esto te interesa. Si estás empezando, esta no es tu puerta de entrada y preferimos decírtelo aquí."
+    event="closer"
+    label="Enviar candidatura"
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <h2>El trato, en dos columnas</h2>
+      <p class="lede deal-lede">
+        Antes de contarte el proceso conviene que sepas qué recibes y qué se
+        espera de ti. Si alguna de las dos columnas no te encaja, mejor saberlo
+        ahora.
+      </p>
+      <div class="grid grid-2 deal">
+        <div class="card">
+          <h3>Lo que ponemos nosotros</h3>
+          <ul class="list-check">
+            {gives.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Lo que esperamos de ti</h3>
+          <ul class="list-check">
+            {asks.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Economía</p>
+      <h2>El reparto, dicho claro</h2>
+      <div class="split">
+        <div>
+          <p class="lede">
+            Cerra Labs cobra un porcentaje de las ventas que cierra para el
+            cliente. De esa comisión, entre el 60 % y el 70 % es del closer que
+            produce el cierre.
+          </p>
+          <p class="muted">
+            No hay fijo, no hay cuota de entrada y no vendemos formación. El
+            porcentaje exacto depende del vertical y del volumen, y se acuerda
+            por escrito antes de que empieces.
+          </p>
+        </div>
+        <ul class="split-points">
+          <li><strong>60-70 %</strong><span>de la comisión, para el closer</span></li>
+          <li><strong>0 €</strong><span>de coste de entrada o formación</span></li>
+          <li><strong>7-10 días</strong><span>de onboarding antes de llamar</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Selección</p>
+      <h2>El proceso, en cuatro pasos</h2>
+      <ProcessSteps steps={steps} />
+      <p class="ctx">
+        Antes de aplicar conviene que sepas cómo trabajamos con los clientes:
+        <a href="/servicio">la metodología en cuatro fases</a> y los cuatro
+        verticales a los que podrías asignarte —
+        <a href="/agencias">agencias</a>, <a href="/saas">SaaS</a>,
+        <a href="/infoproductores">infoproducto</a> y
+        <a href="/clinicas">clínicas</a>. También puedes leer
+        <a href="/sobre-nosotros">quiénes somos</a>.
+      </p>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Preguntas de candidatos" />
+
+  <CtaBand
+    title="¿Encajas con esto?"
+    body="Escríbenos con tu trayectoria concreta: qué has vendido, con qué ticket y durante cuánto tiempo. Respondemos a todas las candidaturas, también a las que descartamos."
+    event="closer"
+    label="Enviar candidatura"
+  />
+</BaseLayout>
+
+<style>
+  .deal {
+    margin-top: 2.25rem;
+  }
+
+  .deal h3 {
+    font-size: var(--step-1);
+  }
+
+  .deal-lede {
+    max-width: 62ch;
+  }
+
+  .split {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .split {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .split .lede {
+    max-width: 52ch;
+  }
+
+  .split .muted {
+    max-width: 52ch;
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  .split-points {
+    list-style: none;
+    padding: 1.5rem;
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .split-points li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+  }
+
+  .split-points strong {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    min-width: 6.2rem;
+  }
+
+  .split-points span {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  .ctx {
+    margin-top: 1.75rem;
+    max-width: 66ch;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+</style>

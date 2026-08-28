@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = new Intl.DateTimeFormat('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const crumbs = [{ label: 'Blog', href: '/blog' }];
+---
+
+<BaseLayout
+  title="Blog sobre cierre de ventas B2B"
+  description="Artículos sobre cierre de ventas B2B para fundadores: cómo medir tu ratio de cierre, cuándo externalizar y qué decisiones comerciales salen caras."
+  schema={[]}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Blog"
+    title="Notas sobre cierre de ventas B2B"
+    lede="Escribimos para fundadores que quieren decidir con números, no para aspirantes a closer. Poco volumen y cero contenido motivacional."
+    showCta={false}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="posts">
+        {
+          posts.map((post) => (
+            <li>
+              <article>
+                <p class="meta muted">
+                  <time datetime={post.data.date.toISOString()}>
+                    {fmt.format(post.data.date)}
+                  </time>
+                  <span aria-hidden="true">·</span>
+                  <span>{post.data.readingTime} de lectura</span>
+                </p>
+                <h2>
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                </h2>
+                <p>{post.data.description}</p>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap wrap-narrow">
+      <h2>Para quién escribimos</h2>
+      <p>
+        Para fundadores y responsables comerciales de empresas B2B que ya
+        generan demanda y sospechan que están perdiendo dinero en la última
+        fase del proceso. No escribimos para aspirantes a closer ni publicamos
+        contenido motivacional: no es nuestro público ni nuestro negocio.
+      </p>
+      <p>
+        El criterio editorial es sencillo. Cada artículo tiene que dejarte una
+        cuenta que puedas hacer con tus propios números, un método que puedas
+        aplicar sin contratarnos, o una decisión mejor planteada. Si un texto no
+        cumple ninguna de las tres cosas, no lo publicamos. Por eso el ritmo es
+        bajo: preferimos pocos artículos que aguanten una relectura a un
+        calendario lleno de piezas que solo repiten lo que ya sabías.
+      </p>
+      <p>
+        Cuando citamos cifras, decimos de dónde salen. Cuando algo depende de tu
+        caso concreto, lo decimos también en vez de dar una regla general que
+        suene mejor de lo que funciona.
+      </p>
+
+      <h2>Qué hacemos en Cerra Labs</h2>
+      <p>
+        Cerramos las ventas de empresas B2B que ya tienen leads calificados
+        entrando, cobrando únicamente un porcentaje de lo que se cierra.
+        Trabajamos en cuatro verticales: <a href="/agencias">agencias</a>,
+        <a href="/saas">SaaS y tecnología B2B</a>,
+        <a href="/infoproductores">infoproducto high-ticket</a> y
+        <a href="/clinicas">clínicas privadas</a>.
+      </p>
+      <p>
+        Si quieres el detalle operativo, está en
+        <a href="/servicio">la metodología</a>. Y si te interesa con qué
+        criterio publicaremos resultados cuando los tengamos, lo explicamos sin
+        rodeos en <a href="/casos">casos</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .posts li {
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .posts li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .posts h2 {
+    font-size: var(--step-2);
+    margin-bottom: 0.5rem;
+    max-width: 28ch;
+  }
+
+  .posts h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .posts h2 a:hover {
+    color: var(--accent);
+  }
+
+  .posts article > p:last-child {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 68ch;
+  }
+</style>

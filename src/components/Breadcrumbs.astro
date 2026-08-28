@@ -1,0 +1,63 @@
+---
+interface Props {
+  items: { label: string; href: string }[];
+}
+
+const { items } = Astro.props;
+const trail = [{ label: 'Inicio', href: '/' }, ...items];
+---
+
+<nav class="crumbs" aria-label="Migas de pan">
+  <div class="wrap">
+    <ol>
+      {
+        trail.map((crumb, i) =>
+          i === trail.length - 1 ? (
+            <li aria-current="page">{crumb.label}</li>
+          ) : (
+            <li>
+              <a href={crumb.href}>{crumb.label}</a>
+            </li>
+          )
+        )
+      }
+    </ol>
+  </div>
+</nav>
+
+<style>
+  .crumbs {
+    border-bottom: 1px solid var(--line-soft);
+    padding-block: 0.75rem;
+  }
+
+  ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+    margin: 0;
+    padding: 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  li + li::before {
+    content: '/';
+    margin-right: 0.6rem;
+    color: var(--line);
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  li[aria-current='page'] {
+    color: var(--ink-soft);
+  }
+</style>

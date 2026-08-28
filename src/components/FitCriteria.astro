@@ -1,0 +1,65 @@
+---
+interface Props {
+  yes: string[];
+  no: string[];
+  title?: string;
+  intro?: string;
+}
+
+const {
+  yes,
+  no,
+  title = '¿Somos buen encaje?',
+  intro = 'Preferimos decirlo antes de la llamada. Este servicio funciona muy bien en unas situaciones concretas y bastante mal en el resto.',
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="fit-head">
+      <h2>{title}</h2>
+      <p class="lede">{intro}</p>
+    </div>
+
+    <div class="grid grid-2 fit-grid">
+      <div class="card fit-yes">
+        <h3>Encajamos si</h3>
+        <ul class="list-check">
+          {yes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="card fit-no">
+        <h3>No encajamos si</h3>
+        <ul class="list-check list-cross">
+          {no.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fit-head {
+    max-width: 62ch;
+    margin-bottom: 2.25rem;
+  }
+
+  .fit-head p {
+    margin-bottom: 0;
+  }
+
+  .fit-yes {
+    border-color: #c8e2d8;
+    background: #fbfdfc;
+  }
+
+  .fit-no {
+    border-color: #f0d5d3;
+    background: #fdfbfb;
+  }
+
+  .fit-grid h3 {
+    font-size: var(--step-1);
+  }
+</style>

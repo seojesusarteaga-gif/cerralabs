@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import BookingButton from '../components/BookingButton.astro';
+import { BRAND, VERTICALS } from '../config/site';
+
+const questions = [
+  'Empresa y web.',
+  'Facturación anual aproximada.',
+  'Cuántos leads calificados generas al mes.',
+  'Tu ticket medio.',
+  'Cómo es hoy tu ciclo de venta.',
+  'Qué esperas de Cerra Labs.',
+  'Cuándo querrías empezar.',
+];
+
+const agenda = [
+  {
+    title: 'Primeros diez minutos',
+    body: 'Tus números: volumen de leads, ratio de cierre actual, ticket y duración del ciclo.',
+  },
+  {
+    title: 'Siguientes diez',
+    body: 'Dónde se está perdiendo el dinero hoy y qué margen de mejora realista existe.',
+  },
+  {
+    title: 'Últimos diez',
+    body: 'Si encajamos, cómo sería el arranque y qué porcentaje aplicaría. Si no encajamos, te lo decimos aquí.',
+  },
+];
+const crumbs = [{ label: 'Contacto', href: '/contacto' }];
+---
+
+<BaseLayout
+  title="Contacto y llamada de diagnóstico"
+  description="Agenda una llamada de diagnóstico de 30 minutos con Cerra Labs. Revisamos tus números de cierre y te decimos en la misma llamada si encajamos."
+  schema={[]} breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+  <PageHero
+    eyebrow="Contacto"
+    title="Agenda tu llamada de diagnóstico"
+    lede="Treinta minutos para revisar tus números y decidir si esto tiene sentido para las dos partes. Sin coste y sin presentación comercial de cuarenta diapositivas."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <h2>Qué pasa en esa llamada</h2>
+          <ol class="agenda">
+            {
+              agenda.map((item) => (
+                <li>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </li>
+              ))
+            }
+          </ol>
+          <p class="muted">
+            Si de la conversación se desprende que tu problema es de captación y
+            no de cierre, te lo diremos y no habrá propuesta. Preferimos eso a
+            venderte algo que no va a mover tu dato.
+          </p>
+        </div>
+
+        <aside class="booking-card">
+          <h2>Reserva tu hueco</h2>
+          <p class="muted">
+            Antes de confirmar te pediremos unos datos para llegar preparados a
+            la llamada:
+          </p>
+          <ul class="q-list">
+            {questions.map((q) => <li>{q}</li>)}
+          </ul>
+          <BookingButton />
+          <p class="alt">
+            ¿Prefieres escribir? <span class="email">{BRAND.email}</span>
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <h2>Antes de agendar, revisa tu vertical</h2>
+      <p class="lede v-lede">
+        En cada página encontrarás el perfil de encaje concreto con los números a
+        partir de los cuales esto funciona.
+      </p>
+      <div class="grid grid-4">
+        {
+          VERTICALS.map((v) => (
+            <a class="card vcard" href={`/${v.slug}`}>
+              <h3>{v.nav}</h3>
+              <p>{v.fit}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .agenda {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .agenda li {
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .agenda li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .agenda h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .agenda p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .contact-grid > div > .muted {
+    max-width: 58ch;
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  .booking-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    background: var(--paper-alt);
+  }
+
+  .booking-card h2 {
+    font-size: var(--step-2);
+  }
+
+  .booking-card > .muted {
+    font-size: 0.9375rem;
+  }
+
+  .q-list {
+    padding-left: 1.1rem;
+    margin: 0 0 1.5rem;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .alt {
+    margin: 1.25rem 0 0;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .email {
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .v-lede {
+    max-width: 62ch;
+  }
+
+  .vcard {
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease;
+  }
+
+  .vcard:hover {
+    border-color: var(--ink);
+    color: inherit;
+  }
+
+  .vcard h3 {
+    font-size: 1.0625rem;
+  }
+
+  .vcard p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+</style>

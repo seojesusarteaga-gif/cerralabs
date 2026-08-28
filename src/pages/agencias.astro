@@ -1,0 +1,92 @@
+---
+import VerticalPage from '../components/VerticalPage.astro';
+
+const diagnosis = [
+  {
+    title: 'Vendes tú y ya no te caben más llamadas',
+    body: 'En una agencia de 5 a 30 personas el fundador suele ser el mejor comercial, y por eso acaba siendo el único. El techo de facturación deja de ser el mercado y pasa a ser tu calendario.',
+  },
+  {
+    title: 'Las propuestas se quedan sin seguimiento',
+    body: 'Mandas el presupuesto y entras en producción. Nadie hace el segundo ni el tercer contacto, y una parte de esas propuestas se pierde por silencio, no por precio.',
+  },
+  {
+    title: 'Delegar en un comercial junior no funcionó',
+    body: 'La venta de servicios profesionales exige entender el problema del cliente antes de proponer. Un perfil sin criterio ni experiencia no sostiene esa conversación y quema los leads.',
+  },
+  {
+    title: 'Compites contra agencias que sí tienen equipo comercial',
+    body: 'Cuando tu prospecto pide tres presupuestos, quien contesta primero y hace mejores preguntas parte con ventaja, aunque su trabajo sea peor que el tuyo.',
+  },
+];
+
+const profile = [
+  { label: 'Facturación anual', value: 'Desde 300.000 €' },
+  { label: 'Tamaño de equipo', value: 'Entre 5 y 30 personas' },
+  { label: 'Ticket medio de servicio', value: 'Desde 3.000 €' },
+  { label: 'Origen de los leads', value: 'Entrantes recurrentes: referencias, contenido, inbound' },
+  { label: 'Proceso de venta', value: 'Llamada de discovery más propuesta' },
+  { label: 'Quién lleva la cuenta', value: 'Jesús Arteaga, de forma directa' },
+];
+
+const fitYes = [
+  'Te entran oportunidades de forma recurrente y no llegas a atenderlas todas con la atención que merecen.',
+  'Tu ticket medio por proyecto o por retainer supera los 3.000 €.',
+  'Vendes con al menos una llamada de discovery antes de la propuesta.',
+  'Tienes capacidad de producción para asumir más trabajo del que cierras hoy.',
+  'Estás dispuesto a documentar tu proceso de venta y tus objeciones habituales durante el onboarding.',
+];
+
+const fitNo = [
+  'Tu problema es que no entran leads. Eso es captación, no cierre.',
+  'Facturas por debajo de 300.000 € al año: el volumen no sostiene el modelo para ninguna de las dos partes.',
+  'Vendes proyectos pequeños de menos de 2.000 € con mucha rotación.',
+  'Estás al límite de capacidad de entrega y cerrar más sería un problema, no una solución.',
+];
+
+const faqs = [
+  {
+    q: '¿Vais a hablar con mis clientes como si fuerais mi equipo?',
+    a: 'Sí. El closer se presenta como parte de tu agencia, con tu dominio de correo y tu marca. Para el prospecto la experiencia es continua; no hay un intermediario visible.',
+  },
+  {
+    q: 'Mi servicio es técnico y difícil de explicar. ¿Podréis?',
+    a: 'El onboarding está pensado precisamente para eso: dedicamos entre siete y diez días a producto, casos previos y objeciones reales antes de la primera llamada. Y en las cuentas de agencia el fundador de Cerra Labs entra de forma directa, que es donde más rápido se absorbe el criterio de un servicio complejo.',
+  },
+  {
+    q: '¿Qué pasa con las oportunidades que ya tengo abiertas?',
+    a: 'Se acuerda por escrito antes de empezar. Lo habitual es que las oportunidades ya abiertas en tu pipeline queden fuera del acuerdo, y que trabajemos solo sobre lo que entre a partir de la fecha de arranque. Así no hay discusión sobre a quién le corresponde un cierre.',
+  },
+  {
+    q: '¿Y si el cliente prefiere hablar conmigo?',
+    a: 'Se le pasa la llamada. El objetivo es liberarte del volumen, no bloquear tu acceso. Lo normal es que entres en la fase final de las cuentas grandes y te desentiendas del resto.',
+  },
+  {
+    q: '¿Cobráis también por los proyectos recurrentes?',
+    a: 'Depende de lo que se acuerde. Lo habitual en retainers es fijar la comisión sobre los primeros meses de contrato, no sobre toda la vida del cliente. Se define por escrito antes de empezar.',
+  },
+];
+---
+
+<VerticalPage
+  slug="agencias"
+  event="agencias"
+  metaTitle="Closing de ventas para agencias"
+  metaDescription="Cerramos las propuestas de tu agencia para que dejes de ser el único que vende. Rev-share sin cuota de entrada, desde 300.000 € de facturación anual."
+  eyebrow="Vertical · Agencias"
+  h1="Deja de ser el único que cierra en tu agencia"
+  lede="Si las oportunidades entran pero el cuello de botella eres tú, ponemos un closer con criterio a llevar tus discovery y tu seguimiento de propuestas. Esta es la vertical que atiende personalmente el fundador de Cerra Labs."
+  diagnosisTitle="Lo que vemos en agencias de servicios profesionales"
+  diagnosis={diagnosis}
+  profile={profile}
+  profileHeading="Con qué agencias funciona bien"
+  how={{
+    title: 'Cómo trabaja el closer en una agencia',
+    body: 'Entra en tus discovery con un guion construido sobre tus propios casos: qué preguntar para separar al cliente que valora el trabajo del que solo compara precio, cómo situar tu presupuesto frente a alternativas más baratas y qué señales indican que una cuenta va a ser problemática antes de firmarla. Después sostiene el seguimiento de las propuestas enviadas, que es donde más dinero se pierde por pura falta de constancia. Tú entras solo donde tu criterio aporta algo que el closer no puede aportar.',
+  }}
+  fitYes={fitYes}
+  fitNo={fitNo}
+  faqs={faqs}
+  serviceName="Closing de ventas para agencias"
+  serviceDescription="Servicio externalizado de cierre de ventas para agencias de marketing, diseño, desarrollo y consultoría con leads entrantes recurrentes y ticket medio desde 3.000 €."
+/>

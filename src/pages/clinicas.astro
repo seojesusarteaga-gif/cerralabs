@@ -1,0 +1,92 @@
+---
+import VerticalPage from '../components/VerticalPage.astro';
+
+const diagnosis = [
+  {
+    title: 'La valoración se hace y el tratamiento no se confirma',
+    body: 'El paciente sale de la consulta con el presupuesto en la mano y un “me lo pienso”. Nadie retoma esa conversación y, semanas después, se ha tratado en otro sitio o no se ha tratado.',
+  },
+  {
+    title: 'Quien valora no debería estar vendiendo',
+    body: 'El profesional sanitario está para indicar el tratamiento correcto. Pedirle además que gestione precio, financiación y objeciones tensiona su papel y le resta tiempo clínico.',
+  },
+  {
+    title: 'Recepción no da abasto con el seguimiento',
+    body: 'El equipo de recepción atiende agenda, cobros y pacientes presentes. El seguimiento de presupuestos abiertos es lo primero que se cae cuando el día se complica.',
+  },
+  {
+    title: 'No sabes cuántos presupuestos se pierden',
+    body: 'Se emiten presupuestos y no se registra sistemáticamente cuáles se aceptan, cuáles se rechazan y por qué. Sin ese dato no se puede corregir ni el precio ni la conversación.',
+  },
+];
+
+const profile = [
+  { label: 'Ticket de tratamiento', value: 'Desde 3.000 €' },
+  { label: 'Tipo de centro', value: 'Clínica privada, estética o salud premium' },
+  { label: 'Proceso', value: 'Consulta de valoración presencial o por videollamada' },
+  { label: 'Volumen', value: 'Presupuestos emitidos de forma recurrente' },
+  { label: 'Origen de pacientes', value: 'Captación propia ya en marcha' },
+  { label: 'Ámbito del closer', value: 'Seguimiento y cierre, nunca criterio clínico' },
+];
+
+const fitYes = [
+  'Emites presupuestos de forma recurrente y una parte relevante se queda sin respuesta.',
+  'El ticket de tus tratamientos supera los 3.000 €.',
+  'La decisión del paciente pasa por una consulta de valoración con un profesional.',
+  'Tienes claro que el criterio clínico lo marca tu equipo y el closer solo acompaña la decisión económica.',
+  'Puedes registrar los presupuestos emitidos y su estado en una herramienta compartida.',
+];
+
+const fitNo = [
+  'Buscas que se convenza a pacientes de tratamientos que el profesional no ha indicado.',
+  'Tu ticket medio está por debajo de 2.000 € o trabajas por volumen de sesiones sueltas.',
+  'Tu problema es de captación de pacientes nuevos, no de conversión de valoraciones.',
+  'No puedes garantizar el cumplimiento de protección de datos sanitarios en el flujo de trabajo.',
+];
+
+const faqs = [
+  {
+    q: '¿El closer va a recomendar tratamientos?',
+    a: 'En ningún caso. La indicación clínica es exclusivamente de vuestro profesional sanitario y no se discute ni se amplía desde el cierre. El closer trabaja únicamente sobre el presupuesto ya emitido por la clínica: resuelve dudas de precio, plazos y financiación, y acompaña la decisión.',
+  },
+  {
+    q: '¿Cómo tratáis los datos de los pacientes?',
+    a: 'Como datos de categoría especial que son. Se firma el contrato de encargo de tratamiento correspondiente, se trabaja dentro de vuestras herramientas y con los accesos mínimos necesarios, y no se extraen datos clínicos fuera de vuestro entorno. Si vuestro flujo actual no permite garantizarlo, hay que resolverlo antes de empezar.',
+  },
+  {
+    q: '¿Presionáis a pacientes que dudan?',
+    a: 'No. En salud eso es especialmente contraproducente: genera cancelaciones, reclamaciones y reseñas negativas que cuestan más que el tratamiento cerrado. El seguimiento consiste en retomar la conversación, resolver la duda concreta que frena la decisión y facilitar la parte económica.',
+  },
+  {
+    q: '¿Trabajáis el seguimiento de presupuestos antiguos?',
+    a: 'Sí, y suele ser el punto de partida. La mayoría de clínicas acumulan presupuestos emitidos que nunca se retomaron. Recuperar una parte de ese histórico da resultado rápido sin depender de captación nueva.',
+  },
+  {
+    q: '¿Cómo encaja con mi equipo de recepción?',
+    a: 'El closer asume el seguimiento comercial de los presupuestos y recepción se queda con la operativa de agenda y atención presencial. Se acuerda al principio quién hace cada contacto para que el paciente no reciba dos llamadas distintas por lo mismo.',
+  },
+];
+---
+
+<VerticalPage
+  slug="clinicas"
+  event="clinicas"
+  metaTitle="Closing de tratamientos para clínicas privadas"
+  metaDescription="Recuperamos los presupuestos que se quedan sin respuesta tras la valoración. Para clínicas privadas y salud premium con ticket desde 3.000 €."
+  eyebrow="Vertical · Clínicas y salud premium"
+  h1="Recupera los presupuestos que se quedan sin respuesta"
+  lede="La valoración se hace, el presupuesto se entrega y ahí se detiene todo. Ponemos un closer a sostener ese seguimiento, sin tocar en ningún momento el criterio clínico de tu equipo."
+  diagnosisTitle="Lo que vemos en clínicas privadas"
+  diagnosis={diagnosis}
+  profile={profile}
+  profileHeading="Con qué clínicas funciona bien"
+  how={{
+    title: 'Cómo trabaja el closer en una clínica',
+    body: 'Su ámbito empieza donde termina el del profesional sanitario: sobre un tratamiento ya indicado y un presupuesto ya emitido. Retoma al paciente en las horas siguientes a la valoración, cuando la decisión todavía está abierta, y trabaja lo que de verdad la frena, que casi siempre es la forma de pago, el calendario o una duda que no se atrevió a plantear en consulta. Registra el estado de cada presupuesto y su motivo de rechazo, de modo que al cabo de unas semanas tienes por primera vez el dato de qué porcentaje de tus valoraciones acaba en tratamiento y por qué se pierde el resto.',
+  }}
+  fitYes={fitYes}
+  fitNo={fitNo}
+  faqs={faqs}
+  serviceName="Closing de tratamientos para clínicas privadas"
+  serviceDescription="Servicio externalizado de seguimiento y cierre de presupuestos para clínicas privadas y centros de salud premium con tratamientos desde 3.000 €."
+/>

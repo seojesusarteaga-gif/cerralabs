@@ -1,0 +1,41 @@
+---
+import BookingButton from './BookingButton.astro';
+import { type BookingEvent } from '../config/site';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede: string;
+  event?: BookingEvent;
+  label?: string;
+  showCta?: boolean;
+}
+
+const { eyebrow, title, lede, event = 'general', label, showCta = true } = Astro.props;
+---
+
+<section class="section-tight page-hero">
+  <div class="wrap">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <p class="lede">{lede}</p>
+    {showCta && <BookingButton event={event} label={label} />}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-top: clamp(2.5rem, 6vw, 4rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .page-hero h1 {
+    max-width: 20ch;
+  }
+
+  .page-hero .lede {
+    max-width: 62ch;
+    margin-bottom: 1.75rem;
+  }
+</style>
