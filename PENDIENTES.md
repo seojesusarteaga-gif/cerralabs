@@ -1,8 +1,17 @@
 # Cerra Labs — pendientes
 
-Estado: Fases RD1 y M5.5 completadas. 14 páginas construidas y optimizadas,
-auditoría interna sin incidencias. Falta lo que depende de decisiones tuyas o de
-cuentas externas.
+Estado: **desplegada en producción** — https://cerralabs.vercel.app
+
+Completadas las fases RD1, M5.5, M5.6, M5.7 y M4. Auditorías en verde y crawl de
+Screaming Frog contra producción sin errores. Falta lo que depende de decisiones
+tuyas o de cuentas externas.
+
+- Repositorio: https://github.com/seojesusarteaga-gif/cerralabs (público)
+- Cada `git push` a `main` despliega solo. Verificado.
+- Variables de entorno creadas en Vercel con valor `PENDIENTE` en los tres
+  entornos: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `RESEND_API_KEY`,
+  `CALCOM_API_KEY`. Ninguna se usa todavía; están para no tener que crearlas
+  con prisa en la fase RD3.
 
 Nota sobre M5.5: no había librerías de skills disponibles en el entorno, así que
 la pasada de SEO, UX y copy se hizo con criterio propio. Los 14 H1 se verificaron
@@ -36,13 +45,16 @@ idénticos antes y después.
 
 ## Fases siguientes del manual
 
-1. **M5.6 / M5.7** — auditoría final y Screaming Frog.
-2. **M4** — GitHub (repo sin guiones: `cerralabs`) y Vercel.
-3. **M4.5** — dominio y cutover. `vercel domains add` **antes** del ticket DNS.
-4. **M6** — Search Console y GA4. Imposible sin dominio real.
-5. **RD3** — Cal.com real más notificaciones a Telegram y Resend.
-6. **RD5** — dashboard.
-7. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
+1. **M6** — Search Console por prefijo de URL sobre `cerralabs.vercel.app`.
+   Enviar sitemap e indexar la Home y las cuatro páginas de vertical.
+   GA4 se puede crear ya, aunque sin dominio propio la propiedad quedará
+   atada a un subdominio de Vercel y habrá que rehacerla en el cutover.
+2. **RD3** — Cal.com real más notificaciones a Telegram y Resend.
+3. **M4.5** — compra de dominio y cutover. `vercel domains add` y
+   `vercel domains inspect` **antes** de escribir el ticket DNS al registrador.
+   Al hacerlo hay que rehacer la propiedad de Search Console como tipo Dominio.
+4. **RD5** — dashboard.
+5. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
 
 ## Reglas aplicadas en esta construcción
 
@@ -53,4 +65,14 @@ idénticos antes y después.
 - Cero datos inventados: sin testimonios, sin cifras de resultados, sin fotos de
   personas que no existen, sin años de experiencia.
 - `/gracias` con `noindex` y fuera del sitemap.
-- 0 KB de JavaScript enviado al cliente. Sitio completo: 300 KB.
+- 0 KB de JavaScript enviado al cliente.
+- Cabeceras de seguridad en `vercel.json`: CSP, HSTS, X-Frame-Options,
+  X-Content-Type-Options, Referrer-Policy y Permissions-Policy. Verificadas en
+  producción.
+
+## Hallazgo abierto que decides tú
+
+El H1 del artículo `/blog/calcular-ratio-de-cierre-real` tiene 81 caracteres y
+Screaming Frog lo marca por pasar de 70. No se ha tocado porque la regla del
+manual es no modificar H1. Es un título de artículo, no un H1 de servicio con
+keyword, así que el coste es bajo. Si quieres acortarlo, dilo.
