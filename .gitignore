@@ -12,3 +12,8 @@ dist/
 
 # Artefactos de auditoría: se regeneran con scripts/crawl.sh
 audits/
+
+# Vercel CLI
+.vercel
+.env*
+!.env.example
