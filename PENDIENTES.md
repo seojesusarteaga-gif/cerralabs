@@ -8,11 +8,11 @@ tuyas o de cuentas externas.
 
 - Repositorio: https://github.com/seojesusarteaga-gif/cerralabs (público)
 - Cada `git push` a `main` despliega solo. Verificado.
-- Variables de entorno creadas en Vercel con valor `PENDIENTE` en los tres
-  entornos: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `RESEND_API_KEY`,
-  `LEAD_NOTIFICATION_EMAIL` y `RESEND_FROM`. Mientras estén en `PENDIENTE` el
-  formulario valida los campos y avisa de que no está operativo, en vez de
-  perder la solicitud.
+- **Fase RD3 cerrada.** El formulario de /contacto está operativo: cada envío
+  avisa por Telegram (bot @cerralabs_bot) y por email. Verificado en producción
+  con un envío real desde el navegador.
+- `RESEND_FROM` sigue vacía a propósito: sin dominio verificado se usa el
+  remitente compartido `onboarding@resend.dev`, que puede caer en spam.
 
 Nota sobre M5.5: no había librerías de skills disponibles en el entorno, así que
 la pasada de SEO, UX y copy se hizo con criterio propio. Los 14 H1 se verificaron
@@ -24,7 +24,7 @@ idénticos antes y después.
 |---|---|---|
 | Comprar `cerralabs.com` | Don Dominio (DNS editable) | Preferir `.com`. Banahosting no vale si quieres el flujo con agente de navegador. |
 | Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Dos líneas. También `public/robots.txt`. |
-| Bot de Telegram y cuenta Resend | Variables en Vercel | Ver INSTRUCCIONES_RD3.md. |
+
 | Crear `hola@cerralabs.com` | Proveedor de correo | Luego `BRAND.emailActive = true`. Hoy el email es texto, no enlace. |
 
 ## Decisiones tuyas
@@ -39,6 +39,12 @@ idénticos antes y después.
 - **Fuente Inter.** Ahora mismo usa la pila del sistema. Si quieres self-hosted
   como pide el manual, hay que descargar el woff2 subset latin a
   `public/fonts/` y descomentar el `@font-face` en `src/styles/global.css`.
+- **Rotar el token del bot.** El token de Telegram se compartió en el chat de
+  trabajo. No es urgente, pero si quieres rotarlo: `/revoke` en BotFather y me
+  pasas el nuevo.
+- **Verificar dominio en Resend** cuando se compre `cerralabs.com`, y cambiar
+  `RESEND_FROM` a `Cerra Labs <avisos@cerralabs.com>`. Hasta entonces el aviso
+  por email puede caer en spam.
 - **Tarjeta social.** `public/og-cerra-labs.png` se regenera con `npm run og`
   editando `scripts/generate-og.mjs`. Es lo que ve quien recibe tu enlace en
   LinkedIn: si cambias el mensaje del hero, cámbialo también ahí.
@@ -49,12 +55,11 @@ idénticos antes y después.
    Enviar sitemap e indexar la Home y las cuatro páginas de vertical.
    GA4 se puede crear ya, aunque sin dominio propio la propiedad quedará
    atada a un subdominio de Vercel y habrá que rehacerla en el cutover.
-2. **RD3** — meter los tokens de Telegram y Resend para que el formulario avise.
-3. **M4.5** — compra de dominio y cutover. `vercel domains add` y
+2. **M4.5** — compra de dominio y cutover. `vercel domains add` y
    `vercel domains inspect` **antes** de escribir el ticket DNS al registrador.
    Al hacerlo hay que rehacer la propiedad de Search Console como tipo Dominio.
-4. **RD5** — dashboard.
-5. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
+3. **RD5** — dashboard.
+4. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
 
 ## Reglas aplicadas en esta construcción
 
