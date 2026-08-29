@@ -1,6 +1,6 @@
 ---
 import { BRAND, NAV } from '../config/site';
-import BookingButton from './BookingButton.astro';
+import CtaButton from './CtaButton.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '');
 ---
@@ -25,7 +25,7 @@ const path = Astro.url.pathname.replace(/\/$/, '');
           </a>
         ))
       }
-      <BookingButton compact />
+      <CtaButton compact />
     </nav>
   </div>
 </header>

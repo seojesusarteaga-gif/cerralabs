@@ -1,17 +1,16 @@
 ---
-import BookingButton from './BookingButton.astro';
-import { type BookingEvent } from '../config/site';
+import CtaButton from './CtaButton.astro';
 
 interface Props {
   eyebrow?: string;
   title: string;
   lede: string;
-  event?: BookingEvent;
+  vertical?: string;
   label?: string;
   showCta?: boolean;
 }
 
-const { eyebrow, title, lede, event = 'general', label, showCta = true } = Astro.props;
+const { eyebrow, title, lede, vertical, label, showCta = true } = Astro.props;
 ---
 
 <section class="section-tight page-hero">
@@ -19,7 +18,7 @@ const { eyebrow, title, lede, event = 'general', label, showCta = true } = Astro
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1>{title}</h1>
     <p class="lede">{lede}</p>
-    {showCta && <BookingButton event={event} label={label} />}
+    {showCta && <CtaButton vertical={vertical} label={label} />}
   </div>
 </section>
 

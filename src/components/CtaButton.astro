@@ -1,0 +1,34 @@
+---
+import { CONTACT_PATH } from '../config/site';
+
+interface Props {
+  /** Se acepta por compatibilidad con las páginas de vertical; hoy no altera
+   *  el destino, porque /contacto es estática y no lee parámetros. */
+  vertical?: string;
+  label?: string;
+  compact?: boolean;
+  outline?: boolean;
+}
+
+const {
+  vertical: _vertical,
+  label = 'Solicita tu diagnóstico',
+  compact = false,
+  outline = false,
+} = Astro.props;
+
+const href = CONTACT_PATH;
+
+const cls = ['btn', outline ? 'btn-outline' : '', compact ? 'btn-compact' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+<a class={cls} href={href}>{label}</a>
+
+<style>
+  .btn-compact {
+    padding: 0.6rem 1.05rem;
+    font-size: 0.9375rem;
+  }
+</style>

@@ -1,0 +1,225 @@
+---
+import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
+
+/**
+ * Formulario de contacto. POST nativo a /api/contact: funciona sin JavaScript.
+ * La validación de formato la hace el navegador con los atributos HTML; el
+ * endpoint la repite en servidor como red de seguridad.
+ *
+ * Nota: no se preselecciona el vertical según la página de origen. Haría falta
+ * leer un parámetro de la URL en servidor, y eso convertiría /contacto en una
+ * página dinámica. Se prefiere mantenerla estática: el desplegable es opcional
+ * y son dos clics.
+ */
+---
+
+<form class="formulario" method="POST" action="/api/contact">
+  <div class="campos">
+    <p class="campo">
+      <label for="nombre">Nombre <span aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        minlength="2"
+        maxlength="100"
+        autocomplete="name"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="email">Email <span aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        maxlength="200"
+        autocomplete="email"
+        placeholder="nombre@empresa.com"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="empresa">Empresa <span aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id="empresa"
+        name="empresa"
+        required
+        minlength="2"
+        maxlength="150"
+        autocomplete="organization"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="web">Web <span class="opt">opcional</span></label>
+      <input
+        type="text"
+        id="web"
+        name="web"
+        maxlength="200"
+        autocomplete="url"
+        placeholder="tuempresa.com"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="facturacion">Facturación anual <span class="opt">opcional</span></label>
+      <select id="facturacion" name="facturacion">
+        <option value="">Prefiero no decirlo</option>
+        {FACTURACION_OPCIONES.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </p>
+
+    <p class="campo">
+      <label for="vertical">¿En qué encajas mejor? <span class="opt">opcional</span></label>
+      <select id="vertical" name="vertical">
+        <option value="">Sin especificar</option>
+        {
+          VERTICAL_OPCIONES.map((o) => <option value={o}>{o}</option>)
+        }
+      </select>
+    </p>
+
+    <p class="campo campo-ancho">
+      <label for="mensaje">
+        Cuéntanos tu situación <span aria-hidden="true">*</span>
+      </label>
+      <textarea id="mensaje" name="mensaje" required minlength="10" maxlength="3000" rows="6"
+      ></textarea>
+      <span class="ayuda">
+        Cuantos más números incluyas, más útil será la primera llamada: leads
+        calificados al mes, ratio de cierre actual, ticket medio y duración del
+        ciclo.
+      </span>
+    </p>
+  </div>
+
+  {/* Honeypot: invisible para personas, tentador para bots. */}
+  <p class="botcheck" aria-hidden="true">
+    <label for="botcheck">No rellenes este campo</label>
+    <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
+  </p>
+
+  <div class="acciones">
+    <button type="submit" class="btn">Enviar solicitud</button>
+    <p class="nota">
+      Te respondemos en un día laborable. Si no encajas, también te lo decimos.
+    </p>
+  </div>
+</form>
+
+<style>
+  .formulario {
+    margin-top: 2rem;
+  }
+
+  .campos {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 700px) {
+    .campos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .campo-ancho {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0;
+  }
+
+  label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  label span[aria-hidden] {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .opt {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--muted);
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  /* El aviso de campo inválido solo aparece tras intentar enviar, no mientras
+     se escribe: marcar en rojo un campo a medio rellenar es hostil. */
+  input:user-invalid,
+  select:user-invalid,
+  textarea:user-invalid {
+    border-color: #c0504a;
+  }
+
+  .ayuda {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .botcheck {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .nota {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+</style>

@@ -5,11 +5,12 @@ import Breadcrumbs from './Breadcrumbs.astro';
 import FitCriteria from './FitCriteria.astro';
 import Faq from './Faq.astro';
 import CtaBand from './CtaBand.astro';
-import { SITE_URL, VERTICALS, type BookingEvent } from '../config/site';
+import { SITE_URL, VERTICALS } from '../config/site';
 
 interface Props {
   slug: string;
-  event: BookingEvent;
+  /** Etiqueta del vertical que se preselecciona en el formulario. */
+  vertical: string;
   metaTitle: string;
   metaDescription: string;
   eyebrow: string;
@@ -31,7 +32,7 @@ interface Props {
 
 const {
   slug,
-  event,
+  vertical,
   metaTitle,
   metaDescription,
   eyebrow,
@@ -83,7 +84,7 @@ const schema = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs items={crumbs} />
-  <PageHero eyebrow={eyebrow} title={h1} lede={lede} event={event} />
+  <PageHero eyebrow={eyebrow} title={h1} lede={lede} vertical={vertical} />
 
   <section class="section">
     <div class="wrap">
@@ -167,7 +168,7 @@ const schema = [
     </div>
   </section>
 
-  <CtaBand event={event} />
+  <CtaBand vertical={vertical} />
 </BaseLayout>
 
 <style>

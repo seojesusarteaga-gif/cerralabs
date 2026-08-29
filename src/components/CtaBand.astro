@@ -1,19 +1,18 @@
 ---
-import BookingButton from './BookingButton.astro';
-import { type BookingEvent } from '../config/site';
+import CtaButton from './CtaButton.astro';
 
 interface Props {
   title?: string;
   body?: string;
-  event?: BookingEvent;
+  vertical?: string;
   label?: string;
 }
 
 const {
   title = 'Vemos tus números antes de proponerte nada',
   body = 'Treinta minutos. Revisamos tu volumen de leads, tu ratio de cierre actual y tu ticket medio. Si no encajas, te lo decimos en la misma llamada y te ahorramos el proceso.',
-  event = 'general',
-  label = 'Agenda tu diagnóstico',
+  vertical,
+  label = 'Solicita tu diagnóstico',
 } = Astro.props;
 ---
 
@@ -21,7 +20,7 @@ const {
   <div class="wrap wrap-narrow cta-inner">
     <h2>{title}</h2>
     <p class="lede">{body}</p>
-    <BookingButton event={event} label={label} />
+    <CtaButton vertical={vertical} label={label} />
   </div>
 </section>
 

@@ -10,8 +10,9 @@ tuyas o de cuentas externas.
 - Cada `git push` a `main` despliega solo. Verificado.
 - Variables de entorno creadas en Vercel con valor `PENDIENTE` en los tres
   entornos: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `RESEND_API_KEY`,
-  `CALCOM_API_KEY`. Ninguna se usa todavía; están para no tener que crearlas
-  con prisa en la fase RD3.
+  `LEAD_NOTIFICATION_EMAIL` y `RESEND_FROM`. Mientras estén en `PENDIENTE` el
+  formulario valida los campos y avisa de que no está operativo, en vez de
+  perder la solicitud.
 
 Nota sobre M5.5: no había librerías de skills disponibles en el entorno, así que
 la pasada de SEO, UX y copy se hizo con criterio propio. Los 14 H1 se verificaron
@@ -23,8 +24,7 @@ idénticos antes y después.
 |---|---|---|
 | Comprar `cerralabs.com` | Don Dominio (DNS editable) | Preferir `.com`. Banahosting no vale si quieres el flujo con agente de navegador. |
 | Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Dos líneas. También `public/robots.txt`. |
-| Crear cuenta Cal.com | — | Con los seis tipos de evento ya nombrados en `site.ts`. |
-| Activar booking | `src/config/site.ts` → `BOOKING.enabled = true` | Hasta entonces los 35 CTA salen visibles pero inertes. |
+| Bot de Telegram y cuenta Resend | Variables en Vercel | Ver INSTRUCCIONES_RD3.md. |
 | Crear `hola@cerralabs.com` | Proveedor de correo | Luego `BRAND.emailActive = true`. Hoy el email es texto, no enlace. |
 
 ## Decisiones tuyas
@@ -49,7 +49,7 @@ idénticos antes y después.
    Enviar sitemap e indexar la Home y las cuatro páginas de vertical.
    GA4 se puede crear ya, aunque sin dominio propio la propiedad quedará
    atada a un subdominio de Vercel y habrá que rehacerla en el cutover.
-2. **RD3** — Cal.com real más notificaciones a Telegram y Resend.
+2. **RD3** — meter los tokens de Telegram y Resend para que el formulario avise.
 3. **M4.5** — compra de dominio y cutover. `vercel domains add` y
    `vercel domains inspect` **antes** de escribir el ticket DNS al registrador.
    Al hacerlo hay que rehacer la propiedad de Search Console como tipo Dominio.
@@ -60,7 +60,9 @@ idénticos antes y después.
 
 - Sin `LocalBusiness` en el schema: esto no es SEO local, no hay Maps que ganar.
 - Ningún H1 contiene ciudad. Verificado en las 14 páginas.
-- Cero formularios abiertos. Todo va a booking pre-cualificado.
+- Conversión por formulario propio en /contacto con POST directo a Telegram y
+  Resend. Sin Web3Forms ni intermediarios, según la regla del manual para las
+  modalidades que no son la C.
 - Cero emojis, cero burbuja de chat flotante, cero cronómetros de urgencia.
 - Cero datos inventados: sin testimonios, sin cifras de resultados, sin fotos de
   personas que no existen, sin años de experiencia.

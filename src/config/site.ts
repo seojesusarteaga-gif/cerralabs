@@ -1,86 +1,49 @@
 /**
  * Fuente única de verdad de Cerra Labs.
  *
- * Todo dato de marca, contacto y booking vive aquí y solo aquí. El cutover de
- * dominio y la conexión de Cal.com se resuelven editando este archivo, sin
- * rastrear las páginas una por una.
+ * Todo dato de marca y contacto vive aquí y solo aquí. El cutover de dominio se
+ * resuelve editando este archivo, sin rastrear las páginas una por una.
  */
 
 // TBD DOMINIO: al comprar cerralabs.com, cambiar aquí y en astro.config.mjs.
 export const SITE_URL = 'https://cerralabs.vercel.app';
 
-/* ─── Cal.com ──────────────────────────────────────────────────────────────
+/* ─── Formulario de contacto ───────────────────────────────────────────────
  *
- * Para activar el booking hacen falta dos cosas:
+ * Toda la conversión pasa por /contacto. No hay booking externo: el visitante
+ * envía el formulario, el endpoint /api/contact avisa por Telegram y por email,
+ * y Jesús responde para acordar la llamada.
  *
- *   1. `CALCOM_USERNAME` con el usuario real de la cuenta de Cal.com.
- *   2. `BOOKING_ENABLED = true`.
- *
- * Los slugs de abajo son los que hay que crear en Cal.com como tipos de
- * evento. Si allí se nombran distinto, se corrigen aquí y no hace falta tocar
- * ninguna página: los CTA leen de este archivo.
- *
- * Mientras `BOOKING_ENABLED` sea false, los botones se renderizan visibles
- * pero inertes, para no publicar enlaces rotos.
+ * Opciones de los desplegables. Los valores viajan tal cual en el envío, así
+ * que cambiarlos aquí cambia también lo que aparece en el aviso.
  */
 
-// TBD CAL.COM: sustituir por el usuario real de la cuenta.
-const CALCOM_USERNAME = 'cerralabs';
+export const CONTACT_PATH = '/contacto';
 
-const BOOKING_ENABLED = false;
+export const FACTURACION_OPCIONES = [
+  'Menos de 100.000 €',
+  'Entre 100.000 € y 500.000 €',
+  'Entre 500.000 € y 2 M€',
+  'Más de 2 M€',
+] as const;
 
-export const CALCOM_EVENT_GENERAL = 'diagnostico';
-export const CALCOM_EVENT_AGENCIAS = 'diagnostico-agencias';
-export const CALCOM_EVENT_SAAS = 'diagnostico-saas';
-export const CALCOM_EVENT_INFOPRODUCTORES = 'diagnostico-infoproductores';
-export const CALCOM_EVENT_CLINICAS = 'diagnostico-clinicas';
-export const CALCOM_EVENT_CLOSER = 'entrevista-closer';
+export const VERTICAL_OPCIONES = [
+  'Agencias',
+  'SaaS',
+  'Infoproductores',
+  'Clínicas',
+  'Otro',
+] as const;
 
-export const BOOKING = {
-  enabled: BOOKING_ENABLED,
-  username: CALCOM_USERNAME,
-  base: `https://cal.com/${CALCOM_USERNAME}`,
-  events: {
-    general: CALCOM_EVENT_GENERAL,
-    agencias: CALCOM_EVENT_AGENCIAS,
-    saas: CALCOM_EVENT_SAAS,
-    infoproductores: CALCOM_EVENT_INFOPRODUCTORES,
-    clinicas: CALCOM_EVENT_CLINICAS,
-    closer: CALCOM_EVENT_CLOSER,
-  },
-} as const;
-
-export type BookingEvent = keyof typeof BOOKING.events;
-
-export function bookingUrl(event: BookingEvent = 'general'): string | null {
-  if (!BOOKING.enabled) return null;
-  return `${BOOKING.base}/${BOOKING.events[event]}`;
-}
-
-/** Etiqueta legible de cada evento, para el aviso de lead. */
-export const BOOKING_EVENT_LABELS: Record<string, string> = {
-  [CALCOM_EVENT_GENERAL]: 'Diagnóstico general',
-  [CALCOM_EVENT_AGENCIAS]: 'Diagnóstico · Agencias',
-  [CALCOM_EVENT_SAAS]: 'Diagnóstico · SaaS',
-  [CALCOM_EVENT_INFOPRODUCTORES]: 'Diagnóstico · Infoproductores',
-  [CALCOM_EVENT_CLINICAS]: 'Diagnóstico · Clínicas',
-  [CALCOM_EVENT_CLOSER]: 'Entrevista de closer',
-};
-
-/**
- * Preguntas de pre-cualificación. Se configuran en Cal.com, en cada tipo de
- * evento, con estas mismas identificaciones para que el webhook las reconozca
- * y las ordene igual en el aviso. Si cambia un identificador en Cal.com, hay
- * que cambiarlo aquí también.
- */
-export const BOOKING_QUESTIONS = [
-  { id: 'empresa', label: 'Empresa y web' },
-  { id: 'facturacion', label: 'Facturación anual aproximada' },
-  { id: 'leads-mes', label: 'Leads calificados al mes' },
-  { id: 'ticket-medio', label: 'Ticket medio' },
-  { id: 'ciclo-venta', label: 'Ciclo de venta actual' },
-  { id: 'expectativas', label: 'Qué espera de Cerra Labs' },
-  { id: 'timeline', label: 'Cuándo quiere empezar' },
+/** Campos del formulario, en el orden en que aparecen en el aviso de lead. */
+export const CONTACT_FIELDS = [
+  { id: 'nombre', label: 'Nombre', required: true },
+  { id: 'email', label: 'Email', required: true },
+  { id: 'empresa', label: 'Empresa', required: true },
+  { id: 'web', label: 'Web', required: false },
+  { id: 'facturacion', label: 'Facturación anual', required: false },
+  { id: 'vertical', label: 'Vertical', required: false },
+  { id: 'mensaje', label: 'Mensaje', required: true },
 ] as const;
 
 export const BRAND = {

@@ -44,8 +44,9 @@ en frío sobre listas compradas.
 
 ## Metodología
 
-1. Diagnóstico. Llamada de 30 minutos para revisar volumen de leads, ratio de
-   cierre actual, ticket medio y duración del ciclo.
+1. Diagnóstico. Se solicita desde el formulario de https://cerralabs.vercel.app/contacto
+   y consiste en una llamada de 30 minutos para revisar volumen de leads, ratio
+   de cierre actual, ticket medio y duración del ciclo.
 2. Onboarding del closer. Entre 7 y 10 días de formación en producto, precios,
    objeciones reales y criterios de cualificación.
 3. Integración con el CRM del cliente. HubSpot, Pipedrive, Salesforce, Zoho u
