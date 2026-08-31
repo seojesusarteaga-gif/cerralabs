@@ -73,7 +73,7 @@ cd "C:\Users\Usuario\Desktop\proyectos\cerra labs" && vercel env rm TELEGRAM_BOT
 
 ### 2.2 Sobre el remitente
 
-**No verifiques dominio todavía.** Sin `cerralabs.com` comprado no puedes, así
+**No verifiques dominio todavía.** Sin `cerralabs.es` comprado no puedes, así
 que de momento el aviso saldrá desde `onboarding@resend.dev`, el remitente
 compartido de Resend.
 
@@ -81,8 +81,8 @@ Esto tiene una consecuencia que conviene que sepas: **puede caer en spam**. No
 importa demasiado, porque el aviso te lo mando a ti y el canal principal es
 Telegram. Márcalo como «no es spam» la primera vez.
 
-Cuando compremos el dominio, en la fase M4.5, verificamos `cerralabs.com` en
-Resend y cambiamos el remitente a `avisos@cerralabs.com`. Está previsto: basta
+Cuando compremos el dominio, en la fase M4.5, verificamos `cerralabs.es` en
+Resend y cambiamos el remitente a `avisos@cerralabs.es`. Está previsto: basta
 con cambiar la variable `RESEND_FROM`.
 
 ### Lo que tienes que copiarme
@@ -114,7 +114,7 @@ cd "C:\Users\Usuario\Desktop\proyectos\cerra labs" && vercel env rm LEAD_NOTIFIC
 
 Son cuatro, no tres: el endpoint necesita saber **a qué dirección** enviar el
 email, y eso no se puede deducir de la clave de Resend. Cuando exista
-`hola@cerralabs.com` podremos prescindir de `LEAD_NOTIFICATION_EMAIL` y usarla
+`hola@cerralabs.es` podremos prescindir de `LEAD_NOTIFICATION_EMAIL` y usarla
 por defecto.
 
 ---

@@ -2,9 +2,10 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
-// TBD DOMINIO: sustituir por https://cerralabs.com cuando el dominio esté
-// comprado y apuntado. Hasta entonces el canonical apunta a la URL de Vercel.
+// Dominio del sitio. Debe coincidir siempre con SITE_URL de src/config/site.ts.
+// El definitivo es cerralabs.es, pendiente de que Banahosting active el DNS.
 const SITE = 'https://cerralabs.vercel.app';
+// const SITE = 'https://cerralabs.es';
 
 export default defineConfig({
   site: SITE,

@@ -10,7 +10,7 @@ import path from 'node:path';
 const ROOT = process.argv[2] || 'dist';
 const SITE = 'https://cerralabs.vercel.app';
 const BRAND = 'Cerra Labs';
-const EMAIL = 'hola@cerralabs.com';
+const EMAIL = 'hola@cerralabs.es';
 
 const fail = [];
 const warn = [];

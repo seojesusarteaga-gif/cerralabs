@@ -22,10 +22,9 @@ idénticos antes y después.
 
 | Qué | Dónde se toca | Nota |
 |---|---|---|
-| Comprar `cerralabs.com` | Don Dominio (DNS editable) | Preferir `.com`. Banahosting no vale si quieres el flujo con agente de navegador. |
-| Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Dos líneas. También `public/robots.txt`. |
-
-| Crear `hola@cerralabs.com` | Proveedor de correo | Luego `BRAND.emailActive = true`. Hoy el email es texto, no enlace. |
+| Activación de `cerralabs.es` | Banahosting | Comprado, en estado «Pendiente». El DNS de Banahosting solo se edita por ticket y propaga en 12-24 h. |
+| Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Las dos líneas ya están escritas y comentadas: basta con intercambiarlas. También `public/robots.txt`. |
+| Crear `hola@cerralabs.es` | Proveedor de correo | Luego `BRAND.emailActive = true`. Hoy el email es texto, no enlace. |
 
 ## Decisiones tuyas
 
@@ -42,8 +41,8 @@ idénticos antes y después.
 - **Rotar el token del bot.** El token de Telegram se compartió en el chat de
   trabajo. No es urgente, pero si quieres rotarlo: `/revoke` en BotFather y me
   pasas el nuevo.
-- **Verificar dominio en Resend** cuando se compre `cerralabs.com`, y cambiar
-  `RESEND_FROM` a `Cerra Labs <avisos@cerralabs.com>`. Hasta entonces el aviso
+- **Verificar dominio en Resend** tras el cutover de `cerralabs.es`, y cambiar
+  `RESEND_FROM` a `Cerra Labs <avisos@cerralabs.es>`. Hasta entonces el aviso
   por email puede caer en spam.
 - **Tarjeta social.** `public/og-cerra-labs.png` se regenera con `npm run og`
   editando `scripts/generate-og.mjs`. Es lo que ve quien recibe tu enlace en
@@ -55,9 +54,12 @@ idénticos antes y después.
    Enviar sitemap e indexar la Home y las cuatro páginas de vertical.
    GA4 se puede crear ya, aunque sin dominio propio la propiedad quedará
    atada a un subdominio de Vercel y habrá que rehacerla en el cutover.
-2. **M4.5** — compra de dominio y cutover. `vercel domains add` y
-   `vercel domains inspect` **antes** de escribir el ticket DNS al registrador.
-   Al hacerlo hay que rehacer la propiedad de Search Console como tipo Dominio.
+2. **M4.5** — cutover de `cerralabs.es`. Orden innegociable: `vercel domains
+   add cerralabs.es` y `vercel domains inspect` **antes** de escribir el ticket
+   DNS a Banahosting, porque Vercel emite valores propios de cada proyecto que
+   pueden no coincidir con los genéricos de su documentación. Después: cambiar
+   `SITE_URL`, `astro.config.mjs` y `robots.txt`, desplegar, y comprobar que el
+   canonical resuelve antes de tocar Search Console.
 3. **RD5** — dashboard.
 4. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
 

@@ -5,8 +5,19 @@
  * resuelve editando este archivo, sin rastrear las páginas una por una.
  */
 
-// TBD DOMINIO: al comprar cerralabs.com, cambiar aquí y en astro.config.mjs.
+/* Dominio del sitio.
+ *
+ * El dominio definitivo es cerralabs.es, comprado en Banahosting y pendiente
+ * de activación del DNS. Hasta que el registro A resuelva NO se puede cambiar
+ * esta constante: canonical, og:url, sitemap y los @id del schema cuelgan de
+ * ella, y apuntarlos a un dominio que no responde sería peor que dejarlos en
+ * la URL de Vercel.
+ *
+ * Cutover: comentar la línea de Vercel, descomentar la de cerralabs.es y hacer
+ * lo mismo en astro.config.mjs. Son las dos únicas líneas que hay que tocar.
+ */
 export const SITE_URL = 'https://cerralabs.vercel.app';
+// export const SITE_URL = 'https://cerralabs.es';
 
 /* ─── Formulario de contacto ───────────────────────────────────────────────
  *
@@ -52,7 +63,7 @@ export const BRAND = {
   tagline: 'Agencia de closing B2B',
   // TBD EMAIL: la cuenta se crea con el dominio. Hasta entonces se muestra
   // como texto, nunca como mailto activo.
-  email: 'hola@cerralabs.com',
+  email: 'hola@cerralabs.es',
   emailActive: false,
   country: 'ES',
   logo: '/logo-cerra-labs.svg',

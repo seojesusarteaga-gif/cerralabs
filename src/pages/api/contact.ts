@@ -254,8 +254,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   if (puesto(env.RESEND_API_KEY) && puesto(env.LEAD_NOTIFICATION_EMAIL)) {
-    // TBD DOMINIO: al verificar cerralabs.com en Resend, cambiar RESEND_FROM a
-    // avisos@cerralabs.com. onboarding@resend.dev es el remitente compartido
+    // TBD DOMINIO: al verificar cerralabs.es en Resend, cambiar RESEND_FROM a
+    // avisos@cerralabs.es. onboarding@resend.dev es el remitente compartido
     // que Resend permite sin dominio verificado.
     const from =
       env.RESEND_FROM && env.RESEND_FROM !== 'PENDIENTE'
