@@ -1,0 +1,160 @@
+---
+/**
+ * Embudo de medición: cinco fases que se estrechan.
+ *
+ * El SVG dibuja solo la forma y va marcado como decorativo. Todo el texto vive
+ * en la lista HTML de al lado, que es la que leen el lector de pantalla y los
+ * buscadores, y la que se reordena sola en móvil. Así el diagrama no duplica
+ * contenido ni obliga a escalar tipografía dentro del SVG.
+ */
+interface Props {
+  stages: { label: string; note: string }[];
+}
+
+const { stages } = Astro.props;
+
+// Anchos de cada corte, de la boca del embudo al fondo. Seis valores para
+// cinco bandas: cada banda va de un corte al siguiente.
+const cortes = [200, 172, 142, 110, 78, 52];
+const ALTO = 46;
+const HUECO = 9;
+
+const bandas = stages.map((_, i) => {
+  const y = i * (ALTO + HUECO);
+  const arriba = cortes[i];
+  const abajo = cortes[i + 1];
+  const d = [
+    `M${100 - arriba / 2} ${y}`,
+    `H${100 + arriba / 2}`,
+    `L${100 + abajo / 2} ${y + ALTO}`,
+    `H${100 - abajo / 2}`,
+    'Z',
+  ].join(' ');
+  return { d, ultima: i === stages.length - 1 };
+});
+
+const altoTotal = stages.length * ALTO + (stages.length - 1) * HUECO;
+---
+
+<div class="embudo">
+  <svg
+    class="embudo-svg"
+    viewBox={`0 0 200 ${altoTotal}`}
+    preserveAspectRatio="xMidYMin meet"
+    aria-hidden="true"
+    focusable="false"
+  >
+    {
+      bandas.map((b, i) => (
+        <path
+          d={b.d}
+          fill={b.ultima ? 'var(--accent)' : 'var(--ink)'}
+          opacity={b.ultima ? 1 : 1 - i * 0.16}
+        />
+      ))
+    }
+  </svg>
+
+  <ol class="embudo-fases">
+    {
+      stages.map((s, i) => (
+        <li>
+          <span class="n" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span class="txt">
+            <strong>{s.label}</strong>
+            <span class="muted">{s.note}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .embudo {
+    display: grid;
+    gap: 1.75rem;
+    margin: 2rem 0 2.75rem;
+  }
+
+  /* El diagrama solo aparece cuando hay ancho para que se lea. En móvil la
+     lista sola comunica lo mismo sin encoger nada. */
+  .embudo-svg {
+    display: none;
+  }
+
+  @media (min-width: 860px) {
+    .embudo {
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .embudo-svg {
+      display: block;
+      width: 190px;
+      height: auto;
+    }
+  }
+
+  .embudo-fases {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .embudo-fases li {
+    display: grid;
+    grid-template-columns: 2.1rem minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .embudo-fases li:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  /* En escritorio cada fila se alinea con su banda del embudo. */
+  @media (min-width: 860px) {
+    .embudo-fases li {
+      min-height: 55px;
+      align-content: center;
+      padding: 0.35rem 0;
+      border: 0;
+    }
+
+    .embudo-fases li:first-child {
+      border: 0;
+    }
+  }
+
+  .n {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.15rem;
+  }
+
+  .txt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .txt strong {
+    font-weight: 500;
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  .txt .muted {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+</style>

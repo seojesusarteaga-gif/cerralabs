@@ -5,6 +5,9 @@ import ProcessSteps from '../components/ProcessSteps.astro';
 import FitCriteria from '../components/FitCriteria.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import FunnelDiagram from '../components/FunnelDiagram.astro';
+import ProcessDiagram from '../components/ProcessDiagram.astro';
+import VerticalIcon from '../components/VerticalIcon.astro';
 import { VERTICALS, SITE_URL } from '../config/site';
 
 const pains = [
@@ -236,6 +239,7 @@ const schema = [
         Cuatro fases. Ninguna empieza hasta que la anterior está cerrada y
         documentada.
       </p>
+      <ProcessDiagram />
       <ProcessSteps steps={steps} />
       <p class="process-more">
         <a href="/servicio">Ver la metodología en detalle</a>
@@ -253,19 +257,7 @@ const schema = [
         medimos el trabajo, porque es el mismo embudo que verás en tu informe.
       </p>
 
-      <ol class="funnel">
-        {
-          funnel.map((stage, i) => (
-            <li style={`--paso:${i}`}>
-              <span class="funnel-barra" aria-hidden="true" />
-              <div class="funnel-txt">
-                <strong>{stage.label}</strong>
-                <span class="muted">{stage.note}</span>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
+      <FunnelDiagram stages={funnel} />
 
       <div class="grid grid-3 measure-grid">
         <div class="card">
@@ -305,6 +297,7 @@ const schema = [
         {
           VERTICALS.map((v) => (
             <a class="card vertical-card" href={`/${v.slug}`}>
+              <VerticalIcon slug={v.slug} />
               <h3>{v.card}</h3>
               <p>{v.summary}</p>
               <span class="vertical-link">Ver encaje</span>
@@ -625,57 +618,6 @@ const schema = [
 
   .process-more {
     margin: 1.75rem 0 0;
-  }
-
-  .funnel {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 3rem;
-    display: grid;
-    gap: 0.85rem;
-    counter-reset: fase;
-  }
-
-  .funnel li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.6rem;
-    counter-increment: fase;
-  }
-
-  /* Barra que se estrecha en cada fase: da forma de embudo a lo que antes eran
-     cinco cajas idénticas en fila. */
-  .funnel-barra {
-    display: block;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--ink);
-    width: calc(100% - var(--paso) * 16%);
-    opacity: calc(1 - var(--paso) * 0.13);
-  }
-
-  .funnel-txt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.35rem 0.85rem;
-  }
-
-  .funnel-txt::before {
-    content: counter(fase, decimal-leading-zero);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .funnel strong {
-    font-weight: 500;
-    font-size: var(--step-1);
-  }
-
-  .funnel span.muted {
-    font-size: 0.875rem;
   }
 
   .measure-grid h3 {

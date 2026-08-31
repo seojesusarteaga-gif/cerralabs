@@ -1,0 +1,122 @@
+---
+/**
+ * Flujo de las cuatro fases, con conectores.
+ *
+ * Acompaña a la lista detallada de ProcessSteps: da la panorámica antes de
+ * entrar en el detalle. El texto de cada caja es corto y a tamaño legible, así
+ * que aquí sí vive dentro del SVG; el diagrama lleva title y desc para que un
+ * lector de pantalla reciba la secuencia completa.
+ *
+ * Se oculta por debajo de 900 px: cuatro cajas en fila no caben sin encoger la
+ * tipografía por debajo de lo legible, y la lista de abajo ya cuenta lo mismo.
+ */
+const fases = [
+  { n: '01', titulo: 'Diagnóstico', pie: '30 min' },
+  { n: '02', titulo: 'Onboarding', pie: '7-10 días' },
+  { n: '03', titulo: 'Tu CRM', pie: 'Integración' },
+  { n: '04', titulo: 'Reporting', pie: 'Semanal' },
+];
+
+const CAJA_W = 168;
+const CAJA_H = 78;
+const HUECO = 56;
+const ANCHO = fases.length * CAJA_W + (fases.length - 1) * HUECO;
+---
+
+<svg
+  class="flujo"
+  viewBox={`0 0 ${ANCHO} ${CAJA_H + 4}`}
+  preserveAspectRatio="xMidYMid meet"
+  role="img"
+  aria-labelledby="flujo-t flujo-d"
+>
+  <title id="flujo-t">Las cuatro fases del servicio</title>
+  <desc id="flujo-d">
+    Diagnóstico de treinta minutos, onboarding del closer en siete a diez días,
+    integración con tu CRM y reporting semanal.
+  </desc>
+
+  <defs>
+    <marker
+      id="flecha"
+      viewBox="0 0 8 8"
+      refX="7"
+      refY="4"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M0 1 L7 4 L0 7" fill="none" stroke="var(--muted)" stroke-width="1.2" />
+    </marker>
+  </defs>
+
+  {
+    fases.map((f, i) => {
+      const x = i * (CAJA_W + HUECO);
+      const ultima = i === fases.length - 1;
+      return (
+        <>
+          <rect
+            x={x + 0.5}
+            y="2.5"
+            width={CAJA_W - 1}
+            height={CAJA_H - 1}
+            rx="11"
+            fill={ultima ? 'var(--ink)' : 'var(--paper)'}
+            stroke={ultima ? 'var(--ink)' : 'var(--line)'}
+          />
+          <text
+            x={x + 20}
+            y="27"
+            font-size="11"
+            font-weight="600"
+            letter-spacing="0.08em"
+            fill={ultima ? '#8f97a5' : 'var(--muted)'}
+          >
+            {f.n}
+          </text>
+          <text
+            x={x + 20}
+            y="51"
+            font-size="16"
+            font-weight="500"
+            letter-spacing="-0.01em"
+            fill={ultima ? '#ffffff' : 'var(--ink)'}
+          >
+            {f.titulo}
+          </text>
+          <text x={x + 20} y="69" font-size="12" fill={ultima ? '#8f97a5' : 'var(--muted)'}>
+            {f.pie}
+          </text>
+          {!ultima && (
+            <line
+              x1={x + CAJA_W + 16}
+              y1={CAJA_H / 2 + 2}
+              x2={x + CAJA_W + HUECO - 14}
+              y2={CAJA_H / 2 + 2}
+              stroke="var(--muted)"
+              stroke-width="1.2"
+              marker-end="url(#flecha)"
+            />
+          )}
+        </>
+      );
+    })
+  }
+</svg>
+
+<style>
+  .flujo {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .flujo {
+      display: block;
+      width: 100%;
+      max-width: 62rem;
+      height: auto;
+      margin: 0 0 1rem;
+    }
+  }
+</style>

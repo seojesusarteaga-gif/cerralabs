@@ -1,0 +1,83 @@
+---
+/**
+ * Marca geométrica por vertical.
+ *
+ * Trazo fino sobre rejilla de 24, sin relleno, sin contenedor circular y sin
+ * librería: cada una alude a su sector por su forma, no por un pictograma
+ * genérico. Heredan el color del contexto con currentColor.
+ *
+ * Decorativas: la tarjeta ya lleva el nombre del vertical en texto.
+ */
+interface Props {
+  slug: 'agencias' | 'saas' | 'infoproductores' | 'clinicas';
+}
+
+const { slug } = Astro.props;
+---
+
+<svg
+  class="icono"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    /* Agencias: propuestas apiladas. Una encima de otra, la de arriba activa. */
+    slug === 'agencias' && (
+      <>
+        <path d="M6.5 19h11a1.5 1.5 0 0 0 1.5-1.5V9" opacity="0.45" />
+        <path d="M4.5 16h11A1.5 1.5 0 0 0 17 14.5V6" opacity="0.45" />
+        <rect x="2.5" y="2.5" width="12.5" height="11" rx="1.6" />
+        <path d="M5.5 6.5h6.5M5.5 9.5h4" />
+      </>
+    )
+  }
+  {
+    /* SaaS: panel de aplicación con barra lateral y una fila destacada. */
+    slug === 'saas' && (
+      <>
+        <rect x="2.5" y="4" width="19" height="16" rx="2" />
+        <path d="M8.5 4v16" />
+        <path d="M11.5 9h7M11.5 12.5h4.5" />
+        <path d="M4.7 8h1.6M4.7 11h1.6" opacity="0.45" />
+      </>
+    )
+  }
+  {
+    /* Infoproductores: reproductor. El VSL o el webinar que llena la agenda. */
+    slug === 'infoproductores' && (
+      <>
+        <rect x="2.5" y="4" width="19" height="13" rx="2" />
+        <path d="M10.2 8.6l4.3 2.4-4.3 2.4z" fill="currentColor" stroke="none" />
+        <path d="M8 20.5h8" opacity="0.45" />
+        <path d="M12 17v3.5" opacity="0.45" />
+      </>
+    )
+  }
+  {
+    /* Clínicas: valoración clínica. Ficha con la cruz del sector, sin caer en
+       el pictograma de cruz roja suelta. */
+    slug === 'clinicas' && (
+      <>
+        <rect x="4" y="2.5" width="16" height="19" rx="2" />
+        <path d="M9 2.5V5h6V2.5" opacity="0.45" />
+        <path d="M12 10v6M9 13h6" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .icono {
+    width: 29px;
+    height: 29px;
+    display: block;
+    color: var(--ink);
+    margin-bottom: 0.9rem;
+  }
+</style>
