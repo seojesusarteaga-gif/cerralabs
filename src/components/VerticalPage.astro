@@ -182,6 +182,15 @@ const schema = [
     margin-top: 2.25rem;
   }
 
+  /* Filo de acento a la izquierda: da entrada visual a la tarjeta sin recurrir
+     a iconos. Las esquinas de ese lado van rectas, porque un borde de un solo
+     lado con radio se ve como un error de render. */
+  .diag .card {
+    border-left: 3px solid var(--accent);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .diag h3 {
     font-size: var(--step-1);
   }

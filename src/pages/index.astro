@@ -153,24 +153,24 @@ const schema = [
       </div>
 
       <aside class="hero-modelo" aria-label="Modelo económico">
-        <p class="hero-modelo-titulo">Lo que te cuesta empezar</p>
+        <p class="hero-modelo-titulo">Cómo funciona</p>
         <ul>
           <li>
             <span class="display">0 €</span>
-            <span class="et">de alta o setup</span>
+            <span class="et">Sin cuota de entrada ni fijo mensual</span>
           </li>
           <li>
-            <span class="display">0 €</span>
-            <span class="et">de fijo mensual</span>
+            <span class="display">%</span>
+            <span class="et">Rev-share puro sobre lo cerrado y cobrado</span>
           </li>
           <li>
-            <span class="display">0 €</span>
-            <span class="et">si no cerramos nada</span>
+            <span class="display">7-10</span>
+            <span class="et">Días del acuerdo a la primera llamada</span>
           </li>
         </ul>
         <p class="hero-modelo-pie">
-          Cobramos un porcentaje de lo que se cierra y se cobra. El riesgo de que
-          esto no funcione lo asumimos nosotros.
+          Antes de firmar puedes escuchar grabaciones de discovery del closer que
+          te asignaríamos.
         </p>
       </aside>
     </div>
@@ -478,14 +478,15 @@ const schema = [
   }
 
   .hero-modelo .display {
-    font-size: clamp(1.9rem, 1.5rem + 1.1vw, 2.4rem);
-    min-width: 3.4rem;
+    font-size: clamp(1.7rem, 1.35rem + 1vw, 2.15rem);
+    min-width: 4.3rem;
+    color: var(--ink);
   }
 
   .hero-modelo .et {
     color: var(--ink-soft);
-    font-size: 0.9375rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.45;
   }
 
   .hero-modelo-pie {
@@ -519,15 +520,18 @@ const schema = [
     }
   }
 
+  /* Mismo filo de acento que las tarjetas de las páginas de vertical, para que
+     los dos bloques de dolor se lean como la misma familia. */
   .dolores li {
     counter-increment: dolor;
-    padding: 1.15rem 0;
+    padding: 1.15rem 0 1.15rem 1.1rem;
     border-bottom: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
   }
 
   @media (min-width: 820px) {
     .dolores li {
-      padding: 1.6rem 0;
+      padding: 1.6rem 0 1.6rem 1.35rem;
     }
   }
 
