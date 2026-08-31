@@ -30,11 +30,13 @@
   --wrap: 1120px;
   --radius: 10px;
 
+  /* Escala con saltos amplios: el problema anterior era que H2, H3 y cuerpo
+     se leian casi al mismo peso y la pagina no tenia jerarquia. */
   --step-0: 1rem;
-  --step-1: 1.125rem;
-  --step-2: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
-  --step-3: clamp(1.7rem, 1.3rem + 1.6vw, 2.4rem);
-  --step-4: clamp(2.1rem, 1.5rem + 2.8vw, 3.4rem);
+  --step-1: 1.0625rem;
+  --step-2: clamp(1.5rem, 1.15rem + 1.3vw, 2.05rem);
+  --step-3: clamp(1.9rem, 1.35rem + 2.3vw, 2.9rem);
+  --step-4: clamp(2.3rem, 1.5rem + 3.6vw, 4rem);
 }
 
 *,
@@ -133,17 +135,28 @@ hr {
   max-width: 760px;
 }
 
+/* El minimo del clamp manda en movil. Bajarlo recorta scroll donde mas duele
+   sin tocar el respiro que tiene la version de escritorio. */
 .section {
-  padding-block: clamp(3rem, 7vw, 5.5rem);
+  padding-block: clamp(2.25rem, 6.5vw, 5.5rem);
 }
 
 .section-tight {
-  padding-block: clamp(2.25rem, 5vw, 3.5rem);
+  padding-block: clamp(1.75rem, 4.5vw, 3.5rem);
 }
 
 .section-alt {
   background: var(--paper-alt);
   border-block: 1px solid var(--line-soft);
+}
+
+.section-head {
+  max-width: 60ch;
+  margin-bottom: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+.section-head p {
+  margin-bottom: 0;
 }
 
 .eyebrow {
@@ -165,9 +178,23 @@ hr {
   color: var(--muted);
 }
 
+.display {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.1rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .grid {
   display: grid;
-  gap: 1.25rem;
+  gap: 0.85rem;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    gap: 1.25rem;
+  }
 }
 
 @media (min-width: 720px) {
@@ -192,7 +219,13 @@ hr {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .card {
+    padding: 1.5rem;
+  }
 }
 
 .card h3 {

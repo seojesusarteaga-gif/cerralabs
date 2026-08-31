@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "og": "node scripts/generate-og.mjs",
-    "test:mensaje": "node --experimental-strip-types scripts/test-mensaje.mjs"
+    "test:mensaje": "node --experimental-strip-types scripts/test-mensaje.mjs",
+    "shots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -18,5 +19,8 @@
   },
   "overrides": {
     "path-to-regexp": "6.3.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
   }
 }

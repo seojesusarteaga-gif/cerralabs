@@ -13,8 +13,8 @@ const { steps } = Astro.props;
         <span class="num" aria-hidden="true">
           {String(i + 1).padStart(2, '0')}
         </span>
+        <h3>{step.title}</h3>
         <div>
-          <h3>{step.title}</h3>
           <p>{step.body}</p>
           {step.detail && <p class="muted detail">{step.detail}</p>}
         </div>
@@ -33,12 +33,49 @@ const { steps } = Astro.props;
     counter-reset: step;
   }
 
+  /* En móvil el número ocupa la primera columna y tanto el título como el
+     cuerpo van en la segunda. Sin la colocación explícita, el tercer hijo
+     caía en la columna estrecha y el texto salía en una palabra por línea. */
   .steps li {
     display: grid;
-    grid-template-columns: 3.25rem 1fr;
-    gap: 1.25rem;
-    padding: 1.6rem 0;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0.35rem 1.25rem;
+    padding: 1.3rem 0;
     border-top: 1px solid var(--line);
+  }
+
+  .steps .num {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .steps h3 {
+    grid-column: 2;
+  }
+
+  .steps li > div {
+    grid-column: 2;
+  }
+
+  /* En escritorio el titulo va en su propia columna y el cuerpo en la
+     siguiente: antes todo quedaba apilado a la izquierda y la mitad derecha
+     del viewport se desperdiciaba. */
+  @media (min-width: 900px) {
+    .steps li {
+      grid-template-columns: 3.25rem minmax(0, 15rem) minmax(0, 1fr);
+      gap: 2.5rem;
+      padding: 1.75rem 0;
+      align-items: start;
+    }
+
+    .steps .num {
+      grid-row: 1;
+    }
+
+    .steps li > div {
+      grid-column: 3;
+      grid-row: 1;
+    }
   }
 
   .steps li:last-child {
@@ -46,7 +83,7 @@ const { steps } = Astro.props;
   }
 
   .num {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--muted);
     letter-spacing: 0.05em;
@@ -55,7 +92,14 @@ const { steps } = Astro.props;
 
   .steps h3 {
     font-size: var(--step-1);
-    margin-bottom: 0.4rem;
+    margin: 0 0 0.4rem;
+    padding-top: 0.1rem;
+  }
+
+  @media (min-width: 900px) {
+    .steps h3 {
+      margin-bottom: 0;
+    }
   }
 
   .steps p {

@@ -17,3 +17,6 @@ audits/
 .vercel
 .env*
 !.env.example
+
+# Capturas de revisión de diseño: se regeneran con scripts/screenshots.mjs
+screenshots/

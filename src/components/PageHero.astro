@@ -8,33 +8,121 @@ interface Props {
   vertical?: string;
   label?: string;
   showCta?: boolean;
+  /** Cifras de encaje. Ocupan la mitad derecha, que si no queda vacía. */
+  stats?: { label: string; value: string }[];
+  statsTitle?: string;
 }
 
-const { eyebrow, title, lede, vertical, label, showCta = true } = Astro.props;
+const {
+  eyebrow,
+  title,
+  lede,
+  vertical,
+  label,
+  showCta = true,
+  stats = [],
+  statsTitle = 'Perfil de encaje',
+} = Astro.props;
 ---
 
 <section class="section-tight page-hero">
-  <div class="wrap">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
-    <p class="lede">{lede}</p>
-    {showCta && <CtaButton vertical={vertical} label={label} />}
+  <div class={stats.length ? 'wrap hero-grid' : 'wrap'}>
+    <div>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+      {showCta && <CtaButton vertical={vertical} label={label} />}
+    </div>
+
+    {
+      stats.length > 0 && (
+        <aside class="hero-stats" aria-label={statsTitle}>
+          <p class="hero-stats-titulo">{statsTitle}</p>
+          <dl>
+            {stats.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      )
+    }
   </div>
 </section>
 
 <style>
   .page-hero {
-    padding-top: clamp(2.5rem, 6vw, 4rem);
-    padding-bottom: clamp(2rem, 4vw, 3rem);
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
+    padding-bottom: clamp(2.25rem, 4vw, 3.5rem);
     border-bottom: 1px solid var(--line-soft);
   }
 
+  .hero-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 940px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.55fr) minmax(275px, 0.85fr);
+      gap: 3.5rem;
+    }
+  }
+
   .page-hero h1 {
-    max-width: 20ch;
+    max-width: 17ch;
+  }
+
+  .hero-stats {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    background: var(--paper-alt);
+  }
+
+  .hero-stats-titulo {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  .hero-stats dl {
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .hero-stats dl > div {
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-stats dl > div:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .hero-stats dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    margin-bottom: 0.15rem;
+  }
+
+  .hero-stats dd {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
   }
 
   .page-hero .lede {
-    max-width: 62ch;
-    margin-bottom: 1.75rem;
+    max-width: 58ch;
+    margin-bottom: 2rem;
   }
 </style>

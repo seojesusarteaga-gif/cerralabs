@@ -8,7 +8,7 @@ const { title = 'Preguntas frecuentes', items } = Astro.props;
 ---
 
 <section class="section section-alt">
-  <div class="wrap wrap-narrow">
+  <div class="wrap">
     <h2>{title}</h2>
     <div class="faq">
       {
@@ -24,8 +24,11 @@ const { title = 'Preguntas frecuentes', items } = Astro.props;
 </section>
 
 <style>
+  /* El titulo se alinea con el resto de la pagina y solo la lista se limita en
+     ancho, para que las respuestas no den lineas demasiado largas. */
   .faq {
     margin-top: 2rem;
+    max-width: 62rem;
     border-top: 1px solid var(--line);
   }
 

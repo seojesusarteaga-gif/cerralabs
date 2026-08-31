@@ -84,7 +84,13 @@ const schema = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs items={crumbs} />
-  <PageHero eyebrow={eyebrow} title={h1} lede={lede} vertical={vertical} />
+  <PageHero
+    eyebrow={eyebrow}
+    title={h1}
+    lede={lede}
+    vertical={vertical}
+    stats={profile.slice(0, 3)}
+  />
 
   <section class="section">
     <div class="wrap">
@@ -129,9 +135,9 @@ const schema = [
   </section>
 
   <section class="section">
-    <div class="wrap wrap-narrow">
+    <div class="wrap">
       <p class="eyebrow">El closer en tu cuenta</p>
-      <h2>{how.title}</h2>
+      <h2 class="how-title">{how.title}</h2>
       <p class="lede how-body">{how.body}</p>
       <p><a href="/servicio">Ver la metodología completa</a></p>
     </div>
@@ -234,8 +240,12 @@ const schema = [
     font-weight: 500;
   }
 
+  .how-title {
+    max-width: 20ch;
+  }
+
   .how-body {
-    max-width: 66ch;
+    max-width: 68ch;
   }
 
   .others {

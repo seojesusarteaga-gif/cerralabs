@@ -6,7 +6,10 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = path.resolve('dist');
+// Con el adaptador de Vercel el HTML estático queda en .vercel/output/static.
+// Se mantiene dist/ como alternativa por si se compila sin adaptador.
+const CANDIDATOS = [path.resolve('.vercel', 'output', 'static'), path.resolve('dist')];
+const ROOT = CANDIDATOS.find((p) => fs.existsSync(path.join(p, 'index.html'))) ?? CANDIDATOS[0];
 const PORT = Number(process.argv[2] || 4321);
 
 const TYPES = {
