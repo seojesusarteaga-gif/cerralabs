@@ -80,7 +80,7 @@ const crumbs = [{ label: 'Casos', href: '/casos' }];
       </section>
     ) : (
       <section class="section">
-        <div class="wrap wrap-narrow">
+        <div class="wrap">
           <div class="notice">
             <h2>Todavía no hay casos publicados</h2>
             <p>
@@ -113,8 +113,9 @@ const crumbs = [{ label: 'Casos', href: '/casos' }];
             escuchar grabaciones de discovery del closer que te asignaríamos.
           </p>
           <p>
-            <a href="/servicio">Ver la metodología completa</a> ·
-            <a href="/contacto">Agendar diagnóstico</a>
+            <a href="/servicio">Ver la metodología completa</a>
+            {' · '}
+            <a href="/contacto">Solicita tu diagnóstico</a>
           </p>
         </div>
       </section>
@@ -128,6 +129,16 @@ const crumbs = [{ label: 'Casos', href: '/casos' }];
 </BaseLayout>
 
 <style>
+  /* El contenido se alinea con el borde del hero y de la cabecera; solo se
+     limita el ancho de lectura, no la posición del bloque. */
+  .notice,
+  .list-check,
+  .after-list,
+  h2 + p,
+  .wrap > p {
+    max-width: 68ch;
+  }
+
   .notice {
     border: 1px solid var(--line);
     border-radius: var(--radius);
