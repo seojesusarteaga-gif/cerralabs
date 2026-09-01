@@ -1,0 +1,387 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getDb } from '../../lib/db.ts';
+import { ESTADOS, ESTADO_ETIQUETA } from '../../lib/estados.ts';
+
+export const prerender = false;
+
+const usuario = Astro.locals.usuario;
+
+// Filtro por estado desde la barra superior. Cualquier valor desconocido se
+// ignora en vez de romper la consulta.
+const filtro = Astro.url.searchParams.get('estado') ?? '';
+const filtroValido = ESTADOS.includes(filtro as never) ? filtro : '';
+
+let leads: Awaited<ReturnType<ReturnType<typeof getDb>['lead']['findMany']>> = [];
+let conteos: Record<string, number> = {};
+let errorBd: string | null = null;
+
+try {
+  const db = getDb();
+  leads = await db.lead.findMany({
+    where: filtroValido ? { estado: filtroValido as never } : undefined,
+    orderBy: { creadoEn: 'desc' },
+    take: 200,
+  });
+  const grupos = await db.lead.groupBy({ by: ['estado'], _count: { _all: true } });
+  conteos = Object.fromEntries(grupos.map((g) => [g.estado, g._count._all]));
+} catch (e) {
+  console.error('[panel] Error al leer leads:', e);
+  errorBd = e instanceof Error ? e.message : 'Error desconocido';
+}
+
+const total = Object.values(conteos).reduce((a, b) => a + b, 0);
+const guardado = Astro.url.searchParams.get('guardado');
+
+const fecha = new Intl.DateTimeFormat('es-ES', {
+  day: '2-digit',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'Europe/Madrid',
+});
+---
+
+<AdminLayout title="Leads" usuario={usuario}>
+  <section class="panel">
+    <div class="wrap">
+      <div class="cabecera">
+        <div>
+          <h1>Leads</h1>
+          <p class="muted">
+            {total === 0
+              ? 'Todavía no ha entrado ninguna solicitud.'
+              : `${total} ${total === 1 ? 'solicitud registrada' : 'solicitudes registradas'}.`}
+          </p>
+        </div>
+      </div>
+
+      {guardado === '1' && <p class="aviso ok" role="status">Cambios guardados.</p>}
+
+      {
+        errorBd && (
+          <div class="aviso error" role="alert">
+            <strong>No se ha podido leer la base de datos.</strong>
+            <span>{errorBd}</span>
+          </div>
+        )
+      }
+
+      {
+        !errorBd && (
+          <nav class="filtros" aria-label="Filtrar por estado">
+            <a href="/admin" class={filtroValido === '' ? 'activo' : ''}>
+              Todos <span class="n">{total}</span>
+            </a>
+            {ESTADOS.map((e) => (
+              <a href={`/admin?estado=${e}`} class={filtroValido === e ? 'activo' : ''}>
+                {ESTADO_ETIQUETA[e]} <span class="n">{conteos[e] ?? 0}</span>
+              </a>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        !errorBd && leads.length === 0 && (
+          <div class="vacio">
+            <p>
+              {filtroValido
+                ? 'Ningún lead en este estado.'
+                : 'Cuando alguien envíe el formulario de contacto, aparecerá aquí.'}
+            </p>
+          </div>
+        )
+      }
+
+      <div class="lista">
+        {
+          leads.map((lead) => (
+            <article class="lead">
+              <div class="lead-cab">
+                <div>
+                  <h2>{lead.nombre}</h2>
+                  <p class="empresa">
+                    {lead.empresa}
+                    {lead.web && (
+                      <>
+                        {' · '}
+                        <span class="muted">{lead.web}</span>
+                      </>
+                    )}
+                  </p>
+                </div>
+                <time datetime={lead.creadoEn.toISOString()} class="muted">
+                  {fecha.format(lead.creadoEn)}
+                </time>
+              </div>
+
+              <dl class="datos">
+                <div>
+                  <dt>Email</dt>
+                  <dd>
+                    <a href={`mailto:${lead.email}`}>{lead.email}</a>
+                  </dd>
+                </div>
+                {lead.facturacion && (
+                  <div>
+                    <dt>Facturación</dt>
+                    <dd>{lead.facturacion}</dd>
+                  </div>
+                )}
+                {lead.vertical && (
+                  <div>
+                    <dt>Vertical</dt>
+                    <dd>{lead.vertical}</dd>
+                  </div>
+                )}
+              </dl>
+
+              <p class="mensaje">{lead.mensaje}</p>
+
+              <form method="POST" action="/api/admin/lead" class="acciones">
+                <input type="hidden" name="id" value={lead.id} />
+                <p class="campo">
+                  <label for={`estado-${lead.id}`}>Estado</label>
+                  <select id={`estado-${lead.id}`} name="estado">
+                    {ESTADOS.map((e) => (
+                      <option value={e} selected={e === lead.estado}>
+                        {ESTADO_ETIQUETA[e]}
+                      </option>
+                    ))}
+                  </select>
+                </p>
+                <p class="campo campo-notas">
+                  <label for={`notas-${lead.id}`}>Notas internas</label>
+                  <textarea
+                    id={`notas-${lead.id}`}
+                    name="notas"
+                    rows="2"
+                    maxlength="2000"
+                    placeholder="Qué se habló, cuándo volver a llamar…">{lead.notas ?? ''}</textarea>
+                </p>
+                <button type="submit" class="btn btn-compacto">Guardar</button>
+              </form>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</AdminLayout>
+
+<style>
+  .panel {
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .cabecera h1 {
+    font-size: var(--step-2);
+    margin-bottom: 0.2rem;
+  }
+
+  .cabecera .muted {
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  .aviso {
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    font-size: 0.9375rem;
+    margin: 1.25rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .aviso.ok {
+    background: var(--positive-soft);
+    border: 1px solid #b7ddd0;
+    color: #10553f;
+  }
+
+  .aviso.error {
+    background: #fdeceb;
+    border: 1px solid #f3c7c4;
+    color: #8f2f28;
+  }
+
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.75rem 0 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .filtros a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+
+  .filtros a:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .filtros a.activo {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+
+  .filtros .n {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.7;
+  }
+
+  .vacio {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .vacio p {
+    margin: 0;
+  }
+
+  .lista {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .lead {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 1.25rem 1.4rem;
+    background: var(--paper);
+  }
+
+  .lead-cab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+  }
+
+  .lead h2 {
+    font-size: 1.0625rem;
+    margin: 0 0 0.15rem;
+  }
+
+  .empresa {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .lead-cab time {
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  .datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.75rem;
+    margin: 1rem 0 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .datos dt {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .datos dd {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .mensaje {
+    white-space: pre-wrap;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .acciones {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
+    align-items: end;
+  }
+
+  @media (min-width: 760px) {
+    .acciones {
+      grid-template-columns: 14rem minmax(0, 1fr) auto;
+      gap: 1rem;
+    }
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0;
+  }
+
+  .campo label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.9375rem;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 2.9rem;
+  }
+
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  .btn-compacto {
+    padding: 0.55rem 1.15rem;
+    font-size: 0.9375rem;
+  }
+</style>

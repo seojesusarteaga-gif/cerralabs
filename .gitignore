@@ -20,3 +20,6 @@ audits/
 
 # Capturas de revisión de diseño: se regeneran con scripts/screenshots.mjs
 screenshots/
+
+# Cliente generado por Prisma: se regenera con `npx prisma generate`
+src/generated/

@@ -10,16 +10,19 @@ const SITE = 'https://cerralabs.vercel.app';
 export default defineConfig({
   site: SITE,
 
-  // Las 14 páginas se siguen generando como HTML estático. El adaptador existe
-  // solo para que el webhook de Cal.com pueda ejecutarse como función
-  // serverless: src/pages/api/booking-notification.ts es la única ruta con
-  // `prerender = false`.
+  // Las 14 páginas públicas se siguen generando como HTML estático. El
+  // adaptador existe para las rutas que necesitan servidor: el formulario de
+  // contacto y el panel de /admin, que son las únicas con `prerender = false`.
   output: 'static',
   adapter: vercel(),
 
-  // /gracias es una página de confirmación post-booking: va con noindex y
-  // fuera del sitemap.
-  integrations: [sitemap({ filter: (page) => !page.includes('/gracias') })],
+  // Fuera del sitemap: /gracias es la confirmación del formulario y va con
+  // noindex, y /admin es el panel privado.
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/gracias') && !page.includes('/admin'),
+    }),
+  ],
 
   build: {
     inlineStylesheets: 'auto',

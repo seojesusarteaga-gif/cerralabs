@@ -1,0 +1,107 @@
+---
+import '../styles/global.css';
+import { BRAND } from '../config/site';
+
+/**
+ * Layout del panel. Deliberadamente separado de BaseLayout: el panel no lleva
+ * la navegación pública, ni schema, ni Open Graph, y va siempre con noindex.
+ */
+interface Props {
+  title: string;
+  usuario?: { email: string };
+}
+
+const { title, usuario } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} | Panel de {BRAND.name}</title>
+    <link rel="icon" type="image/svg+xml" href={BRAND.mark} />
+  </head>
+  <body>
+    <header class="panel-top">
+      <div class="wrap panel-top-inner">
+        <a href="/admin" class="marca">
+          <img src={BRAND.logo} alt={BRAND.name} width="150" height="32" />
+          <span class="etiqueta">Panel</span>
+        </a>
+        {
+          usuario && (
+            <div class="sesion">
+              <span class="muted">{usuario.email}</span>
+              <form method="POST" action="/api/admin/salir">
+                <button type="submit" class="salir">Cerrar sesión</button>
+              </form>
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .panel-top {
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .panel-top-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    min-height: 64px;
+  }
+
+  .marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .etiqueta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .sesion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .salir {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 1px;
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+
+  .salir:hover {
+    border-bottom-color: var(--ink);
+    color: var(--ink);
+  }
+</style>

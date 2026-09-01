@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
+# Sin barra final, para que cubra tambien /admin y /api/admin.
+Disallow: /admin
+Disallow: /api/
 
 Sitemap: https://cerralabs.vercel.app/sitemap-index.xml

@@ -8,8 +8,10 @@
  * responde con una redirección 303. En caso de éxito lleva a /gracias; si la
  * validación falla, devuelve una página de error con enlace de vuelta.
  *
- * Los dos canales se disparan en paralelo y de forma independiente: si Telegram
- * falla, el email sigue saliendo, y al revés.
+ * Cada solicitud se guarda en la base de datos y se avisa por Telegram y por
+ * email. Los tres van en paralelo y de forma independiente: si uno falla, los
+ * otros siguen. La base de datos es el registro duradero que alimenta el panel;
+ * Telegram es el aviso inmediato.
  *
  * Protección frente a abuso: campo honeypot más limitación por IP. Ver la nota
  * en `demasiadasPeticiones`.
@@ -21,6 +23,7 @@ import {
   FACTURACION_OPCIONES,
   VERTICAL_OPCIONES,
 } from '../../config/site.ts';
+import { getDb, hayBaseDeDatos } from '../../lib/db.ts';
 
 export const prerender = false;
 
@@ -246,6 +249,28 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const tareas: { canal: string; run: Promise<void> }[] = [];
   const puesto = (v?: string) => Boolean(v && v !== 'PENDIENTE');
 
+  // El registro en base de datos va primero en la lista porque es el que
+  // alimenta el panel: si esto falla, el lead no aparecerá en /admin aunque
+  // Jesús reciba el aviso, y eso es un hueco silencioso en los datos.
+  if (hayBaseDeDatos()) {
+    tareas.push({
+      canal: 'bd',
+      run: getDb()
+        .lead.create({
+          data: {
+            nombre: d.nombre,
+            email: d.email,
+            empresa: d.empresa,
+            web: d.web || null,
+            facturacion: d.facturacion || null,
+            vertical: d.vertical || null,
+            mensaje: d.mensaje,
+          },
+        })
+        .then(() => undefined),
+    });
+  }
+
   if (puesto(env.TELEGRAM_BOT_TOKEN) && puesto(env.TELEGRAM_CHAT_ID)) {
     tareas.push({
       canal: 'telegram',
@@ -275,9 +300,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   if (tareas.length === 0) {
-    // Sin canales configurados la solicitud se perdería en silencio. Se
+    // Sin base de datos ni canales la solicitud se perdería en silencio. Se
     // registra en el log y se avisa al visitante en vez de fingir éxito.
-    console.error('[contacto] Solicitud recibida sin ningún canal configurado:', {
+    console.error('[contacto] Solicitud recibida sin ningún destino configurado:', {
       nombre: d.nombre,
       email: d.email,
       empresa: d.empresa,
@@ -287,11 +312,20 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const resultados = await Promise.allSettled(tareas.map((t) => t.run));
   resultados.forEach((r, i) => {
-    if (r.status === 'rejected') console.error(`[contacto] Fallo en ${tareas[i].canal}:`, r.reason);
+    if (r.status === 'rejected') {
+      const canal = tareas[i].canal;
+      // El fallo de la base de datos se marca aparte: el visitante no lo nota
+      // y el aviso llega igual, pero el lead no estará en el panel.
+      const prefijo =
+        canal === 'bd'
+          ? '[contacto] LEAD NO GUARDADO EN BASE DE DATOS'
+          : `[contacto] Fallo en ${canal}`;
+      console.error(prefijo, r.reason);
+    }
   });
 
-  // Solo se considera error si fallan TODOS los canales: con uno que llegue,
-  // Jesús se entera del lead.
+  // Solo se considera error si fallan TODOS los destinos: con uno que llegue,
+  // el lead no se pierde.
   if (resultados.every((r) => r.status === 'rejected')) {
     return paginaError('No hemos podido registrar tu solicitud');
   }

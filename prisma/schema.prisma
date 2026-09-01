@@ -1,0 +1,120 @@
+// Esquema de Cerra Labs.
+//
+// Dos bloques: el modelo Lead, que es el registro duradero de cada solicitud
+// del formulario, y las cuatro tablas que Better Auth necesita para sesiones.
+//
+// Las cadenas de conexión ya no viven aquí: desde Prisma 7 van en
+// prisma.config.ts. DATABASE_URL es la cadena con pooler de Neon, que usan las
+// funciones serverless; DIRECT_URL es la directa y solo la usan las
+// migraciones, porque aplicarlas a través del pooler falla.
+
+// Generador ESM. El antiguo `prisma-client-js` emite CommonJS, y el runner de
+// módulos de Vite no puede cargarlo: falla con «module is not defined» y tumba
+// todas las rutas, también las públicas, porque el middleware lo importa.
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Estados del embudo. El orden del enum es el orden de avance, y coincide con
+/// el embudo que la web muestra públicamente en «Qué medimos».
+enum Estado {
+  NUEVO
+  CONTACTADO
+  LLAMADA_AGENDADA
+  PROPUESTA
+  CERRADO
+  DESCARTADO
+}
+
+/// Una solicitud del formulario de /contacto.
+///
+/// Los campos opcionales lo son porque el formulario los marca como opcionales:
+/// guardar una cadena vacía y un nulo como cosas distintas evita tener que
+/// adivinar después si el prospecto no contestó o contestó en blanco.
+model Lead {
+  id          String   @id @default(cuid())
+  nombre      String
+  email       String
+  empresa     String
+  web         String?
+  facturacion String?
+  vertical    String?
+  mensaje     String
+  estado      Estado   @default(NUEVO)
+  /// Notas internas de seguimiento. No se muestran a nadie fuera del panel.
+  notas       String?
+  creadoEn    DateTime @default(now())
+  actualizado DateTime @updatedAt
+
+  // El listado ordena por fecha y filtra por estado.
+  @@index([estado, creadoEn])
+  @@index([creadoEn])
+}
+
+// ─── Better Auth ─────────────────────────────────────────────────────────────
+// Estructura que espera su adaptador de Prisma. No se toca a mano.
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}

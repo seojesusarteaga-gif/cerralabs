@@ -10,15 +10,25 @@
     "astro": "astro",
     "og": "node scripts/generate-og.mjs",
     "test:mensaje": "node --experimental-strip-types scripts/test-mensaje.mjs",
-    "shots": "node scripts/screenshots.mjs"
+    "shots": "node scripts/screenshots.mjs",
+    "seed:admin": "node scripts/seed-admin.mjs",
+    "db:push": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^11.0.8",
-    "astro": "^7.2.9"
+    "@neondatabase/serverless": "^1.1.0",
+    "@prisma/adapter-neon": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "astro": "^7.2.9",
+    "better-auth": "^1.7.2",
+    "prisma": "^7.10.0"
   },
   "overrides": {
-    "path-to-regexp": "6.3.0"
+    "path-to-regexp": "6.3.0",
+    "deepmerge-ts": "^8.0.2"
   },
   "devDependencies": {
     "playwright": "^1.62.1"
