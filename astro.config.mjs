@@ -14,6 +14,12 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
 
+  // Sin barra final, para que coincida con `trailingSlash: false` de
+  // vercel.json y con el canonical que emite BaseLayout. Antes el sitemap
+  // salía con barra y las doce rutas internas redirigían con 308 a su versión
+  // canónica, lo que ensucia el informe de cobertura y gasta rastreo.
+  trailingSlash: 'never',
+
   // Fuera del sitemap: /gracias es la confirmación del formulario y va con
   // noindex, y /admin es el panel privado.
   integrations: [
