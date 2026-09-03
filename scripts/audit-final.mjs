@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.argv[2] || 'dist';
-const SITE = 'https://cerralabs.vercel.app';
+const SITE = 'https://cerralabs.es';
 const BRAND = 'Cerra Labs';
 const EMAIL = 'hola@cerralabs.es';
 

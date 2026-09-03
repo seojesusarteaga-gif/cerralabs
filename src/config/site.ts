@@ -7,17 +7,14 @@
 
 /* Dominio del sitio.
  *
- * El dominio definitivo es cerralabs.es, comprado en Banahosting y pendiente
- * de activación del DNS. Hasta que el registro A resuelva NO se puede cambiar
- * esta constante: canonical, og:url, sitemap y los @id del schema cuelgan de
- * ella, y apuntarlos a un dominio que no responde sería peor que dejarlos en
- * la URL de Vercel.
+ * De esta constante cuelgan el canonical, og:url, el sitemap y los @id del
+ * schema. Debe coincidir siempre con `site` en astro.config.mjs y con la línea
+ * Sitemap de public/robots.txt.
  *
- * Cutover: comentar la línea de Vercel, descomentar la de cerralabs.es y hacer
- * lo mismo en astro.config.mjs. Son las dos únicas líneas que hay que tocar.
+ * La URL de Vercel sigue funcionando y sirve el mismo contenido, pero el
+ * canonical apunta aquí para que Google consolide el dominio propio.
  */
-export const SITE_URL = 'https://cerralabs.vercel.app';
-// export const SITE_URL = 'https://cerralabs.es';
+export const SITE_URL = 'https://cerralabs.es';
 
 /* ─── Formulario de contacto ───────────────────────────────────────────────
  *

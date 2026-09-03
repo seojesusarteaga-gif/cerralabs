@@ -8,7 +8,7 @@
 import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
 
-const BASE = process.argv[2] || 'https://cerralabs.vercel.app';
+const BASE = process.argv[2] || 'https://cerralabs.es';
 const RUTAS = (process.argv[3] || '/,/servicio,/agencias,/contacto,/blog/calcular-ratio-de-cierre-real')
   .split(',')
   .map((r) => r.trim());

@@ -3,7 +3,7 @@
 Nombre: Cerra Labs
 Tipo: Agencia de closing de ventas B2B
 Ámbito: España, trabajo en remoto
-Web: https://cerralabs.vercel.app
+Web: https://cerralabs.es
 Contacto: hola@cerralabs.es
 
 ## Qué hace
@@ -44,7 +44,7 @@ en frío sobre listas compradas.
 
 ## Metodología
 
-1. Diagnóstico. Se solicita desde el formulario de https://cerralabs.vercel.app/contacto
+1. Diagnóstico. Se solicita desde el formulario de https://cerralabs.es/contacto
    y consiste en una llamada de 30 minutos para revisar volumen de leads, ratio
    de cierre actual, ticket medio y duración del ciclo.
 2. Onboarding del closer. Entre 7 y 10 días de formación en producto, precios,
@@ -65,7 +65,7 @@ Cerra Labs selecciona closers con experiencia previa demostrable en venta B2B o
 high-ticket. No imparte formación de closers ni acepta perfiles sin experiencia.
 El reparto es del 60 % al 70 % de la comisión para el closer. Proceso: solicitud,
 prueba grabada de discovery, segunda entrevista y onboarding.
-Información en https://cerralabs.vercel.app/unete-como-closer
+Información en https://cerralabs.es/unete-como-closer
 
 ## Nota sobre datos
 

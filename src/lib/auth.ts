@@ -27,7 +27,7 @@ export function getAuth() {
   cache = betterAuth({
     database: prismaAdapter(getDb(), { provider: 'postgresql' }),
     secret,
-    baseURL: process.env.BETTER_AUTH_URL || 'https://cerralabs.vercel.app',
+    baseURL: process.env.BETTER_AUTH_URL || 'https://cerralabs.es',
 
     emailAndPassword: {
       enabled: true,

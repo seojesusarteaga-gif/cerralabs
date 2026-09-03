@@ -4,4 +4,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://cerralabs.vercel.app/sitemap-index.xml
+Sitemap: https://cerralabs.es/sitemap-index.xml

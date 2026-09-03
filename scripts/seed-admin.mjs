@@ -55,7 +55,7 @@ if (existente) {
 const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: 'postgresql' }),
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL || 'https://cerralabs.vercel.app',
+  baseURL: process.env.BETTER_AUTH_URL || 'https://cerralabs.es',
   emailAndPassword: { enabled: true, minPasswordLength: 12 },
 });
 

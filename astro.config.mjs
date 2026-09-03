@@ -3,9 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
 // Dominio del sitio. Debe coincidir siempre con SITE_URL de src/config/site.ts.
-// El definitivo es cerralabs.es, pendiente de que Banahosting active el DNS.
-const SITE = 'https://cerralabs.vercel.app';
-// const SITE = 'https://cerralabs.es';
+const SITE = 'https://cerralabs.es';
 
 export default defineConfig({
   site: SITE,
