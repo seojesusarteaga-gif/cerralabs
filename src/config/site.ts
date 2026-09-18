@@ -47,6 +47,7 @@ export const VERTICAL_OPCIONES = [
 export const CONTACT_FIELDS = [
   { id: 'nombre', label: 'Nombre', required: true },
   { id: 'email', label: 'Email', required: true },
+  { id: 'telefono', label: 'Teléfono', required: true },
   { id: 'empresa', label: 'Empresa', required: true },
   { id: 'web', label: 'Web', required: false },
   { id: 'facturacion', label: 'Facturación anual', required: false },

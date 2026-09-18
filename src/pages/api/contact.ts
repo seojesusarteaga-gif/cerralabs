@@ -66,6 +66,17 @@ function emailValido(v: string): boolean {
   return /^[^@]+@[^@.]+(\.[^@.]+)+$/.test(v);
 }
 
+/**
+ * Teléfono: solo dígitos y los separadores habituales, con entre 9 y 15
+ * dígitos (15 es el máximo de E.164). No se normaliza: se guarda tal cual lo
+ * escribió la persona, que es como se va a marcar.
+ */
+function telefonoValido(v: string): boolean {
+  if (!/^[0-9+ ().-]+$/.test(v)) return false;
+  const digitos = v.replace(/\D/g, '').length;
+  return digitos >= 9 && digitos <= 15;
+}
+
 function limpiar(v: FormDataEntryValue | null, max: number): string {
   if (typeof v !== 'string') return '';
   // Se normalizan los saltos de línea y se eliminan el resto de caracteres de
@@ -132,6 +143,7 @@ async function enviarEmail(
 export interface Solicitud {
   nombre: string;
   email: string;
+  telefono: string;
   empresa: string;
   web: string;
   facturacion: string;
@@ -155,6 +167,7 @@ export function buildMessages(d: Solicitud) {
   const valores: Record<string, string> = {
     nombre: d.nombre,
     email: d.email,
+    telefono: d.telefono,
     empresa: d.empresa,
     web: d.web,
     facturacion: d.facturacion,
@@ -227,6 +240,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const d: Solicitud = {
     nombre: limpiar(form.get('nombre'), 100),
     email: limpiar(form.get('email'), 200),
+    telefono: limpiar(form.get('telefono'), 30),
     empresa: limpiar(form.get('empresa'), 150),
     web: limpiar(form.get('web'), 200),
     facturacion: limpiar(form.get('facturacion'), 60),
@@ -236,6 +250,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   if (d.nombre.length < 2) return paginaError('Falta tu nombre');
   if (!emailValido(d.email)) return paginaError('El email no parece válido');
+  if (!telefonoValido(d.telefono)) return paginaError('El teléfono no parece válido');
   if (d.empresa.length < 2) return paginaError('Falta el nombre de tu empresa');
   if (d.mensaje.length < 10) return paginaError('Cuéntanos un poco más en el mensaje');
 
@@ -260,6 +275,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
           data: {
             nombre: d.nombre,
             email: d.email,
+            telefono: d.telefono,
             empresa: d.empresa,
             web: d.web || null,
             facturacion: d.facturacion || null,
@@ -305,6 +321,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.error('[contacto] Solicitud recibida sin ningún destino configurado:', {
       nombre: d.nombre,
       email: d.email,
+      telefono: d.telefono,
       empresa: d.empresa,
     });
     return paginaError('El formulario todavía no está operativo');

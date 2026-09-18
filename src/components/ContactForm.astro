@@ -29,6 +29,19 @@ import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
     </p>
 
     <p class="campo">
+      <label for="empresa">Empresa <span aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id="empresa"
+        name="empresa"
+        required
+        minlength="2"
+        maxlength="150"
+        autocomplete="organization"
+      />
+    </p>
+
+    <p class="campo">
       <label for="email">Email <span aria-hidden="true">*</span></label>
       <input
         type="email"
@@ -42,15 +55,18 @@ import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
     </p>
 
     <p class="campo">
-      <label for="empresa">Empresa <span aria-hidden="true">*</span></label>
+      <label for="telefono">Teléfono <span aria-hidden="true">*</span></label>
       <input
-        type="text"
-        id="empresa"
-        name="empresa"
+        type="tel"
+        id="telefono"
+        name="telefono"
         required
-        minlength="2"
-        maxlength="150"
-        autocomplete="organization"
+        maxlength="30"
+        pattern="[0-9+ ().\-]{9,30}"
+        title="Un número de teléfono, con prefijo si no es español"
+        autocomplete="tel"
+        inputmode="tel"
+        placeholder="600 000 000"
       />
     </p>
 
@@ -74,7 +90,7 @@ import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
       </select>
     </p>
 
-    <p class="campo">
+    <p class="campo campo-ancho">
       <label for="vertical">¿En qué encajas mejor? <span class="opt">opcional</span></label>
       <select id="vertical" name="vertical">
         <option value="">Sin especificar</option>

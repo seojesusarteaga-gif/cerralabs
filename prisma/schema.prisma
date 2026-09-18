@@ -42,6 +42,7 @@ model Lead {
   id          String   @id @default(cuid())
   nombre      String
   email       String
+  telefono    String?
   empresa     String
   web         String?
   facturacion String?

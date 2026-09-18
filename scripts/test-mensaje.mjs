@@ -9,6 +9,7 @@ import { buildMessages } from '../src/pages/api/contact.ts';
 const ejemplo = {
   nombre: 'Marta Ruiz',
   email: 'marta@estudionorte.es',
+  telefono: '+34 612 34 56 78',
   empresa: 'Estudio Norte',
   web: 'estudionorte.es',
   facturacion: 'Entre 500.000 € y 2 M€',

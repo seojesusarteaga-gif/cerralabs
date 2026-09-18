@@ -123,6 +123,14 @@ const fecha = new Intl.DateTimeFormat('es-ES', {
                     <a href={`mailto:${lead.email}`}>{lead.email}</a>
                   </dd>
                 </div>
+                {lead.telefono && (
+                  <div>
+                    <dt>Teléfono</dt>
+                    <dd>
+                      <a href={`tel:${lead.telefono.replace(/[^0-9+]/g, '')}`}>{lead.telefono}</a>
+                    </dd>
+                  </div>
+                )}
                 {lead.facturacion && (
                   <div>
                     <dt>Facturación</dt>
