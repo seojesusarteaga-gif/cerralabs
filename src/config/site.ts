@@ -79,7 +79,7 @@ export const VERTICALS = [
     card: 'Agencias de marketing, diseño, desarrollo y consultoría',
     summary:
       'El fundador cierra todas las ventas y se ha convertido en el cuello de botella del crecimiento.',
-    fit: 'Facturación anual desde 300.000 €, entre 5 y 30 empleados, ticket de servicio desde 3.000 €.',
+    fit: 'Facturación anual desde 100.000 €, ticket de servicio desde 3.000 €.',
   },
   {
     slug: 'saas',

@@ -24,7 +24,7 @@ del ciclo de venta y del volumen previsto.
 ## Verticales
 
 - Agencias de marketing, diseño, desarrollo y consultoría. Facturación anual
-  desde 300.000 €, entre 5 y 30 empleados, ticket de servicio desde 3.000 €.
+  desde 100.000 €, ticket de servicio desde 3.000 €.
 - SaaS y tecnología B2B. ARR entre 500.000 € y 5 millones, 20 o más demos
   cualificadas al mes, ratio de cierre por debajo del 25 %.
 - Infoproductores y formación high-ticket. Facturación desde 20.000 € al mes,
