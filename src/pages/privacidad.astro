@@ -33,16 +33,23 @@ const datos = [
   { campo: 'Mensaje', nota: 'Obligatorio. Lo que nos cuentes sobre tu situación.' },
 ];
 
+/**
+ * Encargados del tratamiento. Solo los que reciben datos HOY.
+ *
+ * PENDIENTE RD5: Neon (base de datos) está escrito en el código de
+ * /api/contact pero no está activo — DATABASE_URL sigue en PENDIENTE y
+ * ninguna solicitud se guarda. En cuanto RD5 arranque de verdad y la variable
+ * tenga una cadena real, hay que volver a añadirlo aquí ANTES de desplegarlo,
+ * junto con la región del proyecto de Neon:
+ *
+ *   { nombre: 'Neon', papel: 'Base de datos donde se registra la solicitud.',
+ *     url: 'https://neon.com/privacy-policy' }
+ */
 const encargados = [
   {
     nombre: 'Vercel',
     papel: 'Alojamiento del sitio y ejecución del formulario.',
     url: 'https://vercel.com/legal/privacy-policy',
-  },
-  {
-    nombre: 'Neon',
-    papel: 'Base de datos donde se registra la solicitud.',
-    url: 'https://neon.com/privacy-policy',
   },
   {
     nombre: 'Resend',

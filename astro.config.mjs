@@ -8,7 +8,7 @@ const SITE = 'https://cerralabs.es';
 export default defineConfig({
   site: SITE,
 
-  // Las 15 páginas públicas se siguen generando como HTML estático. El
+  // Las 16 páginas públicas se siguen generando como HTML estático. El
   // adaptador existe para las rutas que necesitan servidor: el formulario de
   // contacto y el panel de /admin, que son las únicas con `prerender = false`.
   output: 'static',

@@ -1,0 +1,205 @@
+---
+/**
+ * Aviso legal (LSSI-CE).
+ *
+ * Cubre solo la web: quién es el titular, para qué sirve el sitio, cómo se
+ * puede usar y de qué responde el titular. NO es el contrato de prestación del
+ * servicio de closing: las condiciones económicas, el periodo mínimo y el
+ * alcance se firman aparte con cada cliente, como dice la propia web.
+ *
+ * El tratamiento de datos vive en /privacidad y no se duplica aquí.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BRAND } from '../config/site';
+
+// Mismos datos que /privacidad. Si cambian, cambian en los dos sitios.
+const TITULAR = {
+  nombre: 'Jesús Arteaga Fernández',
+  condicion: 'empresario individual (autónomo)',
+  nif: '[NIF-PENDIENTE]',
+  domicilio: 'Estepa (Sevilla), España',
+};
+
+const ACTUALIZADA = '9 de octubre de 2026';
+
+const usos = [
+  'Usar la web conforme a la ley, a este aviso legal y a la buena fe.',
+  'No emplear los contenidos con fines ilícitos o lesivos para terceros.',
+  'No introducir datos falsos en el formulario de contacto ni suplantar a otra persona o empresa.',
+  'No intentar alterar, dañar o sobrecargar el sitio ni los sistemas desde los que se presta.',
+];
+
+const crumbs = [{ label: 'Aviso legal', href: '/aviso-legal' }];
+---
+
+<BaseLayout
+  title="Aviso legal y condiciones de uso"
+  description="Identificación del titular de cerralabs.es, objeto del sitio, condiciones de uso, propiedad intelectual y limitación de responsabilidad."
+  schema={[]}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="section">
+    <div class="wrap wrap-narrow legal">
+      <p class="eyebrow">Información legal</p>
+      <h1>Aviso legal y condiciones de uso</h1>
+      <p class="lede">
+        Condiciones de uso de este sitio web y datos identificativos de su
+        titular, conforme a la Ley 34/2002 de servicios de la sociedad de la
+        información y de comercio electrónico.
+      </p>
+      <p class="muted actualizada">Última actualización: {ACTUALIZADA}</p>
+
+      <h2>Titular del sitio</h2>
+      <dl class="ficha">
+        <div>
+          <dt>Titular</dt>
+          <dd>{TITULAR.nombre}, {TITULAR.condicion}</dd>
+        </div>
+        <div>
+          <dt>NIF</dt>
+          <dd>{TITULAR.nif}</dd>
+        </div>
+        <div>
+          <dt>Domicilio</dt>
+          <dd>{TITULAR.domicilio}</dd>
+        </div>
+        <div>
+          <dt>Email de contacto</dt>
+          <dd><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></dd>
+        </div>
+        <div>
+          <dt>Nombre comercial</dt>
+          <dd>{BRAND.name}</dd>
+        </div>
+        <div>
+          <dt>Sitio web</dt>
+          <dd>cerralabs.es</dd>
+        </div>
+      </dl>
+
+      <h2>Objeto del sitio</h2>
+      <p>
+        {BRAND.name} presta servicios de closing de ventas B2B: incorpora
+        closers al proceso comercial de empresas que ya generan leads
+        calificados. Este sitio sirve para describir ese servicio y para
+        recibir solicitudes de llamada de diagnóstico a través del formulario
+        de contacto.
+      </p>
+      <p>
+        El contenido de la web es informativo y no constituye una oferta
+        vinculante. Las condiciones concretas de cada colaboración —alcance,
+        porcentaje, periodo mínimo y cualquier otro término— se acuerdan por
+        escrito con cada cliente en un contrato independiente de este aviso.
+      </p>
+
+      <h2>Condiciones de uso</h2>
+      <p>
+        El acceso al sitio es libre y gratuito, y no exige registro. Al
+        utilizarlo te comprometes a:
+      </p>
+      <ul class="list-check">
+        {usos.map((u) => <li>{u}</li>)}
+      </ul>
+      <p>
+        El envío del formulario de contacto implica aceptar la {' '}
+        <a href="/privacidad">política de privacidad</a>, donde se explica cómo
+        se tratan los datos que facilitas.
+      </p>
+
+      <h2>Propiedad intelectual</h2>
+      <p>
+        Los textos, el diseño, los gráficos, el logotipo y el resto de
+        contenidos de este sitio son titularidad de {TITULAR.nombre} o se usan
+        con autorización suficiente, y están protegidos por la normativa de
+        propiedad intelectual e industrial.
+      </p>
+      <p>
+        Se permite ver, imprimir y descargar contenidos para uso personal y
+        privado, y citarlos indicando la fuente y enlazando al original.
+        Cualquier otra reproducción, distribución, transformación o
+        comunicación pública necesita autorización previa por escrito, que
+        puedes pedir en {' '}
+        <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>.
+      </p>
+
+      <h2>Limitación de responsabilidad</h2>
+      <p>
+        El titular procura que la información publicada sea exacta y esté
+        actualizada, pero no garantiza que esté libre de errores ni que siga
+        siendo vigente en todo momento. Las cifras, plazos y ejemplos que
+        aparecen en la web son orientativos y dependen de la situación concreta
+        de cada empresa: no constituyen una promesa de resultado.
+      </p>
+      <p>
+        El titular no responde de los daños derivados del uso del sitio, de la
+        imposibilidad de acceder a él o de interrupciones del servicio ajenas a
+        su control, ni del contenido de los sitios de terceros a los que se
+        enlace desde aquí. Los enlaces externos se ofrecen como referencia y no
+        implican supervisión ni aprobación de su contenido.
+      </p>
+
+      <h2>Enlaces a esta web</h2>
+      <p>
+        Se puede enlazar libremente a cualquier página de este sitio siempre que
+        el enlace no sugiera una relación comercial inexistente ni se inserte en
+        un contexto que dañe la reputación del titular.
+      </p>
+
+      <h2>Legislación aplicable</h2>
+      <p>
+        Este aviso legal se rige por la legislación española. Para cualquier
+        controversia derivada del uso del sitio, las partes se someten a los
+        juzgados y tribunales que resulten competentes conforme a la normativa
+        vigente.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal h2 {
+    font-size: var(--step-2);
+    margin-top: 2.5rem;
+  }
+
+  .legal p {
+    max-width: 68ch;
+  }
+
+  .actualizada {
+    font-size: 0.9375rem;
+    margin-top: -0.5rem;
+  }
+
+  .ficha {
+    margin: 1.25rem 0 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .ficha > div {
+    display: grid;
+    gap: 0.15rem 1.5rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 620px) {
+    .ficha > div {
+      grid-template-columns: 13rem minmax(0, 1fr);
+    }
+  }
+
+  .ficha dt {
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+
+  .ficha dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+</style>

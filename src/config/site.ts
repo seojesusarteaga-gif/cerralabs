@@ -121,7 +121,10 @@ export const NAV = [
 // principal hasta que haya dos casos con métricas reales publicables.
 /* Páginas legales. Viven aparte de la navegación: no son servicio, pero
  * tienen que estar accesibles desde cualquier página y desde el formulario. */
-export const LEGAL = [{ href: '/privacidad', label: 'Política de privacidad' }] as const;
+export const LEGAL = [
+  { href: '/privacidad', label: 'Política de privacidad' },
+  { href: '/aviso-legal', label: 'Aviso legal' },
+] as const;
 
 export const FOOTER_EXTRA = [
   { href: '/casos', label: 'Casos' },

@@ -1,5 +1,5 @@
 /**
- * Capturas de las 15 páginas en 3 breakpoints.
+ * Capturas de las 16 páginas en 3 breakpoints.
  *
  *   node scripts/screenshots.mjs [etiqueta] [url-base]
  *
@@ -30,6 +30,7 @@ const RUTAS = [
   ['blog-ratio-cierre', '/blog/calcular-ratio-de-cierre-real'],
   ['blog-closer-externo', '/blog/closer-externo-o-comercial-en-plantilla'],
   ['privacidad', '/privacidad'],
+  ['aviso-legal', '/aviso-legal'],
 ];
 
 const ANCHOS = [
