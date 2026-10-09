@@ -1,0 +1,270 @@
+---
+/**
+ * Política de privacidad.
+ *
+ * Solo recoge tratamientos que el proyecto hace de verdad: el formulario de
+ * /contacto y los proveedores que intervienen en él. Si algún día se añade
+ * analítica, newsletter o cualquier otro tratamiento, hay que actualizarla
+ * aquí antes de desplegarlo.
+ *
+ * El NIF queda como marcador visible a propósito: no se inventa.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BRAND } from '../config/site';
+
+const RESPONSABLE = {
+  nombre: 'Jesús Arteaga Fernández',
+  condicion: 'empresario individual (autónomo)',
+  nif: '[NIF-PENDIENTE]',
+  domicilio: 'Estepa (Sevilla), España',
+};
+
+const ACTUALIZADA = '9 de octubre de 2026';
+
+const datos = [
+  { campo: 'Nombre', nota: 'Obligatorio. Para dirigirnos a ti.' },
+  { campo: 'Email', nota: 'Obligatorio. Es la vía por la que respondemos.' },
+  { campo: 'Teléfono', nota: 'Obligatorio. Para acordar y realizar la llamada.' },
+  { campo: 'Empresa', nota: 'Obligatorio. Para preparar la conversación.' },
+  { campo: 'Web', nota: 'Opcional.' },
+  { campo: 'Facturación anual', nota: 'Opcional. Franja aproximada, no cifra exacta.' },
+  { campo: 'Vertical', nota: 'Opcional. El sector en el que encajas.' },
+  { campo: 'Mensaje', nota: 'Obligatorio. Lo que nos cuentes sobre tu situación.' },
+];
+
+const encargados = [
+  {
+    nombre: 'Vercel',
+    papel: 'Alojamiento del sitio y ejecución del formulario.',
+    url: 'https://vercel.com/legal/privacy-policy',
+  },
+  {
+    nombre: 'Neon',
+    papel: 'Base de datos donde se registra la solicitud.',
+    url: 'https://neon.com/privacy-policy',
+  },
+  {
+    nombre: 'Resend',
+    papel: 'Envío del aviso por correo electrónico.',
+    url: 'https://resend.com/legal/privacy-policy',
+  },
+  {
+    nombre: 'Telegram',
+    papel: 'Aviso inmediato de cada solicitud recibida.',
+    url: 'https://telegram.org/privacy',
+  },
+];
+
+const derechos = [
+  'Acceso a los datos que tratamos sobre ti.',
+  'Rectificación de los datos inexactos.',
+  'Supresión de los datos cuando ya no sean necesarios.',
+  'Oposición al tratamiento.',
+  'Limitación del tratamiento.',
+  'Portabilidad de los datos que nos hayas facilitado.',
+  'Retirada del consentimiento en cualquier momento, sin que afecte al tratamiento anterior.',
+];
+
+const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
+---
+
+<BaseLayout
+  title="Política de privacidad"
+  description="Quién trata los datos que envías por el formulario de Cerra Labs, con qué finalidad, durante cuánto tiempo y cómo ejercer tus derechos."
+  schema={[]}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="section">
+    <div class="wrap wrap-narrow legal">
+      <p class="eyebrow">Información de privacidad</p>
+      <h1>Política de privacidad</h1>
+      <p class="lede">
+        Esta web tiene un único tratamiento de datos personales: el formulario
+        de contacto. No hay analítica, ni cookies de terceros, ni newsletter, ni
+        publicidad. Aquí está explicado quién trata esos datos, para qué y
+        durante cuánto tiempo.
+      </p>
+      <p class="muted actualizada">Última actualización: {ACTUALIZADA}</p>
+
+      <h2>Responsable del tratamiento</h2>
+      <dl class="ficha">
+        <div>
+          <dt>Titular</dt>
+          <dd>{RESPONSABLE.nombre}, {RESPONSABLE.condicion}</dd>
+        </div>
+        <div>
+          <dt>NIF</dt>
+          <dd>{RESPONSABLE.nif}</dd>
+        </div>
+        <div>
+          <dt>Domicilio</dt>
+          <dd>{RESPONSABLE.domicilio}</dd>
+        </div>
+        <div>
+          <dt>Email de contacto</dt>
+          <dd><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></dd>
+        </div>
+        <div>
+          <dt>Nombre comercial</dt>
+          <dd>{BRAND.name}</dd>
+        </div>
+      </dl>
+
+      <h2>Con qué finalidad tratamos tus datos</h2>
+      <p>
+        Para responder a la solicitud que envías por el formulario de contacto
+        y, si procede, para organizar y mantener la llamada o reunión comercial
+        que se derive de ella. Nada más: no usamos esos datos para enviarte
+        comunicaciones comerciales no solicitadas ni los cedemos a terceros
+        ajenos a la prestación del servicio.
+      </p>
+
+      <h2>Base jurídica</h2>
+      <p>
+        El consentimiento que prestas al enviar el formulario, con la
+        información de esta página a la vista. Puedes retirarlo en cualquier
+        momento escribiendo a {' '}
+        <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>, sin que ello afecte
+        a la licitud del tratamiento anterior a la retirada.
+      </p>
+
+      <h2>Qué datos tratamos</h2>
+      <p>Los que tú mismo escribes en el formulario de contacto:</p>
+      <dl class="ficha">
+        {
+          datos.map((d) => (
+            <div>
+              <dt>{d.campo}</dt>
+              <dd>{d.nota}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="muted nota">
+        Durante el envío se consulta de forma transitoria la dirección IP desde
+        la que se manda el formulario, únicamente para frenar envíos masivos
+        automatizados. No se almacena junto a la solicitud.
+      </p>
+
+      <h2>Durante cuánto tiempo los conservamos</h2>
+      <p>
+        El tiempo necesario para gestionar tu solicitud comercial y el
+        seguimiento que se derive de ella. Si de ahí nace una colaboración, los
+        datos se conservan después durante los plazos que impongan las
+        obligaciones legales aplicables, en particular las fiscales y
+        contables. Si no hay colaboración, puedes pedir su supresión en
+        cualquier momento y se atiende.
+      </p>
+
+      <h2>Quién más interviene</h2>
+      <p>
+        Para prestar el servicio se usan proveedores que acceden a estos datos
+        como encargados del tratamiento. Cada uno tiene su propia política de
+        privacidad:
+      </p>
+      <ul class="proveedores">
+        {
+          encargados.map((e) => (
+            <li>
+              <strong>{e.nombre}.</strong> {e.papel}{' '}
+              <a href={e.url} rel="noopener nofollow" target="_blank">
+                Política de privacidad de {e.nombre}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted nota">
+        Algunos de estos proveedores son compañías establecidas fuera de la
+        Unión Europea o pueden tratar los datos en servidores situados fuera de
+        ella.
+      </p>
+
+      <h2>Tus derechos</h2>
+      <ul class="list-check">
+        {derechos.map((d) => <li>{d}</li>)}
+      </ul>
+      <p>
+        Para ejercerlos basta con escribir a {' '}
+        <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a> indicando qué
+        derecho quieres ejercer. Si consideras que el tratamiento no se ajusta a
+        la normativa, puedes presentar una reclamación ante la Agencia Española
+        de Protección de Datos, {' '}
+        <a href="https://www.aepd.es" rel="noopener nofollow" target="_blank">
+          www.aepd.es
+        </a>.
+      </p>
+
+      <h2>Decisiones automatizadas</h2>
+      <p>
+        No se toma ninguna decisión automatizada ni se elabora ningún perfil con
+        los datos que envías. Cada solicitud la lee y la responde una persona.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal h2 {
+    font-size: var(--step-2);
+    margin-top: 2.5rem;
+  }
+
+  .legal p {
+    max-width: 68ch;
+  }
+
+  .actualizada {
+    font-size: 0.9375rem;
+    margin-top: -0.5rem;
+  }
+
+  .ficha {
+    margin: 1.25rem 0 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .ficha > div {
+    display: grid;
+    gap: 0.15rem 1.5rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 620px) {
+    .ficha > div {
+      grid-template-columns: 13rem minmax(0, 1fr);
+    }
+  }
+
+  .ficha dt {
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+
+  .ficha dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  .nota {
+    font-size: 0.9375rem;
+  }
+
+  .proveedores {
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+    max-width: 68ch;
+  }
+
+  .proveedores li {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+</style>

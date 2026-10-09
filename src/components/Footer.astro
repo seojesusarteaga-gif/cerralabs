@@ -1,5 +1,5 @@
 ---
-import { BRAND, NAV, FOOTER_EXTRA } from '../config/site';
+import { BRAND, NAV, FOOTER_EXTRA, LEGAL } from '../config/site';
 
 const year = new Date().getFullYear();
 ---
@@ -34,6 +34,9 @@ const year = new Date().getFullYear();
 
   <div class="wrap footer-legal">
     <p class="muted">© {year} {BRAND.name}</p>
+    <nav class="footer-legal-nav" aria-label="Legal">
+      {LEGAL.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
     <p class="muted">
       Las condiciones económicas concretas se fijan por escrito en cada acuerdo.
     </p>
@@ -119,5 +122,14 @@ const year = new Date().getFullYear();
   .footer-legal p {
     margin: 0;
     font-size: 0.875rem;
+  }
+
+  .footer-legal-nav a {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .footer-legal-nav a:hover {
+    color: var(--ink);
   }
 </style>

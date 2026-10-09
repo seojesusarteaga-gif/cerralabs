@@ -57,7 +57,7 @@ export const CONTACT_FIELDS = [
 
 export const BRAND = {
   name: 'Cerra Labs',
-  legalName: 'Cerra Labs',
+  legalName: 'Jesús Arteaga Fernández',
   tagline: 'Agencia de closing B2B',
   // TBD EMAIL: la cuenta se crea con el dominio. Hasta entonces se muestra
   // como texto, nunca como mailto activo.
@@ -119,6 +119,10 @@ export const NAV = [
 
 // /casos existe y es rastreable, pero se mantiene fuera de la navegación
 // principal hasta que haya dos casos con métricas reales publicables.
+/* Páginas legales. Viven aparte de la navegación: no son servicio, pero
+ * tienen que estar accesibles desde cualquier página y desde el formulario. */
+export const LEGAL = [{ href: '/privacidad', label: 'Política de privacidad' }] as const;
+
 export const FOOTER_EXTRA = [
   { href: '/casos', label: 'Casos' },
   { href: '/blog', label: 'Blog' },

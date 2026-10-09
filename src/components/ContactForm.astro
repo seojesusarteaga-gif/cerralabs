@@ -126,6 +126,12 @@ import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
       Te respondemos en un día laborable. Si no encajas, también te lo decimos.
     </p>
   </div>
+
+  <p class="legal">
+    Al enviar este formulario aceptas nuestra{' '}
+    <a href="/privacidad">política de privacidad</a>. Usamos tus datos
+    únicamente para responder a tu solicitud y acordar la llamada.
+  </p>
 </form>
 
 <style>
@@ -237,5 +243,13 @@ import { FACTURACION_OPCIONES, VERTICAL_OPCIONES } from '../config/site';
     margin: 0;
     font-size: 0.9375rem;
     color: var(--muted);
+  }
+
+  .legal {
+    margin: 1.25rem 0 0;
+    max-width: 62ch;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
   }
 </style>
