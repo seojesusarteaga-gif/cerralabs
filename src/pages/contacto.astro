@@ -67,7 +67,8 @@ const crumbs = [{ label: 'Contacto', href: '/contacto' }];
             venderte algo que no va a mover tu dato.
           </p>
           <p class="alt">
-            ¿Prefieres el correo directo? <span class="email">{BRAND.email}</span>
+            ¿Prefieres el correo directo?{' '}
+            <a class="email" href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
           </p>
         </aside>
       </div>

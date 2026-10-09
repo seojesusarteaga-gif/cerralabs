@@ -8,7 +8,7 @@ Contacto: hola@cerralabs.es
 
 ## Qué hace
 
-Cerra Labs aporta closers vetados a empresas B2B que ya generan leads
+Cerra Labs aporta closers evaluados a empresas B2B que ya generan leads
 calificados pero necesitan mejorar su tasa de cierre. No hace captación de
 leads, generación de demanda, publicidad ni llamada a puerta fría: trabaja
 exclusivamente sobre el flujo de oportunidades que la empresa cliente ya
@@ -56,8 +56,9 @@ en frío sobre listas compradas.
 
 ## Embudo medido
 
-Llamadas agendadas, llamadas celebradas, propuestas enviadas, ventas cerradas y
-facturación atribuida.
+Llamadas agendadas, llamadas celebradas, propuestas enviadas, ventas cerradas e
+importe cobrado. La comisión se calcula sobre el importe cobrado, nunca sobre el
+importe firmado.
 
 ## Reclutamiento
 

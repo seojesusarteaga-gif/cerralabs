@@ -57,7 +57,7 @@ const funnel = [
   { label: 'Llamadas celebradas', note: 'Con motivo registrado si no se celebran' },
   { label: 'Propuestas enviadas', note: 'Con importe y fecha de decisión' },
   { label: 'Ventas cerradas', note: 'Con contrato firmado' },
-  { label: 'Facturación atribuida', note: 'La base sobre la que cobramos' },
+  { label: 'Cobrado', note: 'El importe cobrado: la base de nuestra comisión' },
 ];
 
 const fitYes = [
@@ -80,7 +80,7 @@ const fitNo = [
 const faqs = [
   {
     q: '¿Cómo cobráis exactamente?',
-    a: 'Un porcentaje de las ventas que cerramos nosotros, sin cuota de entrada ni fijo mensual. El porcentaje concreto depende de tu ticket, tu ciclo de venta y el volumen, y se fija por escrito antes de empezar. Si no cerramos, no facturamos.',
+    a: 'Un porcentaje del importe que cobras de las ventas que cerramos nosotros, sin cuota de entrada ni fijo mensual. La base siempre es lo cobrado, no lo firmado: si el cliente no paga, no facturamos. El porcentaje concreto depende de tu ticket, tu ciclo de venta y el volumen, y se fija por escrito antes de empezar.',
   },
   {
     q: '¿Por qué trabajáis a rev-share y no con un fijo?',
@@ -96,7 +96,7 @@ const faqs = [
   },
   {
     q: '¿Cuánto tardáis en arrancar?',
-    a: 'Entre siete y diez días desde la firma hasta que el closer empieza a llamar. Ese tiempo se va en formación de producto, objeciones y criterios de cualificación, más la integración con tu CRM.',
+    a: 'Entre siete y diez días desde la firma hasta que el closer empieza a llamar. Ese tiempo se va en formación de producto, objeciones y criterios de cualificación, más la integración con tu CRM. Ese plazo es el de incorporación y no es lo mismo que el periodo mínimo de colaboración, que se pacta aparte y cubre al menos un ciclo de venta completo.',
   },
   {
     q: '¿Con qué CRM trabajáis?',
@@ -128,7 +128,7 @@ const schema = [
 
 <BaseLayout
   title="Agencia de closing B2B a rev-share"
-  description="Ponemos closers vetados a cerrar los leads calificados que tu empresa ya genera. Cobramos un porcentaje de lo cerrado, sin cuota de entrada."
+  description="Ponemos closers evaluados a cerrar los leads calificados que tu empresa ya genera. Cobramos un porcentaje de lo cobrado, sin cuota de entrada."
   schema={schema}
 >
   <section class="hero">
@@ -139,7 +139,8 @@ const schema = [
         <p class="lede">
           Si tu empresa genera leads calificados pero el cierre depende de ti o
           de un equipo que no da abasto, ponemos closers con experiencia a
-          trabajar sobre ese flujo. Cobramos un porcentaje de lo que se cierra.
+          trabajar sobre ese flujo. Cobramos un porcentaje de lo que cobras por
+          esas ventas.
           Nada por adelantado.
         </p>
         <div class="hero-cta">
@@ -161,7 +162,7 @@ const schema = [
           </li>
           <li>
             <span class="display">%</span>
-            <span class="et">Rev-share puro sobre lo cerrado y cobrado</span>
+            <span class="et">Rev-share puro sobre el importe cobrado</span>
           </li>
           <li>
             <span class="display">7-10</span>
@@ -180,14 +181,14 @@ const schema = [
     <div class="wrap wrap-narrow">
       <p>
         Cerra Labs es una agencia de closing B2B con sede en España que aporta
-        closers vetados a empresas de agencia, SaaS, infoproducto y clínicas
+        closers evaluados a empresas de agencia, SaaS, infoproducto y clínicas
         privadas que ya generan leads calificados pero necesitan mejorar su tasa
         de cierre. Su modelo es de rev-share puro, sin cuota de entrada: cobra
-        únicamente un porcentaje de las ventas cerradas. Trabaja con tickets
-        desde 2.000 € y ciclos de venta consultivos que incluyen al menos una
-        llamada. Los closers se integran en el CRM del cliente y entregan
-        reporting semanal del embudo completo, desde la llamada agendada hasta
-        la facturación atribuida.
+        únicamente un porcentaje del importe cobrado de las ventas cerradas.
+        Trabaja con tickets desde 2.000 € y ciclos de venta consultivos que
+        incluyen al menos una llamada. Los closers se integran en el CRM del
+        cliente y entregan reporting semanal del embudo completo, desde la
+        llamada agendada hasta el importe cobrado.
       </p>
     </div>
   </section>
@@ -219,13 +220,15 @@ const schema = [
       <div class="modelo-cols">
         <p class="lede">
           Cobramos un porcentaje de las ventas que cerramos nosotros, calculado
-          sobre lo cobrado y no sobre lo firmado. Nos alinea contigo también en
-          la calidad del cliente: un cierre que luego no paga no nos beneficia.
+          siempre sobre el importe cobrado y nunca sobre el importe firmado. Nos
+          alinea contigo también en la calidad del cliente: un cierre que luego
+          no paga no nos beneficia.
         </p>
         <p class="muted">
           El porcentaje se fija por escrito antes de empezar, en función de tu
-          ticket, tu ciclo de venta y el volumen previsto. No hay permanencia
-          encubierta ni costes de salida.
+          ticket, tu ciclo de venta y el volumen previsto. El periodo mínimo de
+          colaboración se pacta por escrito en el mismo acuerdo y no hay costes
+          de salida.
         </p>
       </div>
     </div>
