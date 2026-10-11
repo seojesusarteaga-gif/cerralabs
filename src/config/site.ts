@@ -55,6 +55,34 @@ export const CONTACT_FIELDS = [
   { id: 'mensaje', label: 'Mensaje', required: true },
 ] as const;
 
+/* ─── Candidaturas de closer ───────────────────────────────────────────────
+ *
+ * Flujo separado del comercial a propósito: /contacto recibe empresas y
+ * /unete-como-closer recibe personas que quieren cerrar. Mezclarlos
+ * ensuciaría el embudo de ventas con currículums.
+ */
+
+export const CANDIDATURA_PATH = '/unete-como-closer';
+
+/** Tramos de experiencia. El orden va de menos a más y se respeta en el aviso. */
+export const EXPERIENCIA_OPCIONES = [
+  'Sin experiencia',
+  'Experiencia en ventas, pero no como closer',
+  'Menos de un año como closer',
+  'Entre uno y tres años como closer',
+  'Más de tres años como closer',
+] as const;
+
+/** Campos de la candidatura, en el orden en que aparecen en el aviso. */
+export const CANDIDATURA_FIELDS = [
+  { id: 'nombre', label: 'Nombre y apellidos', required: true },
+  { id: 'email', label: 'Email', required: true },
+  { id: 'telefono', label: 'Teléfono o WhatsApp', required: true },
+  { id: 'experiencia', label: 'Experiencia comercial', required: true },
+  { id: 'enlace', label: 'LinkedIn o CV', required: false },
+  { id: 'mensaje', label: 'Experiencia contada', required: false },
+] as const;
+
 export const BRAND = {
   name: 'Cerra Labs',
   legalName: 'Jesús Arteaga Fernández',

@@ -7,6 +7,8 @@ interface Props {
   lede: string;
   vertical?: string;
   label?: string;
+  /** Destino del botón. Por defecto, el formulario comercial. */
+  ctaHref?: string;
   showCta?: boolean;
   /** Cifras de encaje. Ocupan la mitad derecha, que si no queda vacía. */
   stats?: { label: string; value: string }[];
@@ -19,6 +21,7 @@ const {
   lede,
   vertical,
   label,
+  ctaHref,
   showCta = true,
   stats = [],
   statsTitle = 'Perfil de encaje',
@@ -31,7 +34,7 @@ const {
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       <p class="lede">{lede}</p>
-      {showCta && <CtaButton vertical={vertical} label={label} />}
+      {showCta && <CtaButton vertical={vertical} label={label} href={ctaHref} />}
     </div>
 
     {

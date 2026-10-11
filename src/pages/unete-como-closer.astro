@@ -5,12 +5,13 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import CandidaturaForm from '../components/CandidaturaForm.astro';
 import { SITE_URL } from '../config/site';
 
 const steps = [
   {
     title: 'Aplicación',
-    body: 'Nos cuentas qué has vendido, con qué ticket, en qué sectores y durante cuánto tiempo. Interesa el detalle concreto: producto, ciclo y volumen, no adjetivos.',
+    body: 'Nos cuentas qué has vendido, con qué ticket, en qué sectores y durante cuánto tiempo. Interesa el detalle concreto: producto, ciclo y volumen, no adjetivos. Si todavía no has vendido, cuéntanos de dónde vienes y por qué quieres cerrar.',
     detail: 'Respondemos a todas las solicitudes, también cuando la respuesta es que no.',
   },
   {
@@ -39,7 +40,7 @@ const gives = [
 ];
 
 const asks = [
-  'Experiencia previa demostrable cerrando ventas B2B o high-ticket. No formamos desde cero.',
+  'Ganas de sostener conversaciones de venta difíciles. La experiencia previa suma, pero no es un requisito de entrada: hay proyectos que la exigen y otros que no.',
   'Disponibilidad estable en horario comercial español.',
   'Disciplina de registro: si no está en el CRM, no ha ocurrido.',
   'Aceptar que se graban y se revisan las llamadas.',
@@ -49,7 +50,7 @@ const asks = [
 const faqs = [
   {
     q: '¿Cómo se cobra?',
-    a: 'Un porcentaje de la comisión que Cerra Labs factura por los cierres que tú produces, en una horquilla del 60 % al 70 % según el vertical y el volumen. No hay fijo. El porcentaje concreto se acuerda por escrito en la segunda entrevista, antes de que empieces.',
+    a: 'Un porcentaje de la comisión que Cerra Labs factura por los cierres que tú produces, en una horquilla del 60 % al 70 % según el vertical y el volumen. No hay fijo, y por tanto tampoco ingresos garantizados: se cobra de lo que se cierra. El porcentaje concreto se acuerda por escrito en la segunda entrevista, antes de que empieces.',
   },
   {
     q: '¿Cuánto puedo ganar?',
@@ -60,8 +61,8 @@ const faqs = [
     a: 'No. La colaboración es mercantil y necesitas estar dado de alta como autónomo para facturar. Trabajas bajo nuestros procesos y nuestro control de calidad, con la organización de tu tiempo que el servicio permita.',
   },
   {
-    q: '¿Formáis a gente sin experiencia?',
-    a: 'No. Cerra Labs no vende formación de closers ni acepta perfiles que empiezan. Nuestro modelo cobra solo de lo que se cierra, así que no podemos permitirnos la curva de aprendizaje de alguien que no ha vendido antes.',
+    q: '¿Puedo presentarme si no tengo experiencia como closer?',
+    a: 'Sí. Valoramos cada candidatura contra los proyectos abiertos en ese momento: hay cuentas que exigen haber vendido antes ese tipo de producto y otras donde pesa más el criterio y la constancia. Lo que no hacemos es vender formación ni garantizar una plaza: la prueba grabada de discovery decide, y nuestro modelo cobra solo de lo que se cierra.',
   },
   {
     q: '¿Qué pasa si la cuenta que me asignáis no funciona?',
@@ -89,15 +90,16 @@ const crumbs = [{ label: 'Únete como closer', href: '/unete-como-closer' }];
 
 <BaseLayout
   title="Únete como closer"
-  description="Buscamos closers con experiencia en venta B2B o high-ticket. Cuentas con leads calificados, guion documentado y del 60 % al 70 % de la comisión."
+  description="Candidaturas de closer para cuentas con leads calificados, guion documentado y del 60 % al 70 % de la comisión. Con experiencia previa o sin ella."
   schema={schema} breadcrumbs={crumbs}
 >
   <Breadcrumbs items={crumbs} />
   <PageHero
     eyebrow="Trabaja con nosotros"
-    title="Buscamos closers con experiencia, no aspirantes"
-    lede="Si ya has cerrado ventas B2B o high-ticket y quieres trabajar sobre cuentas con leads calificados entrando, guion documentado y CRM montado, esto te interesa. Si estás empezando, esta no es tu puerta de entrada y preferimos decírtelo aquí."
+    title="Trabaja como closer sobre cuentas con leads calificados"
+    lede="Cuentas con oportunidades entrando, guion documentado y CRM montado. Valoramos cada candidatura contra los proyectos que tengamos abiertos: hay cuentas que piden haber vendido antes ese tipo de producto y otras en las que pesa más el criterio. Lo que no vas a encontrar aquí es formación de pago ni ingresos prometidos."
     label="Enviar candidatura"
+    ctaHref="/unete-como-closer#candidatura"
   />
 
   <section class="section">
@@ -168,16 +170,47 @@ const crumbs = [{ label: 'Únete como closer', href: '/unete-como-closer' }];
     </div>
   </section>
 
+  <section class="section section-alt" id="candidatura">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">Candidatura</p>
+      <h2>Preséntate</h2>
+      <p class="lede form-lede">
+        No hace falta haber trabajado antes como closer para presentar
+        candidatura. Valoramos tanto a quien ya cierra ventas como a quien
+        viene de otra función comercial o empieza ahora: cada perfil se mira
+        contra los proyectos que tengamos abiertos, porque no todas las cuentas
+        piden lo mismo.
+      </p>
+      <p class="muted form-aviso">
+        Lo que sí conviene decir claro: enviar la candidatura no garantiza
+        incorporación inmediata ni ingresos. Solo abrimos plaza cuando hay una
+        cuenta que la justifica, y se cobra de lo que se cierra.
+      </p>
+      <CandidaturaForm />
+    </div>
+  </section>
+
   <Faq items={faqs} title="Preguntas de candidatos" />
 
   <CtaBand
-    title="¿Encajas con esto?"
-    body="Escríbenos con tu trayectoria concreta: qué has vendido, con qué ticket y durante cuánto tiempo. Respondemos a todas las candidaturas, también a las que descartamos."
+    title="¿Te interesa?"
+    body="Cuéntanos de dónde vienes: qué has vendido, con qué ticket y durante cuánto tiempo, o qué te acerca a esto si todavía no has vendido. Respondemos a todas las candidaturas, también a las que descartamos."
     label="Enviar candidatura"
+    ctaHref="/unete-como-closer#candidatura"
   />
 </BaseLayout>
 
 <style>
+  .form-lede {
+    max-width: 62ch;
+  }
+
+  .form-aviso {
+    max-width: 62ch;
+    font-size: 0.9375rem;
+    margin-top: -0.75rem;
+  }
+
   .deal {
     margin-top: 2.25rem;
   }

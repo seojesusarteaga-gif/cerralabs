@@ -1,0 +1,145 @@
+---
+/**
+ * Confirmación del formulario de candidatura. Solo se llega aquí tras un POST
+ * procesado correctamente en /api/candidatura: la redirección 303 la emite el
+ * endpoint después de que al menos un destino haya aceptado la candidatura.
+ *
+ * Va con noindex y fuera del sitemap, como /gracias.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BRAND } from '../config/site';
+
+const siguiente = [
+  {
+    title: 'Revisamos tu perfil',
+    body: 'Miramos la experiencia que nos cuentas y los proyectos abiertos en ese momento. No hay plazo automático: depende de las cuentas que haya en marcha.',
+  },
+  {
+    title: 'Si encaja, te escribimos',
+    body: 'El siguiente paso sería una prueba grabada de discovery sobre un caso real de uno de nuestros verticales, evaluada con los mismos criterios para todo el mundo.',
+  },
+  {
+    title: 'Si no encaja ahora, te lo decimos',
+    body: 'Respondemos también cuando la respuesta es que no, y conservamos tu candidatura por si encaja en un proyecto posterior.',
+  },
+];
+---
+
+<BaseLayout
+  title="Candidatura recibida"
+  description="Hemos recibido tu candidatura de closer. Esto es lo que ocurre a partir de ahora."
+  schema={[]}
+  noindex
+>
+  <section class="section thanks">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">Recibida</p>
+      <h1>Hemos recibido tu candidatura</h1>
+      <p class="lede">
+        Revisaremos tu perfil y contactaremos contigo si encaja con alguno de
+        nuestros proyectos.
+      </p>
+
+      <h2>Qué pasa a partir de ahora</h2>
+      <ol class="prep">
+        {
+          siguiente.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="note">
+        <h2>Sin promesas que no podamos sostener</h2>
+        <p>
+          Enviar la candidatura no garantiza incorporación ni ingresos: solo
+          abrimos plaza cuando hay una cuenta que lo justifica, y el encaje
+          depende del vertical y del momento. Preferimos decirlo aquí antes de
+          que te hagas una expectativa que no controlamos.
+        </p>
+      </div>
+
+      <p class="links">
+        Mientras tanto: <a href="/servicio">cómo trabajamos con los clientes</a>
+        {' · '}
+        <a href="/sobre-nosotros">quiénes somos</a>
+      </p>
+      <p class="muted">
+        ¿Alguna duda sobre el proceso? Escríbenos a{' '}
+        <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks {
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  .thanks h1 {
+    max-width: 20ch;
+  }
+
+  .thanks .lede {
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .thanks h2 {
+    font-size: var(--step-2);
+    margin-top: 2.5rem;
+  }
+
+  .prep {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    counter-reset: paso;
+  }
+
+  .prep li {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .prep li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .prep h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prep p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .note {
+    margin-top: 2.5rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+  }
+
+  .note h2 {
+    margin-top: 0;
+    font-size: var(--step-1);
+  }
+
+  .note p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .links {
+    margin-top: 2.5rem;
+  }
+</style>

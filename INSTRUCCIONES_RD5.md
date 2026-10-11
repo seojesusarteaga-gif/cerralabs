@@ -78,7 +78,11 @@ cd "C:\Users\Usuario\Desktop\proyectos\cerra labs" && vercel env pull .env.local
 6. Comprobar que sin sesión `/admin` redirige al login y que
    `POST /api/admin/lead` devuelve 401.
 7. Comprobar que el alta de usuarios está efectivamente cerrada.
-8. **Volver a añadir Neon a la lista de encargados del tratamiento de
+8. **Añadir al panel el listado de candidaturas de closer.** La tabla
+   `Candidatura` ya existe en el esquema y el formulario de
+   /unete-como-closer escribe en ella, pero `/admin` solo lista leads. Falta
+   la vista con su propio filtro por estado, igual que la de leads.
+9. **Volver a añadir Neon a la lista de encargados del tratamiento de
    [/privacidad](src/pages/privacidad.astro), con la región del proyecto.** Se
    quitó a propósito mientras la base de datos no está activa: hoy ningún dato
    llega a Neon y no se puede declarar un encargado que no trata nada. En

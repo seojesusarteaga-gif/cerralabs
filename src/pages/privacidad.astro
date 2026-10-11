@@ -22,6 +22,26 @@ const RESPONSABLE = {
 
 const ACTUALIZADA = '9 de octubre de 2026';
 
+/**
+ * PENDIENTE DE JESÚS: plazo de conservación de las candidaturas.
+ *
+ * La política general cubre el formulario comercial, donde la conservación va
+ * ligada a la gestión de la solicitud. Guardar una candidatura «por si encaja
+ * más adelante» es otra cosa: el RGPD exige un plazo concreto, y no me lo
+ * puedo inventar. Lo habitual en selección es uno o dos años desde el envío.
+ * En cuanto lo decida, sustituir el marcador por el plazo.
+ */
+const PLAZO_CANDIDATURAS = '[PLAZO-PENDIENTE]';
+
+const datosCandidatura = [
+  { campo: 'Nombre y apellidos', nota: 'Obligatorio.' },
+  { campo: 'Email', nota: 'Obligatorio. Es la vía por la que respondemos.' },
+  { campo: 'Teléfono o WhatsApp', nota: 'Obligatorio. Para la entrevista.' },
+  { campo: 'Experiencia comercial', nota: 'Obligatorio. Tramo elegido en el desplegable.' },
+  { campo: 'LinkedIn o CV', nota: 'Opcional. Solo el enlace: no se suben archivos.' },
+  { campo: 'Texto libre', nota: 'Opcional. Lo que nos cuentes sobre tu experiencia.' },
+];
+
 const datos = [
   { campo: 'Nombre', nota: 'Obligatorio. Para dirigirnos a ti.' },
   { campo: 'Email', nota: 'Obligatorio. Es la vía por la que respondemos.' },
@@ -89,8 +109,9 @@ const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
       <p class="eyebrow">Información de privacidad</p>
       <h1>Política de privacidad</h1>
       <p class="lede">
-        Esta web tiene un único tratamiento de datos personales: el formulario
-        de contacto. No hay analítica, ni cookies de terceros, ni newsletter, ni
+        Esta web tiene dos tratamientos de datos personales y ninguno más: el
+        formulario de contacto comercial y el formulario de candidaturas de
+        closer. No hay analítica, ni cookies de terceros, ni newsletter, ni
         publicidad. Aquí está explicado quién trata esos datos, para qué y
         durante cuánto tiempo.
       </p>
@@ -122,11 +143,17 @@ const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
 
       <h2>Con qué finalidad tratamos tus datos</h2>
       <p>
-        Para responder a la solicitud que envías por el formulario de contacto
-        y, si procede, para organizar y mantener la llamada o reunión comercial
-        que se derive de ella. Nada más: no usamos esos datos para enviarte
-        comunicaciones comerciales no solicitadas ni los cedemos a terceros
-        ajenos a la prestación del servicio.
+        <strong>Formulario de contacto.</strong> Para responder a la solicitud
+        que envías y, si procede, para organizar y mantener la llamada o
+        reunión comercial que se derive de ella. Nada más: no usamos esos datos
+        para enviarte comunicaciones comerciales no solicitadas ni los cedemos
+        a terceros ajenos a la prestación del servicio.
+      </p>
+      <p>
+        <strong>Formulario de candidaturas de closer.</strong> Para valorar tu
+        candidatura, contactar contigo durante el proceso de selección y
+        conservarla para tenerla en cuenta en proyectos posteriores. No se
+        comparte con los clientes ni con nadie fuera del proceso.
       </p>
 
       <h2>Base jurídica</h2>
@@ -139,7 +166,7 @@ const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
       </p>
 
       <h2>Qué datos tratamos</h2>
-      <p>Los que tú mismo escribes en el formulario de contacto:</p>
+      <p>Si escribes por el formulario de contacto:</p>
       <dl class="ficha">
         {
           datos.map((d) => (
@@ -150,20 +177,37 @@ const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
           ))
         }
       </dl>
+      <p>Si envías una candidatura de closer:</p>
+      <dl class="ficha">
+        {
+          datosCandidatura.map((d) => (
+            <div>
+              <dt>{d.campo}</dt>
+              <dd>{d.nota}</dd>
+            </div>
+          ))
+        }
+      </dl>
       <p class="muted nota">
         Durante el envío se consulta de forma transitoria la dirección IP desde
         la que se manda el formulario, únicamente para frenar envíos masivos
-        automatizados. No se almacena junto a la solicitud.
+        automatizados. No se almacena junto al registro.
       </p>
 
       <h2>Durante cuánto tiempo los conservamos</h2>
       <p>
-        El tiempo necesario para gestionar tu solicitud comercial y el
-        seguimiento que se derive de ella. Si de ahí nace una colaboración, los
-        datos se conservan después durante los plazos que impongan las
-        obligaciones legales aplicables, en particular las fiscales y
-        contables. Si no hay colaboración, puedes pedir su supresión en
-        cualquier momento y se atiende.
+        <strong>Solicitudes comerciales.</strong> El tiempo necesario para
+        gestionar tu solicitud y el seguimiento que se derive de ella. Si de
+        ahí nace una colaboración, los datos se conservan después durante los
+        plazos que impongan las obligaciones legales aplicables, en particular
+        las fiscales y contables. Si no hay colaboración, puedes pedir su
+        supresión en cualquier momento y se atiende.
+      </p>
+      <p>
+        <strong>Candidaturas.</strong> Se conservan durante{' '}
+        {PLAZO_CANDIDATURAS} desde el envío, para tenerlas en cuenta en
+        proyectos posteriores aunque no haya encaje inmediato. Puedes pedir su
+        supresión antes de ese plazo en cualquier momento y se atiende.
       </p>
 
       <h2>Quién más interviene</h2>

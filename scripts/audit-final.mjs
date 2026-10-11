@@ -182,9 +182,10 @@ const docs = pages.map((f) => ({ f, r: route(f), h: read(f) }));
   if (!broken) O(P, 'sin enlaces internos rotos');
 
   const orphans = [...incoming].filter(([r, n]) => n === 0 && r !== '/').map(([r]) => r);
-  const allowed = ['/gracias'];
+  // Las dos confirmaciones solo se alcanzan tras un POST correcto.
+  const allowed = ['/gracias', '/gracias-candidatura'];
   for (const o of orphans)
-    if (allowed.includes(o)) O(P, `${o}: huérfana intencional (confirmación post-booking)`);
+    if (allowed.includes(o)) O(P, `${o}: huérfana intencional (confirmación de formulario)`);
     else F(P, `${o}: huérfana, sin enlaces entrantes`);
 
   // Salidas por página

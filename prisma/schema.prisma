@@ -59,6 +59,44 @@ model Lead {
   @@index([creadoEn])
 }
 
+/// Estado de una candidatura de closer. Sigue el proceso publicado en
+/// /unete-como-closer: aplicación, prueba grabada de discovery y entrevista.
+enum EstadoCandidatura {
+  NUEVA
+  EN_REVISION
+  PRUEBA_ENVIADA
+  ENTREVISTA
+  ACEPTADA
+  DESCARTADA
+}
+
+/// Una candidatura del formulario de /unete-como-closer.
+///
+/// Tabla aparte de Lead a propósito: una candidatura no es una oportunidad de
+/// venta. Compartir tabla obligaría a filtrar currículums del embudo comercial
+/// en cada consulta y a dejar como opcionales campos que para un lead son
+/// obligatorios.
+model Candidatura {
+  id          String            @id @default(cuid())
+  nombre      String
+  email       String
+  telefono    String
+  /// Tramo elegido en el desplegable, tal cual. Se guarda el texto y no un
+  /// enum para que cambiar la redacción de una opción no exija una migración.
+  experiencia String
+  /// Enlace a LinkedIn o a un CV. No se suben archivos.
+  enlace      String?
+  mensaje     String?
+  estado      EstadoCandidatura @default(NUEVA)
+  /// Notas internas de la revisión. No se muestran a nadie fuera del panel.
+  notas       String?
+  creadoEn    DateTime          @default(now())
+  actualizado DateTime          @updatedAt
+
+  @@index([estado, creadoEn])
+  @@index([creadoEn])
+}
+
 // ─── Better Auth ─────────────────────────────────────────────────────────────
 // Estructura que espera su adaptador de Prisma. No se toca a mano.
 

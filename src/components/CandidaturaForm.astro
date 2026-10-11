@@ -1,0 +1,237 @@
+---
+import { EXPERIENCIA_OPCIONES } from '../config/site';
+
+/**
+ * Formulario de candidatura de closer. POST nativo a /api/candidatura:
+ * funciona sin JavaScript, igual que el comercial.
+ *
+ * Corto a propósito: cuatro campos obligatorios y dos opcionales. Cada campo
+ * de más que se pide es un candidato menos que termina, y el filtro de verdad
+ * lo hace la prueba grabada de discovery, no el formulario.
+ */
+---
+
+<form class="formulario" method="POST" action="/api/candidatura">
+  <div class="campos">
+    <p class="campo campo-ancho">
+      <label for="nombre">Nombre y apellidos <span aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        minlength="3"
+        maxlength="120"
+        autocomplete="name"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="email">Email <span aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        maxlength="200"
+        autocomplete="email"
+        placeholder="tunombre@correo.com"
+      />
+    </p>
+
+    <p class="campo">
+      <label for="telefono">Teléfono o WhatsApp <span aria-hidden="true">*</span></label>
+      <input
+        type="tel"
+        id="telefono"
+        name="telefono"
+        required
+        maxlength="30"
+        pattern="[0-9+ ().\-]{9,30}"
+        title="Un número de teléfono, con prefijo si no es español"
+        autocomplete="tel"
+        inputmode="tel"
+        placeholder="600 000 000"
+      />
+    </p>
+
+    <p class="campo campo-ancho">
+      <label for="experiencia">Experiencia comercial <span aria-hidden="true">*</span></label>
+      <select id="experiencia" name="experiencia" required>
+        <option value="">Elige la opción que mejor te describa</option>
+        {EXPERIENCIA_OPCIONES.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </p>
+
+    <p class="campo campo-ancho">
+      <label for="enlace">
+        Enlace a tu LinkedIn o a tu CV <span class="opt">opcional</span>
+      </label>
+      <input
+        type="text"
+        id="enlace"
+        name="enlace"
+        maxlength="300"
+        autocomplete="url"
+        placeholder="linkedin.com/in/tuperfil"
+      />
+      <span class="ayuda">Solo el enlace. No hace falta adjuntar archivos.</span>
+    </p>
+
+    <p class="campo campo-ancho">
+      <label for="mensaje">
+        Cuéntanos brevemente tu experiencia vendiendo o cerrando{' '}
+        <span class="opt">opcional</span>
+      </label>
+      <textarea id="mensaje" name="mensaje" maxlength="2000" rows="5"></textarea>
+      <span class="ayuda">
+        Lo concreto pesa: qué vendías, a quién, con qué ticket y durante cuánto
+        tiempo. Si no has vendido todavía, cuéntanos qué te acerca a esto.
+      </span>
+    </p>
+  </div>
+
+  {/* Honeypot: invisible para personas, tentador para bots. */}
+  <p class="botcheck" aria-hidden="true">
+    <label for="botcheck-candidatura">No rellenes este campo</label>
+    <input
+      type="text"
+      id="botcheck-candidatura"
+      name="botcheck"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </p>
+
+  <div class="acciones">
+    <button type="submit" class="btn">Enviar candidatura</button>
+    <p class="nota">Respondemos a todas las candidaturas, también cuando descartamos.</p>
+  </div>
+
+  <p class="legal">
+    Al enviar tu candidatura aceptas nuestra{' '}
+    <a href="/privacidad">política de privacidad</a>. Usamos tus datos para
+    valorar tu perfil y conservamos la candidatura por si encaja en proyectos
+    posteriores.
+  </p>
+</form>
+
+<style>
+  .formulario {
+    margin-top: 2rem;
+  }
+
+  .campos {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 700px) {
+    .campos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .campo-ancho {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0;
+  }
+
+  label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  label span[aria-hidden] {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .opt {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--muted);
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  /* El aviso de campo inválido solo aparece tras intentar enviar, no mientras
+     se escribe: marcar en rojo un campo a medio rellenar es hostil. */
+  input:user-invalid,
+  select:user-invalid,
+  textarea:user-invalid {
+    border-color: #c0504a;
+  }
+
+  .ayuda {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .botcheck {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .nota {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .legal {
+    margin: 1.25rem 0 0;
+    max-width: 62ch;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+</style>

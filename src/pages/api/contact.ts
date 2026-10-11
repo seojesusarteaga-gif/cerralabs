@@ -1,8 +1,5 @@
 /**
- * Formulario de contacto — avisa de cada solicitud por Telegram y por email.
- *
- * Es la única ruta del sitio que se ejecuta en servidor; el resto son páginas
- * estáticas.
+ * Formulario comercial — avisa de cada solicitud por Telegram y por email.
  *
  * Funciona sin JavaScript: el formulario hace POST nativo y el endpoint
  * responde con una redirección 303. En caso de éxito lleva a /gracias; si la
@@ -13,132 +10,38 @@
  * otros siguen. La base de datos es el registro duradero que alimenta el panel;
  * Telegram es el aviso inmediato.
  *
- * Protección frente a abuso: campo honeypot más limitación por IP. Ver la nota
- * en `demasiadasPeticiones`.
+ * Las candidaturas de closer tienen su propio endpoint, `candidatura.ts`, y su
+ * propia tabla. La fontanería común —limpieza, validación, honeypot, límite
+ * por IP y envío— vive en `src/lib/formulario.ts`.
  */
 import type { APIRoute } from 'astro';
 import {
   BRAND,
   CONTACT_FIELDS,
+  CONTACT_PATH,
   FACTURACION_OPCIONES,
   VERTICAL_OPCIONES,
 } from '../../config/site.ts';
 import { getDb, hayBaseDeDatos } from '../../lib/db.ts';
+import {
+  demasiadasPeticiones,
+  emailValido,
+  enviarEmail,
+  enviarTelegram,
+  esc,
+  ipDe,
+  limpiar,
+  paginaError as errorHtml,
+  puesto,
+  redirigir,
+  remitente,
+  repartir,
+  telefonoValido,
+} from '../../lib/formulario.ts';
 
 export const prerender = false;
 
-const LIMITE_POR_VENTANA = 5;
-const VENTANA_MS = 10 * 60 * 1000;
-
-/**
- * Limitación por IP en memoria.
- *
- * Advertencia honesta: en Vercel cada instancia de la función tiene su propia
- * memoria y las instancias se reciclan, así que esto NO es un límite estricto.
- * Frena el caso realista —un script que dispara cientos de envíos seguidos—
- * pero no a un atacante decidido. Si algún día hay abuso real, la solución es
- * un almacén compartido (Upstash, Vercel KV) o un captcha invisible.
- */
-const peticiones = new Map<string, number[]>();
-
-function demasiadasPeticiones(ip: string): boolean {
-  const ahora = Date.now();
-  const previas = (peticiones.get(ip) ?? []).filter((t) => ahora - t < VENTANA_MS);
-  previas.push(ahora);
-  peticiones.set(ip, previas);
-
-  // Poda para que el Map no crezca sin límite en instancias longevas.
-  if (peticiones.size > 500) {
-    for (const [k, v] of peticiones) {
-      if (v.every((t) => ahora - t >= VENTANA_MS)) peticiones.delete(k);
-    }
-  }
-  return previas.length > LIMITE_POR_VENTANA;
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-/** Validación de email suficientemente estricta sin caer en regex imposibles. */
-function emailValido(v: string): boolean {
-  if (v.length > 200 || /\s/.test(v)) return false;
-  return /^[^@]+@[^@.]+(\.[^@.]+)+$/.test(v);
-}
-
-/**
- * Teléfono: solo dígitos y los separadores habituales, con entre 9 y 15
- * dígitos (15 es el máximo de E.164). No se normaliza: se guarda tal cual lo
- * escribió la persona, que es como se va a marcar.
- */
-function telefonoValido(v: string): boolean {
-  if (!/^[0-9+ ().-]+$/.test(v)) return false;
-  const digitos = v.replace(/\D/g, '').length;
-  return digitos >= 9 && digitos <= 15;
-}
-
-function limpiar(v: FormDataEntryValue | null, max: number): string {
-  if (typeof v !== 'string') return '';
-  // Se normalizan los saltos de línea y se eliminan el resto de caracteres de
-  // control, que solo sirven para inyectar cabeceras o meter basura invisible.
-  return v
-    .replace(/\r\n?/g, '\n')
-    .replace(/[\u0000-\u0009\u000b-\u001f\u007f]/g, '')
-    .trim()
-    .slice(0, max);
-}
-
-function paginaError(motivo: string): Response {
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>No se pudo enviar | ${BRAND.name}</title></head>
-<body style="margin:0;background:#fff;color:#14171c;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.65">
-<div style="max-width:640px;margin:0 auto;padding:4rem 1.25rem">
-<p style="font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;margin:0 0 .85rem">No se pudo enviar</p>
-<h1 style="font-size:1.9rem;line-height:1.2;margin:0 0 .6em;letter-spacing:-.02em">${esc(motivo)}</h1>
-<p style="color:#3d434e;margin:0 0 1.5rem">Vuelve al formulario y revisa los campos. Si el problema se repite, escríbenos a ${esc(BRAND.email)} y lo miramos.</p>
-<a href="/contacto" style="display:inline-flex;padding:.85rem 1.5rem;border-radius:10px;background:#14171c;color:#fff;text-decoration:none;font-weight:500">Volver al formulario</a>
-</div></body></html>`;
-  return new Response(html, {
-    status: 422,
-    headers: { 'content-type': 'text/html; charset=utf-8' },
-  });
-}
-
-function redirigir(destino: string): Response {
-  return new Response(null, { status: 303, headers: { location: destino } });
-}
-
-async function enviarTelegram(token: string, chatId: string, text: string) {
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: 'HTML',
-      disable_web_page_preview: true,
-    }),
-  });
-  if (!res.ok) throw new Error(`Telegram ${res.status}: ${(await res.text()).slice(0, 200)}`);
-}
-
-async function enviarEmail(
-  apiKey: string,
-  from: string,
-  to: string,
-  replyTo: string,
-  subject: string,
-  html: string
-) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json' },
-    body: JSON.stringify({ from, to: [to], reply_to: replyTo, subject, html }),
-  });
-  if (!res.ok) throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
-}
+const paginaError = (motivo: string) => errorHtml(motivo, CONTACT_PATH, BRAND.name, BRAND.email);
 
 export interface Solicitud {
   nombre: string;
@@ -229,11 +132,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return redirigir('/gracias');
   }
 
-  const ip =
-    clientAddress ||
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    'desconocida';
-  if (demasiadasPeticiones(ip)) {
+  if (demasiadasPeticiones(ipDe(request, clientAddress))) {
     return paginaError('Has enviado demasiadas solicitudes seguidas');
   }
 
@@ -261,8 +160,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const { telegram: tgText, html, subject } = buildMessages(d);
 
-  const tareas: { canal: string; run: Promise<void> }[] = [];
-  const puesto = (v?: string) => Boolean(v && v !== 'PENDIENTE');
+  const tareas: { canal: string; run: Promise<unknown> }[] = [];
 
   // El registro en base de datos va primero en la lista porque es el que
   // alimenta el panel: si esto falla, el lead no aparecerá en /admin aunque
@@ -270,20 +168,18 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (hayBaseDeDatos()) {
     tareas.push({
       canal: 'bd',
-      run: getDb()
-        .lead.create({
-          data: {
-            nombre: d.nombre,
-            email: d.email,
-            telefono: d.telefono,
-            empresa: d.empresa,
-            web: d.web || null,
-            facturacion: d.facturacion || null,
-            vertical: d.vertical || null,
-            mensaje: d.mensaje,
-          },
-        })
-        .then(() => undefined),
+      run: getDb().lead.create({
+        data: {
+          nombre: d.nombre,
+          email: d.email,
+          telefono: d.telefono,
+          empresa: d.empresa,
+          web: d.web || null,
+          facturacion: d.facturacion || null,
+          vertical: d.vertical || null,
+          mensaje: d.mensaje,
+        },
+      }),
     });
   }
 
@@ -295,18 +191,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   if (puesto(env.RESEND_API_KEY) && puesto(env.LEAD_NOTIFICATION_EMAIL)) {
-    // TBD DOMINIO: al verificar cerralabs.es en Resend, cambiar RESEND_FROM a
-    // avisos@cerralabs.es. onboarding@resend.dev es el remitente compartido
-    // que Resend permite sin dominio verificado.
-    const from =
-      env.RESEND_FROM && env.RESEND_FROM !== 'PENDIENTE'
-        ? env.RESEND_FROM
-        : 'Cerra Labs <onboarding@resend.dev>';
     tareas.push({
       canal: 'resend',
       run: enviarEmail(
         env.RESEND_API_KEY!,
-        from,
+        remitente(env),
         env.LEAD_NOTIFICATION_EMAIL!,
         d.email,
         subject,
@@ -327,25 +216,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return paginaError('El formulario todavía no está operativo');
   }
 
-  const resultados = await Promise.allSettled(tareas.map((t) => t.run));
-  resultados.forEach((r, i) => {
-    if (r.status === 'rejected') {
-      const canal = tareas[i].canal;
-      // El fallo de la base de datos se marca aparte: el visitante no lo nota
-      // y el aviso llega igual, pero el lead no estará en el panel.
-      const prefijo =
-        canal === 'bd'
-          ? '[contacto] LEAD NO GUARDADO EN BASE DE DATOS'
-          : `[contacto] Fallo en ${canal}`;
-      console.error(prefijo, r.reason);
-    }
-  });
-
-  // Solo se considera error si fallan TODOS los destinos: con uno que llegue,
-  // el lead no se pierde.
-  if (resultados.every((r) => r.status === 'rejected')) {
-    return paginaError('No hemos podido registrar tu solicitud');
-  }
+  // Solo es error si fallan TODOS los destinos: con uno que llegue, el lead no
+  // se pierde.
+  const alguno = await repartir(tareas, 'contacto');
+  if (!alguno) return paginaError('No hemos podido registrar tu solicitud');
 
   return redirigir('/gracias');
 };
@@ -353,7 +227,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 /** GET de cortesía: comprueba que la función está desplegada y qué falta. */
 export const GET: APIRoute = async () => {
   const env = process.env;
-  const puesto = (v?: string) => Boolean(v && v !== 'PENDIENTE');
   return new Response(
     JSON.stringify({
       endpoint: 'contact',

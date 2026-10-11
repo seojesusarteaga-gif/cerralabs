@@ -6,6 +6,8 @@ interface Props {
   body?: string;
   vertical?: string;
   label?: string;
+  /** Destino del botón. Por defecto, el formulario comercial. */
+  ctaHref?: string;
 }
 
 const {
@@ -13,6 +15,7 @@ const {
   body = 'Treinta minutos. Revisamos tu volumen de leads, tu ratio de cierre actual y tu ticket medio. Si no encajas, te lo decimos en la misma llamada y te ahorramos el proceso.',
   vertical,
   label = 'Solicita tu diagnóstico',
+  ctaHref,
 } = Astro.props;
 ---
 
@@ -20,7 +23,7 @@ const {
   <div class="wrap wrap-narrow cta-inner">
     <h2>{title}</h2>
     <p class="lede">{body}</p>
-    <CtaButton vertical={vertical} label={label} />
+    <CtaButton vertical={vertical} label={label} href={ctaHref} />
   </div>
 </section>
 

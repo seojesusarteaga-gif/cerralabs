@@ -8,6 +8,9 @@ interface Props {
   label?: string;
   compact?: boolean;
   outline?: boolean;
+  /** Destino alternativo. Lo usa /unete-como-closer para mandar al formulario
+   *  de candidaturas en vez de al comercial. */
+  href?: string;
 }
 
 const {
@@ -15,9 +18,10 @@ const {
   label = 'Solicita tu diagnóstico',
   compact = false,
   outline = false,
+  href: destino,
 } = Astro.props;
 
-const href = CONTACT_PATH;
+const href = destino ?? CONTACT_PATH;
 
 const cls = ['btn', outline ? 'btn-outline' : '', compact ? 'btn-compact' : '']
   .filter(Boolean)
