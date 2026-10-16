@@ -1,5 +1,8 @@
 ---
-import { BRAND, NAV, FOOTER_EXTRA, LEGAL } from '../config/site';
+import { BRAND, NAV, FOOTER_EXTRA, FUNDADOR, LEGAL } from '../config/site';
+
+// Solo los perfiles marcados para el pie. Hoy, LinkedIn.
+const redesPie = FUNDADOR.perfiles.filter((p) => p.enFooter);
 
 const year = new Date().getFullYear();
 ---
@@ -29,6 +32,9 @@ const year = new Date().getFullYear();
       <h2>Contacto</h2>
       <p class="muted footer-email">{BRAND.email}</p>
       <p class="muted">España · Trabajo en remoto</p>
+      {redesPie.map((perfil) => (
+        <a href={perfil.url} rel="me noopener" target="_blank">{perfil.red}</a>
+      ))}
     </div>
   </div>
 

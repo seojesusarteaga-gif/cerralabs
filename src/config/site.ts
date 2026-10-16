@@ -100,6 +100,33 @@ export const BRAND = {
   sameAs: [] as string[],
 } as const;
 
+/* ─── Fundador ─────────────────────────────────────────────────────────────
+ *
+ * Perfiles personales de Jesús, no de la marca. Van en el `sameAs` de la
+ * entidad Person del JSON-LD, no en el de la Organization: son cuentas suyas.
+ * Cuando exista la página de empresa en LinkedIn (RD6), esa sí irá en
+ * BRAND.sameAs.
+ *
+ * `enFooter` marca cuáles salen en el pie. Hoy solo LinkedIn, por decisión
+ * suya: Instagram se queda en /sobre-nosotros.
+ */
+export const FUNDADOR = {
+  nombre: 'Jesús Arteaga Fernández',
+  cargo: 'Fundador y CEO',
+  perfiles: [
+    {
+      red: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/jesus-arteaga-fernandez79/',
+      enFooter: true,
+    },
+    {
+      red: 'Instagram',
+      url: 'https://www.instagram.com/jesusarteagacerralabs/',
+      enFooter: false,
+    },
+  ],
+} as const;
+
 export const VERTICALS = [
   {
     slug: 'agencias',
