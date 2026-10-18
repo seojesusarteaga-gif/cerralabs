@@ -10,7 +10,7 @@ import path from 'node:path';
 const ROOT = process.argv[2] || 'dist';
 const SITE = 'https://cerralabs.es';
 const BRAND = 'Cerra Labs';
-const EMAIL = 'hola@cerralabs.es';
+const EMAIL = 'jesusarteaga@cerralabs.es';
 
 const fail = [];
 const warn = [];

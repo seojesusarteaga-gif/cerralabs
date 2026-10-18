@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
 
     <div class="footer-nav">
       <h2>Contacto</h2>
-      <p class="muted footer-email">{BRAND.email}</p>
+      <p class="footer-email"><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p>
       <p class="muted">España · Trabajo en remoto</p>
       {redesPie.map((perfil) => (
         <a href={perfil.url} rel="me noopener" target="_blank">{perfil.red}</a>

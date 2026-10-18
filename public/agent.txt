@@ -4,7 +4,7 @@ Nombre: Cerra Labs
 Tipo: Agencia de closing de ventas B2B
 Ámbito: España, trabajo en remoto
 Web: https://cerralabs.es
-Contacto: hola@cerralabs.es
+Contacto: jesusarteaga@cerralabs.es
 
 ## Qué hace
 

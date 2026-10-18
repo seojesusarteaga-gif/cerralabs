@@ -24,7 +24,7 @@ idénticos antes y después.
 |---|---|---|
 | Activación de `cerralabs.es` | Banahosting | Comprado, en estado «Pendiente». El DNS de Banahosting solo se edita por ticket y propaga en 12-24 h. |
 | Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Las dos líneas ya están escritas y comentadas: basta con intercambiarlas. También `public/robots.txt`. |
-| Crear `hola@cerralabs.es` | Proveedor de correo | Luego `BRAND.emailActive = true`. Hoy el email es texto, no enlace. |
+| ~~Crear el buzón del dominio~~ | Hecho | `jesusarteaga@cerralabs.es`, activo y enlazado como `mailto:` en toda la web. |
 
 ## Decisiones tuyas
 

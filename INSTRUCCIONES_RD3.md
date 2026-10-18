@@ -113,9 +113,9 @@ cd "C:\Users\Usuario\Desktop\proyectos\cerra labs" && vercel env rm LEAD_NOTIFIC
 | `RESEND_FROM` | Remitente. Vacío usa el compartido de Resend | Opcional |
 
 Son cuatro, no tres: el endpoint necesita saber **a qué dirección** enviar el
-email, y eso no se puede deducir de la clave de Resend. Cuando exista
-`hola@cerralabs.es` podremos prescindir de `LEAD_NOTIFICATION_EMAIL` y usarla
-por defecto.
+email, y eso no se puede deducir de la clave de Resend. Ahora que existe
+`jesusarteaga@cerralabs.es`, `LEAD_NOTIFICATION_EMAIL` puede apuntar ahí en
+vez de a una cuenta personal.
 
 ---
 

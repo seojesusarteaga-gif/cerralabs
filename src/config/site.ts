@@ -87,10 +87,10 @@ export const BRAND = {
   name: 'Cerra Labs',
   legalName: 'Jesús Arteaga Fernández',
   tagline: 'Agencia de closing B2B',
-  // TBD EMAIL: la cuenta se crea con el dominio. Hasta entonces se muestra
-  // como texto, nunca como mailto activo.
-  email: 'hola@cerralabs.es',
-  emailActive: false,
+  // Buzón real del fundador. Todo el sitio lo lee de aquí: no hay ninguna
+  // dirección escrita a mano en las páginas.
+  email: 'jesusarteaga@cerralabs.es',
+  emailActive: true,
   country: 'ES',
   logo: '/logo-cerra-labs.svg',
   mark: '/mark-cerra-labs.svg',
