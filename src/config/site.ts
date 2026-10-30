@@ -55,6 +55,51 @@ export const CONTACT_FIELDS = [
   { id: 'mensaje', label: 'Mensaje', required: true },
 ] as const;
 
+/* ─── Landing de campaña ───────────────────────────────────────────────────
+ *
+ * Página de destino de la campaña de ChatGPT Ads. Vive aparte del embudo
+ * normal: sin menú, sin enlaces al resto del sitio y con un mínimo de ticket
+ * propio (1.500 €), más bajo que el de las páginas de vertical. Por eso no
+ * puede haber navegación entre ambas: el visitante vería dos criterios.
+ *
+ * Los envíos se guardan como Lead, igual que los de /contacto, pero marcados
+ * con `origen` para poder separarlos de los orgánicos.
+ */
+
+export const LANDING_PATH = '/cerrar-mas-ventas';
+
+/** Etiqueta que encabeza el aviso y se guarda en Lead.origen. */
+export const LANDING_ORIGEN = 'Lead landing ChatGPT Ads';
+
+/** Ticket medio. El primer tramo está por debajo del mínimo de la campaña a
+ *  propósito: sirve para descartar en la propia llamada, no antes. */
+export const TICKET_OPCIONES = [
+  'Menos de 1.500 €',
+  'Entre 1.500 € y 3.000 €',
+  'Entre 3.000 € y 10.000 €',
+  'Más de 10.000 €',
+] as const;
+
+/** Volumen mensual de oportunidades cualificadas. */
+export const LEADS_OPCIONES = [
+  'Menos de 10 al mes',
+  'Entre 10 y 30 al mes',
+  'Entre 30 y 100 al mes',
+  'Más de 100 al mes',
+] as const;
+
+/** Campos de la landing, en el orden en que aparecen en el aviso. */
+export const LANDING_FIELDS = [
+  { id: 'nombre', label: 'Nombre', required: true },
+  { id: 'empresa', label: 'Empresa', required: true },
+  { id: 'email', label: 'Email', required: true },
+  { id: 'telefono', label: 'Teléfono', required: true },
+  { id: 'web', label: 'Web', required: false },
+  { id: 'ticket', label: 'Ticket medio', required: false },
+  { id: 'leads', label: 'Oportunidades al mes', required: false },
+  { id: 'mensaje', label: 'Qué vende y en qué necesita ayuda', required: true },
+] as const;
+
 /* ─── Candidaturas de closer ───────────────────────────────────────────────
  *
  * Flujo separado del comercial a propósito: /contacto recibe empresas y

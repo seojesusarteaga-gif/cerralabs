@@ -1,0 +1,132 @@
+---
+/**
+ * Layout de las páginas de campaña.
+ *
+ * Igual que BaseLayout en cabecera y estilos, pero **sin navegación**: ni menú
+ * ni enlaces al resto del sitio. No es una decisión estética. La landing
+ * trabaja con un mínimo de ticket de 1.500 € y las páginas de vertical piden
+ * 2.000 € o 3.000 €; si el visitante que llega del anuncio puede saltar de una
+ * a otra, se encuentra dos criterios distintos para lo mismo.
+ *
+ * El pie conserva solo lo obligatorio: las dos páginas legales y el aviso de
+ * condiciones. Nada comercial.
+ *
+ * Sin JSON-LD a propósito: la página va con noindex y no debe emitir señales
+ * de entidad que compitan con las del sitio indexable.
+ */
+import '../styles/global.css';
+import { BRAND, LEGAL, SITE_URL } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Por defecto fuera del índice: es tráfico de pago, no orgánico. */
+  noindex?: boolean;
+}
+
+const { title, description, noindex = true } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href.replace(/\/$/, '') || SITE_URL;
+const fullTitle = `${title} | ${BRAND.name}`;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={BRAND.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={`${SITE_URL}${BRAND.ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${BRAND.name} — ${BRAND.tagline}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={`${SITE_URL}${BRAND.ogImage}`} />
+
+    <link rel="icon" type="image/svg+xml" href={BRAND.mark} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    {/* El logo no enlaza a ninguna parte: es identidad, no navegación. */}
+    <header class="landing-header">
+      <div class="wrap">
+        <img src={BRAND.logo} alt={BRAND.name} width="176" height="38" />
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="landing-footer">
+      <div class="wrap landing-footer-inner">
+        <p class="muted">© {year} {BRAND.name}</p>
+        <nav class="landing-legal" aria-label="Legal">
+          {LEGAL.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+        <p class="muted">
+          Las condiciones económicas concretas se fijan por escrito en cada acuerdo.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .landing-header {
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--paper);
+  }
+
+  .landing-header img {
+    display: block;
+  }
+
+  .landing-footer {
+    border-top: 1px solid var(--line);
+    background: var(--paper-alt);
+    padding-block: 1.75rem;
+    margin-top: 0;
+  }
+
+  .landing-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .landing-footer-inner p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .landing-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.25rem;
+  }
+
+  .landing-legal a {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .landing-legal a:hover {
+    color: var(--ink);
+  }
+</style>

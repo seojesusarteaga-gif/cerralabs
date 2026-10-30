@@ -110,6 +110,13 @@ const docs = pages.map((f) => ({ f, r: route(f), h: read(f) }));
   for (const { r, h } of docs) {
     const blocks = [...h.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
     if (!blocks.length) {
+      // Una página con noindex no la va a leer ningún buscador, así que no se
+      // le exige marcado: es el caso de las confirmaciones de formulario y de
+      // las landings de campaña.
+      if (/<meta name="robots" content="noindex/.test(h)) {
+        O(P, `${r}: sin JSON-LD, correcto por llevar noindex`);
+        continue;
+      }
       F(P, `${r}: sin JSON-LD`);
       continue;
     }
@@ -182,8 +189,9 @@ const docs = pages.map((f) => ({ f, r: route(f), h: read(f) }));
   if (!broken) O(P, 'sin enlaces internos rotos');
 
   const orphans = [...incoming].filter(([r, n]) => n === 0 && r !== '/').map(([r]) => r);
-  // Las dos confirmaciones solo se alcanzan tras un POST correcto.
-  const allowed = ['/gracias', '/gracias-candidatura'];
+  // Las confirmaciones solo se alcanzan tras un POST correcto, y la landing
+  // de campaña solo desde el anuncio: ninguna debe tener enlaces entrantes.
+  const allowed = ['/gracias', '/gracias-candidatura', '/gracias-llamada', '/cerrar-mas-ventas'];
   for (const o of orphans)
     if (allowed.includes(o)) O(P, `${o}: huérfana intencional (confirmación de formulario)`);
     else F(P, `${o}: huérfana, sin enlaces entrantes`);

@@ -1,0 +1,418 @@
+---
+/**
+ * Landing de la campaña de ChatGPT Ads.
+ *
+ * Se sirve en servidor (`prerender = false`) por un motivo concreto: leer los
+ * parámetros de campaña de la URL y meterlos en el formulario. El sitio no
+ * ejecuta JavaScript, así que no hay otra forma de que un UTM llegue hasta el
+ * aviso. Sigue siendo 0 KB de JavaScript en el navegador.
+ *
+ * El mínimo de ticket aquí es 1.500 €, más bajo que el de las páginas de
+ * vertical. Por eso el layout no tiene navegación: ver los dos criterios en
+ * una misma visita sería peor que no ver ninguno.
+ *
+ * Nada de lo que afirma esta página es nuevo: el modelo económico, el proceso
+ * y la llamada de treinta minutos están ya publicados en /servicio y en la
+ * portada, y se han copiado de ahí, no inventado.
+ */
+import LandingLayout from '../layouts/LandingLayout.astro';
+import LandingForm from '../components/LandingForm.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import FitCriteria from '../components/FitCriteria.astro';
+import Faq from '../components/Faq.astro';
+
+export const prerender = false;
+
+/**
+ * Parámetros de campaña que se conservan. Lista cerrada a propósito: cualquier
+ * otro parámetro de la URL se descarta, para que nadie pueda inyectar texto
+ * arbitrario en el aviso de Telegram desde un enlace manipulado.
+ */
+const PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid'];
+
+const utm = PARAMS.map((p) => {
+  const v = Astro.url.searchParams.get(p);
+  if (!v) return null;
+  // Se recorta y se limpia: lo que entra por URL es de fuera.
+  return `${p}=${v.replace(/[\u0000-\u001f\u007f<>]/g, '').slice(0, 60)}`;
+})
+  .filter(Boolean)
+  .join('&');
+
+const problemas = [
+  {
+    title: 'Vendes tú y ya no te caben más llamadas',
+    body: 'El fundador o el responsable comercial concentra todas las conversaciones de venta. El techo deja de ser el mercado y pasa a ser una agenda.',
+  },
+  {
+    title: 'Entran oportunidades y no llegas a seguirlas',
+    body: 'Se manda la propuesta y ahí se queda. El segundo y el tercer contacto no ocurren, y una parte de esas oportunidades se cae por silencio, no por precio.',
+  },
+  {
+    title: 'El proceso de cierre no está escrito en ninguna parte',
+    body: 'Cada llamada se lleva distinta, no hay criterio común de cualificación y, cuando una venta se pierde, nadie registra por qué.',
+  },
+  {
+    title: 'Quieres más capacidad comercial sin montar un equipo',
+    body: 'Contratar, formar y sostener a un comercial cuesta meses y dinero antes de saber si funciona. Buscas la capacidad sin la estructura.',
+  },
+];
+
+const pasos = [
+  {
+    title: 'Vemos si encaja',
+    body: 'Una llamada en la que revisamos qué vendes, a quién, cuántas oportunidades generas, de dónde llegan, cómo es tu proceso comercial hoy y cuál es tu ticket medio.',
+    detail: 'Si no hay encaje, se dice en esa misma llamada.',
+  },
+  {
+    title: 'Acordamos cómo se trabaja',
+    body: 'Si las dos partes quieren avanzar, se define por escrito el alcance del servicio, qué oportunidades entran, cómo se reparte el trabajo con tu equipo y las condiciones económicas.',
+    detail: 'Nada empieza sin ese acuerdo firmado.',
+  },
+  {
+    title: 'Preparamos y empezamos a trabajar',
+    body: 'Formación en tu producto, tus objeciones y tus criterios de cualificación, más la integración con tu CRM. A partir de ahí el closer trabaja las oportunidades acordadas.',
+  },
+  {
+    title: 'Seguimiento de la actividad y del resultado',
+    body: 'Reporting del embudo completo, desde la oportunidad agendada hasta el importe cobrado, y acceso a las grabaciones de las llamadas.',
+  },
+];
+
+const encajaSi = [
+  'Ya generas leads u oportunidades cualificadas de forma recurrente.',
+  'Tu ticket medio es de al menos 1.500 €.',
+  'Tu venta incluye una llamada o videollamada antes de cerrar.',
+  'Buscas apoyo para gestionar y cerrar las oportunidades que ya tienes.',
+];
+
+const encajaNo = [
+  'Necesitas que generemos los leads desde cero: eso es captación, no cierre.',
+  'Tu venta es autoservicio y no pasa por una conversación comercial.',
+  'Buscas llamada en frío sobre una lista comprada.',
+];
+
+const llamada = [
+  'Qué vendes y a qué tipo de cliente.',
+  'Cuántas oportunidades generas al mes y por qué canal llegan.',
+  'Cómo es tu proceso comercial hoy y dónde se atasca.',
+  'Tu ticket medio y qué necesitas resolver en el cierre.',
+  'Si hay encaje para trabajar juntos, y en qué condiciones.',
+];
+
+const faqs = [
+  {
+    q: '¿Generáis vosotros los leads?',
+    a: 'No. Trabajamos sobre las oportunidades que tu empresa ya genera. No hacemos captación, ni publicidad, ni llamada en frío sobre listas compradas. Si tu problema es de volumen y no de cierre, no somos el proveedor adecuado y te lo diremos en la llamada.',
+  },
+  {
+    q: '¿Qué tipo de empresas encajan?',
+    a: 'Empresas de formación e infoproductores, y agencias de marketing, servicios digitales, consultoría e IA, que ya reciben oportunidades cualificadas, venden con al menos una llamada y tienen un ticket medio desde 1.500 €.',
+  },
+  {
+    q: '¿Cómo se acuerdan los honorarios?',
+    a: 'Nuestro modelo es de rev-share: no hay cuota de entrada ni fijo mensual, y cobramos un porcentaje del importe cobrado de las ventas que cerramos nosotros. El porcentaje concreto depende de tu ticket, de tu ciclo y del volumen previsto, y se fija por escrito antes de empezar.',
+  },
+  {
+    q: '¿Qué necesito tener preparado antes de la llamada?',
+    a: 'Cuatro números aproximados: cuántas oportunidades cualificadas generas al mes, qué porcentaje acaba en venta hoy, tu ticket medio y cuánto dura tu ciclo desde el primer contacto hasta el cierre. Con estimaciones vale; no hace falta preparar nada por escrito.',
+  },
+  {
+    q: '¿Trabajáis con mi CRM?',
+    a: 'Trabajamos dentro del tuyo, no en un panel nuestro. Nos integramos con los CRM habituales del mercado; si usas uno poco común, lo miramos en la llamada antes de comprometernos. Si todavía no tienes ninguno, lo montamos durante la puesta en marcha y la configuración se queda contigo.',
+  },
+];
+---
+
+<LandingLayout
+  title="Cierra más oportunidades"
+  description="Closers para los leads que ya generas. Si tu empresa genera oportunidades cualificadas y el cierre es el cuello de botella, solicita una llamada de diagnóstico."
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-texto">
+        <p class="eyebrow">Closing B2B · Formación, infoproducto y agencias</p>
+        <h1>Convierte más oportunidades en ventas</h1>
+        <p class="lede">
+          Si tu empresa ya genera leads cualificados, en Cerra Labs ponemos
+          closers con experiencia a gestionar y cerrar esas oportunidades, con
+          un servicio adaptado a tu forma de vender.
+        </p>
+
+        <ul class="claves">
+          <li>Para empresas de formación, infoproductores y agencias.</li>
+          <li>Para servicios o programas desde 1.500 €.</li>
+          <li>Trabajamos sobre los leads que tu empresa ya genera.</li>
+        </ul>
+
+        <div class="hero-cta">
+          <a class="btn" href="#solicitar">Solicitar llamada de diagnóstico</a>
+        </div>
+        <p class="hero-note muted">
+          No hacemos captación ni llamada en frío. Trabajamos lo que ya entra.
+        </p>
+      </div>
+
+      <aside class="hero-modelo" aria-label="Cómo funciona">
+        <p class="hero-modelo-titulo">Cómo funciona</p>
+        <ul>
+          <li>
+            <span class="display">0 €</span>
+            <span class="et">Sin cuota de entrada ni fijo mensual</span>
+          </li>
+          <li>
+            <span class="display">%</span>
+            <span class="et">Un porcentaje del importe cobrado</span>
+          </li>
+          <li>
+            <span class="display">30 min</span>
+            <span class="et">Dura la llamada de diagnóstico</span>
+          </li>
+        </ul>
+        <p class="hero-modelo-pie">
+          El porcentaje se fija por escrito con cada empresa antes de empezar.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Situaciones que nos encontramos a menudo</h2>
+        <p>
+          No todas se dan en todas las empresas. Si reconoces una o dos, la
+          llamada probablemente merezca la pena.
+        </p>
+      </div>
+      <ol class="dolores">
+        {
+          problemas.map((p) => (
+            <li>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2>Cuatro pasos, en este orden</h2>
+      <ProcessSteps steps={pasos} />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap wrap-narrow modelo">
+      <p class="eyebrow">Modelo económico</p>
+      <h2 class="modelo-claim">Si no cerramos, <span>no facturamos</span>.</h2>
+      <p class="lede">
+        Cobramos un porcentaje de las ventas que cerramos nosotros, calculado
+        siempre sobre el importe cobrado y nunca sobre el importe firmado. Sin
+        cuota de entrada y sin fijo mensual.
+      </p>
+      <p class="muted">
+        El porcentaje concreto depende de tu ticket, de tu ciclo de venta y del
+        volumen previsto, y se acuerda por escrito con cada empresa antes de
+        empezar. No publicamos una cifra porque no sería la misma para todos.
+      </p>
+    </div>
+  </section>
+
+  <FitCriteria
+    yes={encajaSi}
+    no={encajaNo}
+    title="¿Para quién es?"
+    intro="Preferimos decirlo antes de la llamada. Esto funciona muy bien en unas situaciones concretas y bastante mal en el resto."
+  />
+
+  <section class="section section-alt">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">La llamada</p>
+      <h2>Qué revisamos en treinta minutos</h2>
+      <ul class="list-check llamada">
+        {llamada.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="muted">
+        Sin coste y sin presentación comercial. Si de la conversación sale que
+        tu problema es de captación y no de cierre, te lo decimos ahí mismo y no
+        habrá propuesta.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="solicitar">
+    <div class="wrap wrap-narrow">
+      <p class="eyebrow">Solicitar</p>
+      <h2>Cuéntanos tu situación</h2>
+      <p class="lede form-lede">
+        Te respondemos en un día laborable para fijar la llamada. Los campos
+        marcados con asterisco son obligatorios; el resto ayuda a que la
+        conversación sea más útil.
+      </p>
+      <LandingForm utm={utm} />
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Preguntas frecuentes" />
+</LandingLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .hero h1 {
+    max-width: 16ch;
+  }
+
+  .hero .lede {
+    max-width: 54ch;
+  }
+
+  .claves {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .claves li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .claves li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .hero-cta {
+    margin-top: 2rem;
+  }
+
+  .hero-note {
+    margin-top: 0.9rem;
+    font-size: 0.9375rem;
+  }
+
+  .hero-modelo {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+    padding: 1.75rem;
+  }
+
+  .hero-modelo-titulo {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.25rem;
+  }
+
+  .hero-modelo ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .hero-modelo li {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .hero-modelo .display {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .hero-modelo .et {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .hero-modelo-pie {
+    margin: 1.5rem 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .dolores {
+    list-style: none;
+    padding: 0;
+    margin: 2.25rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 760px) {
+    .dolores {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 2.5rem;
+    }
+  }
+
+  .dolores li {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.1rem;
+  }
+
+  .dolores h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .dolores p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .modelo-claim span {
+    color: var(--accent);
+  }
+
+  .modelo .lede {
+    max-width: 60ch;
+  }
+
+  .llamada {
+    margin: 1.75rem 0;
+  }
+
+  .form-lede {
+    max-width: 62ch;
+  }
+</style>

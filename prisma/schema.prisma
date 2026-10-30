@@ -48,6 +48,16 @@ model Lead {
   facturacion String?
   vertical    String?
   mensaje     String
+  /// Ticket medio y volumen mensual. Solo los pide la landing de campaña; los
+  /// envíos de /contacto los dejan a nulo.
+  ticket      String?
+  leads       String?
+  /// De dónde viene el lead. Nulo es el formulario normal de /contacto; la
+  /// landing de campaña escribe aquí su etiqueta para poder separarlos.
+  origen      String?
+  /// Parámetros UTM de la visita, tal cual llegaron en la URL. Se guardan en
+  /// crudo porque la campaña puede añadir parámetros que hoy no existen.
+  utm         String?
   estado      Estado   @default(NUEVO)
   /// Notas internas de seguimiento. No se muestran a nadie fuera del panel.
   notas       String?
