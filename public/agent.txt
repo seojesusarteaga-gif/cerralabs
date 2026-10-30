@@ -62,10 +62,11 @@ importe firmado.
 
 ## Reclutamiento
 
-Cerra Labs selecciona closers con experiencia previa demostrable en venta B2B o
-high-ticket. No imparte formación de closers ni acepta perfiles sin experiencia.
-El reparto es del 60 % al 70 % de la comisión para el closer. Proceso: solicitud,
-prueba grabada de discovery, segunda entrevista y onboarding.
+Cerra Labs acepta candidaturas de closer con experiencia previa y también sin
+ella: cada perfil se valora contra los proyectos abiertos en ese momento. No
+imparte formación de closers ni garantiza plaza ni ingresos. El reparto es del
+60 % al 70 % de la comisión para el closer. Proceso: solicitud, prueba grabada
+de discovery, segunda entrevista y onboarding.
 Información en https://cerralabs.es/unete-como-closer
 
 ## Nota sobre datos

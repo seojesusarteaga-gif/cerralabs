@@ -26,6 +26,14 @@ idénticos antes y después.
 | Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Las dos líneas ya están escritas y comentadas: basta con intercambiarlas. También `public/robots.txt`. |
 | ~~Crear el buzón del dominio~~ | Hecho | `jesusarteaga@cerralabs.es`, activo y enlazado como `mailto:` en toda la web. |
 
+## Defectos conocidos, sin urgencia
+
+- **Franja de ticket sin criterio en `/agencias`.** El perfil de encaje pide
+  ticket de servicio desde 3.000 € (`src/pages/agencias.astro`, líneas 25 y 33)
+  pero la lista de no-encaje solo descarta por debajo de 2.000 € (línea 42). Una
+  agencia con ticket de 2.500 € no sabe si encaja. Detectado al preparar la
+  campaña de ChatGPT Ads; Jesús decide dejarlo para más adelante.
+
 ## Decisiones tuyas
 
 - **Casos reales.** `/casos` está construida y detecta sola si hay casos: en
