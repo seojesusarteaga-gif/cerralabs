@@ -20,18 +20,15 @@ const RESPONSABLE = {
   domicilio: 'Estepa (Sevilla), España',
 };
 
-const ACTUALIZADA = '9 de octubre de 2026';
+const ACTUALIZADA = '3 de noviembre de 2026';
 
 /**
- * PENDIENTE DE JESÚS: plazo de conservación de las candidaturas.
- *
- * La política general cubre el formulario comercial, donde la conservación va
- * ligada a la gestión de la solicitud. Guardar una candidatura «por si encaja
- * más adelante» es otra cosa: el RGPD exige un plazo concreto, y no me lo
- * puedo inventar. Lo habitual en selección es uno o dos años desde el envío.
- * En cuanto lo decida, sustituir el marcador por el plazo.
+ * Plazo de conservación, decidido por Jesús el 3 de noviembre de 2026. El mismo
+ * para los dos tratamientos: candidaturas, y solicitudes comerciales que no
+ * acaban en colaboración. Si hay colaboración, mandan los plazos fiscales y
+ * contables, que son más largos y se explican aparte.
  */
-const PLAZO_CANDIDATURAS = '[PLAZO-PENDIENTE]';
+const PLAZO_CONSERVACION = '12 meses';
 
 const datosCandidatura = [
   { campo: 'Nombre y apellidos', nota: 'Obligatorio.' },
@@ -203,18 +200,26 @@ const crumbs = [{ label: 'Política de privacidad', href: '/privacidad' }];
 
       <h2>Durante cuánto tiempo los conservamos</h2>
       <p>
-        <strong>Solicitudes comerciales.</strong> El tiempo necesario para
-        gestionar tu solicitud y el seguimiento que se derive de ella. Si de
+        <strong>Solicitudes comerciales.</strong> Las que no acaban en
+        colaboración se conservan {PLAZO_CONSERVACION} desde el envío, el
+        tiempo necesario para gestionar la solicitud y su seguimiento. Si de
         ahí nace una colaboración, los datos se conservan después durante los
         plazos que impongan las obligaciones legales aplicables, en particular
-        las fiscales y contables. Si no hay colaboración, puedes pedir su
-        supresión en cualquier momento y se atiende.
+        las fiscales y contables. Puedes pedir la supresión antes de ese plazo
+        en cualquier momento y se atiende.
       </p>
       <p>
-        <strong>Candidaturas.</strong> Se conservan durante{' '}
-        {PLAZO_CANDIDATURAS} desde el envío, para tenerlas en cuenta en
-        proyectos posteriores aunque no haya encaje inmediato. Puedes pedir su
-        supresión antes de ese plazo en cualquier momento y se atiende.
+        <strong>Candidaturas.</strong> Se conservan {PLAZO_CONSERVACION} desde
+        el envío, para tenerlas en cuenta en proyectos posteriores aunque no
+        haya encaje inmediato. Puedes pedir la supresión antes de ese plazo en
+        cualquier momento y se atiende.
+      </p>
+      <p>
+        <strong>Parámetros de campaña.</strong> Los parámetros{' '}
+        <code>utm_</code> que acompañan a una solicitud enviada desde una
+        página de campaña se guardan junto a esa solicitud y se borran con
+        ella, en el mismo plazo. No se tratan por separado ni se cruzan con
+        nada.
       </p>
 
       <h2>Quién más interviene</h2>
