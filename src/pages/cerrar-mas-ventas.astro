@@ -7,9 +7,9 @@
  * ejecuta JavaScript, así que no hay otra forma de que un UTM llegue hasta el
  * aviso. Sigue siendo 0 KB de JavaScript en el navegador.
  *
- * El mínimo de ticket aquí es 1.500 €, más bajo que el de las páginas de
- * vertical. Por eso el layout no tiene navegación: ver los dos criterios en
- * una misma visita sería peor que no ver ninguno.
+ * El layout no tiene navegación porque es una página de pago: cada visita
+ * tiene un coste y un solo objetivo, que es el formulario. Cualquier enlace
+ * que no lleve a él es una fuga comprada.
  *
  * Nada de lo que afirma esta página es nuevo: el modelo económico, el proceso
  * y la llamada de treinta minutos están ya publicados en /servicio y en la
@@ -20,6 +20,7 @@ import LandingForm from '../components/LandingForm.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import FitCriteria from '../components/FitCriteria.astro';
 import Faq from '../components/Faq.astro';
+import { TICKET_MINIMO } from '../config/site';
 
 export const prerender = false;
 
@@ -81,7 +82,7 @@ const pasos = [
 
 const encajaSi = [
   'Ya generas leads u oportunidades cualificadas de forma recurrente.',
-  'Tu ticket medio es de al menos 1.500 €.',
+  `Tu ticket medio es de al menos ${TICKET_MINIMO}.`,
   'Tu venta incluye una llamada o videollamada antes de cerrar.',
   'Buscas apoyo para gestionar y cerrar las oportunidades que ya tienes.',
 ];
@@ -107,7 +108,7 @@ const faqs = [
   },
   {
     q: '¿Qué tipo de empresas encajan?',
-    a: 'Empresas de formación e infoproductores, y agencias de marketing, servicios digitales, consultoría e IA, que ya reciben oportunidades cualificadas, venden con al menos una llamada y tienen un ticket medio desde 1.500 €.',
+    a: `Empresas de formación e infoproductores, y agencias de marketing, servicios digitales, consultoría e IA, que ya reciben oportunidades cualificadas, venden con al menos una llamada y tienen un ticket medio desde ${TICKET_MINIMO}.`,
   },
   {
     q: '¿Cómo se acuerdan los honorarios?',
@@ -141,7 +142,7 @@ const faqs = [
 
         <ul class="claves">
           <li>Para empresas de formación, infoproductores y agencias.</li>
-          <li>Para servicios o programas desde 1.500 €.</li>
+          <li>Para servicios o programas desde {TICKET_MINIMO}.</li>
           <li>Trabajamos sobre los leads que tu empresa ya genera.</li>
         </ul>
 

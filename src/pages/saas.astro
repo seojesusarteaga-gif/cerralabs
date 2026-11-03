@@ -1,5 +1,6 @@
 ---
 import VerticalPage from '../components/VerticalPage.astro';
+import { TICKET_MINIMO } from '../config/site';
 
 const diagnosis = [
   {
@@ -24,7 +25,7 @@ const profile = [
   { label: 'ARR', value: 'Entre 500.000 € y 5 millones' },
   { label: 'Demos cualificadas', value: '20 o más al mes' },
   { label: 'Ratio de cierre actual', value: 'Por debajo del 25 %' },
-  { label: 'Ticket', value: 'Contrato anual desde 2.000 €' },
+  { label: 'Ticket', value: `Contrato anual desde ${TICKET_MINIMO}` },
   { label: 'Proceso de venta', value: 'Multi-contacto con llamada comercial' },
   { label: 'Perfil del closer', value: 'Con experiencia previa en venta de software B2B' },
 ];
@@ -32,7 +33,7 @@ const profile = [
 const fitYes = [
   'Recibes al menos 20 demos cualificadas al mes de forma sostenida.',
   'Tu ratio de cierre está por debajo del 25 % y crees que el problema es de conversación, no de producto.',
-  'Tu contrato anual medio supera los 2.000 €.',
+  `Tu contrato anual medio supera los ${TICKET_MINIMO}.`,
   'Tienes el CRM al día, con etapas definidas y motivos de pérdida registrados.',
   'Puedes dar acceso a un entorno de demo y a documentación de producto durante el onboarding.',
 ];

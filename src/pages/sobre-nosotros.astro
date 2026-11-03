@@ -27,7 +27,10 @@ const principles = [
 const roles = [
   {
     title: 'Fundador',
-    body: 'Jesús Arteaga. Lleva de forma personal las cuentas del vertical de agencias y supervisa la calidad del resto. Es quien está en la llamada de diagnóstico.',
+    // El nombre va aparte para poder enlazarlo sin meter HTML en la cadena.
+    nombre: 'Jesús Arteaga',
+    nombreUrl: FUNDADOR.perfiles[0].url,
+    body: '. Lleva de forma personal las cuentas del vertical de agencias y supervisa la calidad del resto. Es quien está en la llamada de diagnóstico.',
   },
   {
     title: 'Closers asignados',
@@ -62,7 +65,9 @@ const crumbs = [{ label: 'Quiénes somos', href: '/sobre-nosotros' }];
     <div class="wrap wrap-narrow">
       <h2>Quién está detrás</h2>
       <p>
-        Jesús Arteaga Fernández, fundador y CEO de Cerra Labs, lleva seis años
+        <a href="https://www.linkedin.com/in/jesus-arteaga-fernandez79/" rel="me noopener" target="_blank">
+          Jesús Arteaga Fernández
+        </a>, fundador y CEO de Cerra Labs, lleva seis años
         trabajando en marketing digital, especializado en captación y cierre de
         leads de alto valor. En este tiempo ha trabajado con sectores muy
         distintos entre sí: infoproductores de formación en SEO, marketing
@@ -138,7 +143,14 @@ const crumbs = [{ label: 'Quiénes somos', href: '/sobre-nosotros' }];
           roles.map((r) => (
             <div class="card">
               <h3>{r.title}</h3>
-              <p>{r.body}</p>
+              <p>
+                {r.nombre && (
+                  <a href={r.nombreUrl} rel="me noopener" target="_blank">
+                    {r.nombre}
+                  </a>
+                )}
+                {r.body}
+              </p>
             </div>
           ))
         }

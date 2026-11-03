@@ -28,11 +28,11 @@ idénticos antes y después.
 
 ## Defectos conocidos, sin urgencia
 
-- **Franja de ticket sin criterio en `/agencias`.** El perfil de encaje pide
-  ticket de servicio desde 3.000 € (`src/pages/agencias.astro`, líneas 25 y 33)
-  pero la lista de no-encaje solo descarta por debajo de 2.000 € (línea 42). Una
-  agencia con ticket de 2.500 € no sabe si encaja. Detectado al preparar la
-  campaña de ChatGPT Ads; Jesús decide dejarlo para más adelante.
+- ~~**Franja de ticket sin criterio en `/agencias`.**~~ **RESUELTO.** El perfil
+  pedía ticket desde 3.000 € y la lista de no-encaje solo descartaba por debajo
+  de 2.000 €, dejando la franja intermedia sin criterio. Resuelto al unificar
+  todos los mínimos en la constante `TICKET_MINIMO` de `src/config/site.ts`,
+  hoy 1.000 €: las dos frases leen la misma cifra y no pueden separarse.
 
 ## Decisiones tuyas
 

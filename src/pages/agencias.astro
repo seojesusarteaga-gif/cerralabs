@@ -1,5 +1,6 @@
 ---
 import VerticalPage from '../components/VerticalPage.astro';
+import { TICKET_MINIMO } from '../config/site';
 
 const diagnosis = [
   {
@@ -22,7 +23,7 @@ const diagnosis = [
 
 const profile = [
   { label: 'Facturación anual', value: 'Desde 100.000 €' },
-  { label: 'Ticket medio de servicio', value: 'Desde 3.000 €' },
+  { label: 'Ticket medio de servicio', value: `Desde ${TICKET_MINIMO}` },
   { label: 'Origen de los leads', value: 'Entrantes recurrentes: referencias, contenido, inbound' },
   { label: 'Proceso de venta', value: 'Llamada de discovery más propuesta' },
   { label: 'Quién lleva la cuenta', value: 'Jesús Arteaga, de forma directa' },
@@ -30,7 +31,7 @@ const profile = [
 
 const fitYes = [
   'Te entran oportunidades de forma recurrente y no llegas a atenderlas todas con la atención que merecen.',
-  'Tu ticket medio por proyecto o por retainer supera los 3.000 €.',
+  `Tu ticket medio por proyecto o por retainer supera los ${TICKET_MINIMO}.`,
   'Vendes con al menos una llamada de discovery antes de la propuesta.',
   'Tienes capacidad de producción para asumir más trabajo del que cierras hoy.',
   'Estás dispuesto a documentar tu proceso de venta y tus objeciones habituales durante el onboarding.',
@@ -39,7 +40,7 @@ const fitYes = [
 const fitNo = [
   'Tu problema es que no entran leads. Eso es captación, no cierre.',
   'Facturas por debajo de 100.000 € al año: el volumen no sostiene el modelo para ninguna de las dos partes.',
-  'Vendes proyectos pequeños de menos de 2.000 € con mucha rotación.',
+  `Vendes proyectos pequeños de menos de ${TICKET_MINIMO} con mucha rotación.`,
   'Estás al límite de capacidad de entrega y cerrar más sería un problema, no una solución.',
 ];
 
@@ -87,5 +88,5 @@ const faqs = [
   fitNo={fitNo}
   faqs={faqs}
   serviceName="Closing de ventas para agencias"
-  serviceDescription="Servicio externalizado de cierre de ventas para agencias de marketing, diseño, desarrollo y consultoría con leads entrantes recurrentes y ticket medio desde 3.000 €."
+  serviceDescription={`Servicio externalizado de cierre de ventas para agencias de marketing, diseño, desarrollo y consultoría con leads entrantes recurrentes y ticket medio desde ${TICKET_MINIMO}.`}
 />

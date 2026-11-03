@@ -24,22 +24,22 @@ del ciclo de venta y del volumen previsto.
 ## Verticales
 
 - Agencias de marketing, diseño, desarrollo y consultoría. Facturación anual
-  desde 100.000 €, ticket de servicio desde 3.000 €.
+  desde 100.000 €, ticket de servicio desde 1.000 €.
 - SaaS y tecnología B2B. ARR entre 500.000 € y 5 millones, 20 o más demos
   cualificadas al mes, ratio de cierre por debajo del 25 %.
 - Infoproductores y formación high-ticket. Facturación desde 20.000 € al mes,
-  tickets entre 2.000 € y 10.000 €.
-- Clínicas privadas y salud premium. Ticket de tratamiento desde 3.000 €, con
+  tickets entre 1.000 € y 10.000 €.
+- Clínicas privadas y salud premium. Ticket de tratamiento desde 1.000 €, con
   consulta de valoración previa.
 
 ## Criterios de encaje
 
 Requisitos: leads calificados recurrentes ya existentes, ticket medio desde
-2.000 €, proceso de venta con al menos una llamada o videollamada, CRM operativo
+1.000 €, proceso de venta con al menos una llamada o videollamada, CRM operativo
 o disposición a implantarlo, capacidad de entrega para el volumen adicional.
 
 No hay encaje si: el problema es de captación y no de cierre, el ticket está por
-debajo de 2.000 €, la venta es autoservicio sin llamada, o se busca prospección
+debajo de 1.000 €, la venta es autoservicio sin llamada, o se busca prospección
 en frío sobre listas compradas.
 
 ## Metodología

@@ -8,7 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import FunnelDiagram from '../components/FunnelDiagram.astro';
 import ProcessDiagram from '../components/ProcessDiagram.astro';
 import VerticalIcon from '../components/VerticalIcon.astro';
-import { VERTICALS, SITE_URL } from '../config/site';
+import { TICKET_MINIMO, VERTICALS, SITE_URL } from '../config/site';
 
 const pains = [
   {
@@ -62,7 +62,7 @@ const funnel = [
 
 const fitYes = [
   'Ya generas leads calificados de forma recurrente. No hacemos captación: trabajamos sobre lo que entra.',
-  'Tu ticket medio está por encima de 2.000 €.',
+  `Tu ticket medio está por encima de ${TICKET_MINIMO}.`,
   'Tu venta incluye al menos una llamada o videollamada. Si se compra desde la web sin hablar, no aportamos nada.',
   'Tienes un CRM en marcha, o estás dispuesto a implantarlo durante el onboarding.',
   'Puedes atender y entregar el volumen adicional que se cierre.',
@@ -71,7 +71,7 @@ const fitYes = [
 
 const fitNo = [
   'Todavía no tienes flujo de leads y esperas que lo generemos nosotros.',
-  'Tu ticket está por debajo de 2.000 € o el margen no soporta una comisión de cierre.',
+  `Tu ticket está por debajo de ${TICKET_MINIMO} o el margen no soporta una comisión de cierre.`,
   'La venta es autoservicio, sin llamada de por medio.',
   'Buscas a alguien que llame a puerta fría sobre una lista comprada.',
   'Necesitas resultados en dos semanas. El primer ciclo completo rara vez baja de sesenta días.',
@@ -185,7 +185,7 @@ const schema = [
         privadas que ya generan leads calificados pero necesitan mejorar su tasa
         de cierre. Su modelo es de rev-share puro, sin cuota de entrada: cobra
         únicamente un porcentaje del importe cobrado de las ventas cerradas.
-        Trabaja con tickets desde 2.000 € y ciclos de venta consultivos que
+        Trabaja con tickets desde {TICKET_MINIMO} y ciclos de venta consultivos que
         incluyen al menos una llamada. Los closers se integran en el CRM del
         cliente y entregan reporting semanal del embudo completo, desde la
         llamada agendada hasta el importe cobrado.
@@ -342,8 +342,8 @@ const schema = [
         <div class="card">
           <h3>Fundador</h3>
           <p>
-            Jesús Arteaga. Lleva personalmente las cuentas de agencias y
-            supervisa el resto.
+            <a href="https://www.linkedin.com/in/jesus-arteaga-fernandez79/" rel="me noopener" target="_blank">Jesús Arteaga</a>.
+            Lleva personalmente las cuentas de agencias y supervisa el resto.
           </p>
         </div>
         <div class="card">

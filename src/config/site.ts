@@ -55,12 +55,24 @@ export const CONTACT_FIELDS = [
   { id: 'mensaje', label: 'Mensaje', required: true },
 ] as const;
 
+/* ─── Criterio de encaje ───────────────────────────────────────────────────
+ *
+ * Ticket medio mínimo para que el modelo funcione. Única fuente de la cifra:
+ * la usan las cuatro páginas de vertical, la portada, la landing de campaña y
+ * los `fit` de VERTICALS. Si cambia aquí, cambia en todas a la vez.
+ *
+ * Dos sitios no pueden leerla y llevan la cifra escrita a mano: public/agent.txt,
+ * que es texto plano, y los tramos de TICKET_OPCIONES, que son rangos con dos
+ * extremos. Al tocar esta constante hay que repasarlos.
+ */
+export const TICKET_MINIMO = '1.000 €';
+
 /* ─── Landing de campaña ───────────────────────────────────────────────────
  *
  * Página de destino de la campaña de ChatGPT Ads. Vive aparte del embudo
- * normal: sin menú, sin enlaces al resto del sitio y con un mínimo de ticket
- * propio (1.500 €), más bajo que el de las páginas de vertical. Por eso no
- * puede haber navegación entre ambas: el visitante vería dos criterios.
+ * normal: sin menú y sin enlaces al resto del sitio. Es tráfico de pago y la
+ * página tiene un solo trabajo, que es el formulario; cualquier salida es una
+ * fuga que se paga a precio de clic.
  *
  * Los envíos se guardan como Lead, igual que los de /contacto, pero marcados
  * con `origen` para poder separarlos de los orgánicos.
@@ -71,11 +83,12 @@ export const LANDING_PATH = '/cerrar-mas-ventas';
 /** Etiqueta que encabeza el aviso y se guarda en Lead.origen. */
 export const LANDING_ORIGEN = 'Lead landing ChatGPT Ads';
 
-/** Ticket medio. El primer tramo está por debajo del mínimo de la campaña a
- *  propósito: sirve para descartar en la propia llamada, no antes. */
+/** Ticket medio. El primer tramo está por debajo del mínimo a propósito: quien
+ *  lo marca puede enviar igual el formulario y el dato viaja en el aviso, para
+ *  descartar en la llamada con el número delante y no antes. */
 export const TICKET_OPCIONES = [
-  'Menos de 1.500 €',
-  'Entre 1.500 € y 3.000 €',
+  'Menos de 1.000 €',
+  'Entre 1.000 € y 3.000 €',
   'Entre 3.000 € y 10.000 €',
   'Más de 10.000 €',
 ] as const;
@@ -155,6 +168,21 @@ export const BRAND = {
  * `enFooter` marca cuáles salen en el pie. Hoy solo LinkedIn, por decisión
  * suya: Instagram se queda en /sobre-nosotros.
  */
+/* Enlaces de la línea «Síguenos» del pie.
+ *
+ * Hoy solo el perfil personal de Jesús. Cuando exista la página de empresa en
+ * LinkedIn (RD6), se añade aquí una entrada
+ *   { etiqueta: 'Cerra Labs', url: '…/company/…' }
+ * y aparece sola en el pie, sin tocar el componente. Esa URL irá además en
+ * BRAND.sameAs, que es donde corresponde a la marca.
+ */
+export const REDES_PIE = [
+  {
+    etiqueta: 'Jesús Arteaga',
+    url: 'https://www.linkedin.com/in/jesus-arteaga-fernandez79/',
+  },
+] as const;
+
 export const FUNDADOR = {
   nombre: 'Jesús Arteaga Fernández',
   cargo: 'Fundador y CEO',
@@ -179,7 +207,7 @@ export const VERTICALS = [
     card: 'Agencias de marketing, diseño, desarrollo y consultoría',
     summary:
       'El fundador cierra todas las ventas y se ha convertido en el cuello de botella del crecimiento.',
-    fit: 'Facturación anual desde 100.000 €, ticket de servicio desde 3.000 €.',
+    fit: `Facturación anual desde 100.000 €, ticket de servicio desde ${TICKET_MINIMO}.`,
   },
   {
     slug: 'saas',
@@ -195,7 +223,7 @@ export const VERTICALS = [
     card: 'Infoproductores y formación high-ticket',
     summary:
       'El sistema de captación funciona, pero el cierre depende del fundador o de un freelance sin método.',
-    fit: 'Facturación desde 20.000 € al mes, tickets entre 2.000 € y 10.000 €.',
+    fit: `Facturación desde 20.000 € al mes, tickets entre ${TICKET_MINIMO} y 10.000 €.`,
   },
   {
     slug: 'clinicas',
@@ -203,7 +231,7 @@ export const VERTICALS = [
     card: 'Clínicas privadas y salud premium',
     summary:
       'Las valoraciones se llenan, pero una parte grande de pacientes no llega a confirmar el tratamiento.',
-    fit: 'Ticket de tratamiento desde 3.000 €, consultas de valoración presenciales o por videollamada.',
+    fit: `Ticket de tratamiento desde ${TICKET_MINIMO}, consultas de valoración presenciales o por videollamada.`,
   },
 ] as const;
 
