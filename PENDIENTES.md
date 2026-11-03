@@ -1,18 +1,31 @@
 # Cerra Labs — pendientes
 
-Estado: **desplegada en producción** — https://cerralabs.vercel.app
+Estado: **desplegada en producción** — https://cerralabs.es
+
+Última verificación en producción: 3 de noviembre de 2026, commit `403ab05`.
 
 Completadas las fases RD1, M5.5, M5.6, M5.7 y M4. Auditorías en verde y crawl de
-Screaming Frog contra producción sin errores. Falta lo que depende de decisiones
-tuyas o de cuentas externas.
+Screaming Frog contra producción sin errores; ese crawl es anterior al cutover
+de dominio y no cubre las páginas creadas después. Falta lo que depende de
+decisiones tuyas o de cuentas externas.
 
 - Repositorio: https://github.com/seojesusarteaga-gif/cerralabs (público)
 - Cada `git push` a `main` despliega solo. Verificado.
 - **Fase RD3 cerrada.** El formulario de /contacto está operativo: cada envío
   avisa por Telegram (bot @cerralabs_bot) y por email. Verificado en producción
   con un envío real desde el navegador.
-- `RESEND_FROM` sigue vacía a propósito: sin dominio verificado se usa el
-  remitente compartido `onboarding@resend.dev`, que puede caer en spam.
+- `RESEND_FROM` está puesta en Vercel; el dominio sigue sin verificar en
+  Resend, así que el aviso por email puede caer en spam.
+- **Ticket mínimo unificado en 1.000 €.** Sale de la constante `TICKET_MINIMO`
+  de `src/config/site.ts`, que leen las cuatro verticales, la portada, la
+  landing de campaña y los `fit` de `VERTICALS`. Dos sitios llevan la cifra a
+  mano y hay que repasarlos al cambiarla: `public/agent.txt`, que es texto
+  plano, y los tramos de `TICKET_OPCIONES`, que son rangos con dos extremos.
+- **Landing de campaña** en `/cerrar-mas-ventas`, con `noindex`, sin menú y
+  fuera del sitemap. Confirmación propia en `/gracias-llamada`, que es la única
+  señal de conversión disponible: no hay analítica en el sitio.
+- **Candidaturas de closer** en `/unete-como-closer`, con endpoint y tabla
+  propios. Abierta a perfiles sin experiencia previa.
 
 Nota sobre M5.5: no había librerías de skills disponibles en el entorno, así que
 la pasada de SEO, UX y copy se hizo con criterio propio. Los 14 H1 se verificaron
