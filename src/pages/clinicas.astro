@@ -16,17 +16,18 @@ const diagnosis = [
     body: 'El equipo de recepción atiende agenda, cobros y pacientes presentes. El seguimiento de presupuestos abiertos es lo primero que se cae cuando el día se complica.',
   },
   {
-    title: 'No sabes cuántos presupuestos se pierden',
-    body: 'Se emiten presupuestos y no se registra sistemáticamente cuáles se aceptan, cuáles se rechazan y por qué. Sin ese dato no se puede corregir ni el precio ni la conversación.',
+    title: 'El paciente pide cita de valoración y no aparece',
+    body: 'Ese hueco no se recupera solo y, con el día en marcha, nadie vuelve a llamarle. Nos ocupamos de quienes no acuden a la valoración.',
   },
 ];
 
 const profile = [
   { label: 'Ticket de tratamiento', value: `Desde ${TICKET_MINIMO}` },
-  { label: 'Tipo de centro', value: 'Clínica privada, estética o salud premium' },
+  { label: 'Tipo de centro', value: 'Clínica dental, estética o salud premium' },
   { label: 'Proceso', value: 'Consulta de valoración presencial o por videollamada' },
   { label: 'Volumen', value: 'Presupuestos emitidos de forma recurrente' },
   { label: 'Origen de pacientes', value: 'Captación propia ya en marcha' },
+  { label: 'Dónde se registra', value: 'Dentro de vuestro programa de gestión o en una herramienta aparte' },
   { label: 'Ámbito del closer', value: 'Seguimiento y cierre, nunca criterio clínico' },
 ];
 
@@ -35,7 +36,6 @@ const fitYes = [
   `El ticket de tus tratamientos supera los ${TICKET_MINIMO}.`,
   'La decisión del paciente pasa por una consulta de valoración con un profesional.',
   'Tienes claro que el criterio clínico lo marca tu equipo y el closer solo acompaña la decisión económica.',
-  'Puedes registrar los presupuestos emitidos y su estado en una herramienta compartida.',
 ];
 
 const fitNo = [
@@ -56,11 +56,11 @@ const faqs = [
   },
   {
     q: '¿Presionáis a pacientes que dudan?',
-    a: 'No. En salud eso es especialmente contraproducente: genera cancelaciones, reclamaciones y reseñas negativas que cuestan más que el tratamiento cerrado. El seguimiento consiste en retomar la conversación, resolver la duda concreta que frena la decisión y facilitar la parte económica.',
+    a: 'No. No presionamos a pacientes que dudan: genera cancelaciones y reclamaciones. El seguimiento consiste en retomar la conversación, resolver la duda concreta que frena la decisión y facilitar la parte económica.',
   },
   {
     q: '¿Trabajáis el seguimiento de presupuestos antiguos?',
-    a: 'Sí, y suele ser el punto de partida. La mayoría de clínicas acumulan presupuestos emitidos que nunca se retomaron. Recuperar una parte de ese histórico da resultado rápido sin depender de captación nueva.',
+    a: 'Sí, y suele ser el punto de partida: los presupuestos ya emitidos que siguen sin respuesta se trabajan antes que nada, porque no dependen de que entren pacientes nuevos.',
   },
   {
     q: '¿Cómo encaja con mi equipo de recepción?',
@@ -75,15 +75,15 @@ const faqs = [
   metaTitle="Closing de tratamientos para clínicas privadas"
   metaDescription={`Recuperamos los presupuestos que se quedan sin respuesta tras la valoración. Para clínicas privadas y salud premium con ticket desde ${TICKET_MINIMO}.`}
   eyebrow="Vertical · Clínicas y salud premium"
-  h1="Recupera los presupuestos que se quedan sin respuesta"
-  lede="La valoración se hace, el presupuesto se entrega y ahí se detiene todo. Ponemos un closer a sostener ese seguimiento, sin tocar en ningún momento el criterio clínico de tu equipo."
+  h1="Closers para clínicas privadas"
+  lede="Recupera los presupuestos que se quedan sin respuesta. Sostenemos el seguimiento del paciente desde la valoración hasta la decisión, sin tocar en ningún momento el criterio clínico de tu equipo."
   diagnosisTitle="Lo que vemos en clínicas privadas"
   diagnosis={diagnosis}
   profile={profile}
   profileHeading="Con qué clínicas funciona bien"
   how={{
     title: 'Cómo trabaja el closer en una clínica',
-    body: 'Su ámbito empieza donde termina el del profesional sanitario: sobre un tratamiento ya indicado y un presupuesto ya emitido. Retoma al paciente en las horas siguientes a la valoración, cuando la decisión todavía está abierta, y trabaja lo que de verdad la frena, que casi siempre es la forma de pago, el calendario o una duda que no se atrevió a plantear en consulta. Registra el estado de cada presupuesto y su motivo de rechazo, de modo que al cabo de unas semanas tienes por primera vez el dato de qué porcentaje de tus valoraciones acaba en tratamiento y por qué se pierde el resto.',
+    body: 'Su ámbito empieza donde termina el del profesional sanitario: sobre un tratamiento ya indicado y un presupuesto ya emitido. Retoma al paciente en las horas siguientes a la valoración, cuando la decisión todavía está abierta, y trabaja lo que la frena: la forma de pago, el calendario o una duda que no se planteó en consulta. Registra el estado de cada presupuesto y su motivo de rechazo, de modo que al cabo de unas semanas tienes por primera vez el dato de qué porcentaje de tus valoraciones acaba en tratamiento y por qué se pierde el resto.',
   }}
   fitYes={fitYes}
   fitNo={fitNo}

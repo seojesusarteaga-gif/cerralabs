@@ -9,15 +9,19 @@ const diagnosis = [
   },
   {
     title: 'El ratio de cierre se estanca por debajo del 25 %',
-    body: 'Entra volumen suficiente de demos cualificadas, pero la conversión no sube. El problema rara vez está arriba del embudo: está en cómo se conduce la conversación.',
+    body: 'Tu SDR agenda el volumen acordado y la conversión no sube. Antes de atribuirlo a la captación, revisamos qué pasa dentro de esas conversaciones: qué se pregunta, qué se enseña y en qué punto se cae.',
   },
   {
     title: 'El pipeline está lleno de oportunidades zombis',
     body: 'Muchas demos acaban en un “lo comentamos internamente” que nunca se cierra ni se pierde formalmente. El forecast se vuelve inútil y nadie sabe cuánto se va a facturar.',
   },
   {
-    title: 'Contratar un AE sale caro y tarda',
-    body: 'Entre selección, fijo, variable y rampa, un account executive cuesta meses y bastante dinero antes de saber si funciona. Y si no funciona, el coste ya está pagado.',
+    title: 'La prueba gratuita se queda sin dueño',
+    body: 'Puede ocurrir que se active la cuenta, que el uso se quede en nada y que nadie vuelva a hablar con esa persona hasta que caduca. Acompañamos esa fase: quién la está usando, para qué y qué falta para decidir.',
+  },
+  {
+    title: 'No compra una persona, compran tres',
+    body: 'Quien ve la demo no siempre firma, quien firma puede no haber visto el producto y quien lo va a usar no estaba en la llamada. Trabajamos esas ventas: quién decide, quién paga y quién tiene que estar en la siguiente conversación.',
   },
 ];
 
@@ -27,28 +31,26 @@ const profile = [
   { label: 'Ratio de cierre actual', value: 'Por debajo del 25 %' },
   { label: 'Ticket', value: `Contrato anual desde ${TICKET_MINIMO}` },
   { label: 'Proceso de venta', value: 'Multi-contacto con llamada comercial' },
-  { label: 'Perfil del closer', value: 'Con experiencia previa en venta de software B2B' },
 ];
 
 const fitYes = [
   'Recibes al menos 20 demos cualificadas al mes de forma sostenida.',
   'Tu ratio de cierre está por debajo del 25 % y crees que el problema es de conversación, no de producto.',
   `Tu contrato anual medio supera los ${TICKET_MINIMO}.`,
-  'Tienes el CRM al día, con etapas definidas y motivos de pérdida registrados.',
+  'Tu SDR agenda demos de forma sostenida y quieres que alguien las trabaje hasta el cierre.',
   'Puedes dar acceso a un entorno de demo y a documentación de producto durante el onboarding.',
 ];
 
 const fitNo = [
   'Tu producto se compra en autoservicio con tarjeta y sin llamada.',
   'Recibes menos de 20 demos al mes: no hay volumen para que el closer coja ritmo.',
-  'Vendes contratos enterprise de ciclo muy largo con comités de compra de seis o más personas.',
   'Tu churn indica que el problema está en el producto o en la activación, no en el cierre.',
 ];
 
 const faqs = [
   {
     q: '¿El closer va a entender mi producto técnico?',
-    a: 'Los closers asignados a SaaS tienen experiencia previa vendiendo software B2B. Aun así, el onboarding incluye acceso al entorno de demo, sesiones con tu equipo de producto y revisión de grabaciones de demos anteriores. No entra a llamar hasta que sabe sostener una demo sin ayuda.',
+    a: 'El onboarding incluye acceso al entorno de demo, sesiones con tu equipo de producto y revisión de grabaciones de demos anteriores. No entra a llamar hasta que sabe sostener una demo sin ayuda.',
   },
   {
     q: '¿Hace la demo o solo el cierre?',
@@ -60,11 +62,11 @@ const faqs = [
   },
   {
     q: '¿Qué hacéis con las oportunidades paradas?',
-    a: 'Se trabajan igual que las nuevas. Una parte relevante del pipeline estancado se puede reactivar con seguimiento sistemático, y suele ser de lo primero que abordamos porque da resultado rápido sin depender de leads nuevos.',
+    a: 'Se trabajan igual que las nuevas, con seguimiento sistemático y un motivo registrado cuando se cierran en falso. Suele ser de lo primero que abordamos, porque no depende de que entren leads nuevos.',
   },
   {
-    q: '¿Trabajáis con nuestro CRM o con el vuestro?',
-    a: 'Con el tuyo, siempre. El closer trabaja dentro de tu HubSpot, Pipedrive o Salesforce, respetando tus etapas y tus campos obligatorios. No mantenemos un pipeline paralelo: si el dato no está en tu CRM, para nosotros no existe.',
+    q: '¿Cómo encaja con mi SDR?',
+    a: 'Él agenda y el closer trabaja desde la demo en adelante. Las reglas de reparto se fijan por escrito antes de empezar, igual que con el resto de tu equipo comercial, para que no haya discusión sobre a quién corresponde un cierre.',
   },
 ];
 ---
@@ -73,10 +75,10 @@ const faqs = [
   slug="saas"
   vertical="SaaS"
   metaTitle="Closers para SaaS y tecnología B2B"
-  metaDescription="Subimos el ratio de cierre de tus demos cualificadas con closers especializados en venta de software B2B. Rev-share sin fijo mensual ni coste de rampa."
+  metaDescription="Closers que trabajan las demos que agenda tu SDR: descubrimiento antes de enseñar producto, acompañamiento de la prueba y ventas con varios decisores."
   eyebrow="Vertical · SaaS y tecnología B2B"
-  h1="Convierte tus demos cualificadas en contratos firmados"
-  lede="Si recibes demos de forma constante pero el ratio de cierre no pasa del 25 %, el problema está en la conversación comercial. Ponemos closers con experiencia en software B2B a trabajar tu pipeline, sin coste de contratación ni de rampa."
+  h1="Closers para SaaS y software B2B"
+  lede="Trabajamos junto a tu SDR, sobre las demos que él agenda: descubrimiento, prueba o piloto y cierre, incluidas las ventas que pasan por varias personas."
   diagnosisTitle="Lo que vemos en empresas de software B2B"
   diagnosis={diagnosis}
   profile={profile}

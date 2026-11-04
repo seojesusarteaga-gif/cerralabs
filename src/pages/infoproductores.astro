@@ -4,20 +4,16 @@ import { TICKET_MINIMO } from '../config/site';
 
 const diagnosis = [
   {
+    title: 'Cerrar de más te vuelve en reembolsos',
+    body: 'Forzar cierres sube el número del mes y llena el siguiente de solicitudes de devolución, disputas de pago y reseñas malas.',
+  },
+  {
     title: 'El sistema de captación funciona y el cierre no acompaña',
     body: 'El webinar o el VSL llena la agenda de llamadas, pero la conversión se queda por debajo de lo que ese volumen debería producir. El cuello de botella se ha desplazado a la última fase.',
   },
   {
-    title: 'Cierras tú y no puedes escalar',
-    body: 'Eres quien mejor transmite el valor del programa, así que acabas con la agenda llena de llamadas de venta. El tiempo que no dedicas al producto termina notándose en el producto.',
-  },
-  {
-    title: 'El closer freelance de turno duró tres meses',
-    body: 'Sin guion documentado, sin CRM y sin nadie revisando llamadas, el resultado depende por completo de la persona. Cuando se va, se lleva el criterio con ella y hay que empezar de cero.',
-  },
-  {
-    title: 'Presión agresiva que te devuelve reembolsos',
-    body: 'Forzar cierres sube el número del mes y llena el siguiente de solicitudes de devolución y reseñas malas. Un alumno mal cualificado cuesta más caro que la venta que aportó.',
+    title: 'Entre quien agenda y quien cierra se pierde contexto',
+    body: 'Lo que la persona contó al reservar la llamada no siempre llega a quien la atiende. Podemos cubrir las dos cosas, o solo el cierre, trabajando con tu setter.',
   },
 ];
 
@@ -26,6 +22,7 @@ const profile = [
   { label: 'Ticket del programa', value: `Entre ${TICKET_MINIMO} y 10.000 €` },
   { label: 'Origen de las llamadas', value: 'Webinar, VSL o formulario de aplicación' },
   { label: 'Volumen', value: 'Agenda de llamadas llena de forma sostenida' },
+  { label: 'Modelo de venta', value: 'Lanzamientos y venta continua' },
   { label: 'Proceso de venta', value: 'Llamada de valoración y cierre' },
   { label: 'Enfoque', value: 'Venta consultiva, con cualificación real previa' },
 ];
@@ -63,8 +60,8 @@ const faqs = [
     a: 'No. Revisamos el contenido antes de aceptar la cuenta. Si el programa no tiene entrega real detrás o promete resultados que no puede sostener, no lo vendemos. Es una decisión comercial además de ética: no queremos gestionar las devoluciones que eso genera.',
   },
   {
-    q: '¿Cómo se reparte el trabajo si ya tengo un closer?',
-    a: 'Lo habitual es asignar franjas o segmentos distintos y comparar resultados con las mismas métricas durante las primeras semanas. Si tu closer actual funciona bien, aportamos capacidad extra; si no, el dato lo enseña sin que haya que discutirlo.',
+    q: '¿Podéis agendar además de cerrar?',
+    a: 'Sí. Cubrimos la figura del setter o trabajamos con el tuyo, según lo que ya tengas montado. Qué parte conviene en tu caso depende del volumen y de cómo entre la gente, y eso se ve en la llamada de diagnóstico con tus números delante.',
   },
 ];
 ---
@@ -75,15 +72,15 @@ const faqs = [
   metaTitle="Closers para infoproductores high-ticket"
   metaDescription={`Cerramos tus llamadas de valoración con cualificación real, sin presión ni urgencia. Para programas de ${TICKET_MINIMO} a 10.000 € con captación validada.`}
   eyebrow="Vertical · Infoproducto y formación"
-  h1="Cierra tu programa sin quemar tu reputación"
-  lede="Tu captación ya llena la agenda. Ponemos closers que cualifican de verdad antes de vender, porque en formación high-ticket un alumno mal cerrado cuesta más que la venta que aportó."
+  h1="Closers para infoproductores y formación high-ticket"
+  lede="Tu captación llena la agenda. Cerramos con cualificación real y, si lo necesitas, también agendamos: cubrimos la figura del setter además del cierre."
   diagnosisTitle="Lo que vemos en negocios de formación high-ticket"
   diagnosis={diagnosis}
   profile={profile}
   profileHeading="Con qué programas de formación funciona bien"
   how={{
     title: 'Cómo trabaja el closer en un negocio de formación',
-    body: 'La llamada empieza por el punto de partida real de la persona, el tiempo del que dispone y qué ha intentado antes. Con eso se decide si el programa encaja, y si no encaja se dice en la misma llamada. Cuando sí encaja, la conversación se centra en qué va a cambiar concretamente y qué se espera de esa persona, incluida la parte incómoda del compromiso que exige. Nunca se cierra a quien tenga que endeudarse por encima de lo razonable para pagarlo: además de ser una mala práctica, es el origen de la mayoría de las disputas de cobro.',
+    body: 'La llamada empieza por el punto de partida real de la persona, el tiempo del que dispone y qué ha intentado antes. Con eso se decide si el programa encaja, y si no encaja se dice en la misma llamada. Cuando sí encaja, la conversación se centra en qué va a cambiar concretamente y qué se espera de esa persona, incluida la parte incómoda del compromiso que exige. Nunca se cierra a quien tenga que endeudarse por encima de lo razonable para pagarlo: además de ser una mala práctica, es de donde salen después las disputas de cobro.',
   }}
   fitYes={fitYes}
   fitNo={fitNo}

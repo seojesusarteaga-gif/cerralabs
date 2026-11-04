@@ -5,19 +5,19 @@ import { TICKET_MINIMO } from '../config/site';
 const diagnosis = [
   {
     title: 'Vendes tú y ya no te caben más llamadas',
-    body: 'En una agencia de servicios el fundador suele ser el mejor comercial, y por eso acaba siendo el único. El techo de facturación deja de ser el mercado y pasa a ser tu calendario.',
+    body: 'En una agencia de servicios el fundador suele acabar siendo el único que vende. El techo de facturación deja de ser el mercado y pasa a ser tu calendario.',
   },
   {
     title: 'Las propuestas se quedan sin seguimiento',
-    body: 'Mandas el presupuesto y entras en producción. Nadie hace el segundo ni el tercer contacto, y una parte de esas propuestas se pierde por silencio, no por precio.',
+    body: 'Mandas el presupuesto y entras en producción. El segundo contacto no se hace, el tercero tampoco, y la propuesta se cae sin que nadie llegue a saber por qué.',
   },
   {
-    title: 'Delegar en un comercial junior no funcionó',
-    body: 'La venta de servicios profesionales exige entender el problema del cliente antes de proponer. Un perfil sin criterio ni experiencia no sostiene esa conversación y quema los leads.',
+    title: 'El cliente pide más de lo que pone en la propuesta',
+    body: 'Si no se delimita qué entra y qué no, el margen se discute después, con el trabajo ya empezado. El closer cierra ese punto en la conversación, antes de que exista el proyecto.',
   },
   {
     title: 'Compites contra agencias que sí tienen equipo comercial',
-    body: 'Cuando tu prospecto pide tres presupuestos, quien contesta primero y hace mejores preguntas parte con ventaja, aunque su trabajo sea peor que el tuyo.',
+    body: 'Cuando tu prospecto pide tres presupuestos, compite también el tiempo de respuesta y las preguntas que se hacen antes de proponer, no solo el trabajo que hay detrás.',
   },
 ];
 
@@ -30,15 +30,14 @@ const profile = [
 ];
 
 const fitYes = [
-  'Te entran oportunidades de forma recurrente y no llegas a atenderlas todas con la atención que merecen.',
+  'Mandas propuestas cada mes y el seguimiento se queda a medias.',
   `Tu ticket medio por proyecto o por retainer supera los ${TICKET_MINIMO}.`,
   'Vendes con al menos una llamada de discovery antes de la propuesta.',
   'Tienes capacidad de producción para asumir más trabajo del que cierras hoy.',
-  'Estás dispuesto a documentar tu proceso de venta y tus objeciones habituales durante el onboarding.',
 ];
 
 const fitNo = [
-  'Tu problema es que no entran leads. Eso es captación, no cierre.',
+  'No te piden presupuesto: lo que falta es demanda, no cierre.',
   'Facturas por debajo de 100.000 € al año: el volumen no sostiene el modelo para ninguna de las dos partes.',
   `Vendes proyectos pequeños de menos de ${TICKET_MINIMO} con mucha rotación.`,
   'Estás al límite de capacidad de entrega y cerrar más sería un problema, no una solución.',
@@ -52,10 +51,6 @@ const faqs = [
   {
     q: 'Mi servicio es técnico y difícil de explicar. ¿Podréis?',
     a: 'El onboarding está pensado precisamente para eso: dedicamos entre siete y diez días a producto, casos previos y objeciones reales antes de la primera llamada. Y en las cuentas de agencia el fundador de Cerra Labs entra de forma directa, que es donde más rápido se absorbe el criterio de un servicio complejo.',
-  },
-  {
-    q: '¿Qué pasa con las oportunidades que ya tengo abiertas?',
-    a: 'Se acuerda por escrito antes de empezar. Lo habitual es que las oportunidades ya abiertas en tu pipeline queden fuera del acuerdo, y que trabajemos solo sobre lo que entre a partir de la fecha de arranque. Así no hay discusión sobre a quién le corresponde un cierre.',
   },
   {
     q: '¿Y si el cliente prefiere hablar conmigo?',
@@ -72,17 +67,17 @@ const faqs = [
   slug="agencias"
   vertical="Agencias"
   metaTitle="Closing de ventas para agencias"
-  metaDescription="Cerramos las propuestas de tu agencia para que dejes de ser el único que vende. Rev-share sin cuota de entrada, desde 100.000 € de facturación anual."
+  metaDescription="Closers para agencias que ya reciben peticiones de presupuesto: discovery, seguimiento de propuestas y alcance delimitado antes de empezar el proyecto."
   eyebrow="Vertical · Agencias"
-  h1="Deja de ser el único que cierra en tu agencia"
-  lede="Si las oportunidades entran pero el cuello de botella eres tú, ponemos un closer con criterio a llevar tus discovery y tu seguimiento de propuestas. Esta es la vertical que atiende personalmente el fundador de Cerra Labs."
+  h1="Closers para agencias de marketing y servicios"
+  lede="Si las oportunidades entran y el cuello de botella eres tú, ponemos un closer a llevar tus discovery y el seguimiento de las propuestas. Es la vertical que atiende personalmente el fundador de Cerra Labs."
   diagnosisTitle="Lo que vemos en agencias de servicios profesionales"
   diagnosis={diagnosis}
   profile={profile}
   profileHeading="Con qué agencias funciona bien"
   how={{
     title: 'Cómo trabaja el closer en una agencia',
-    body: 'Entra en tus discovery con un guion construido sobre tus propios casos: qué preguntar para separar al cliente que valora el trabajo del que solo compara precio, cómo situar tu presupuesto frente a alternativas más baratas y qué señales indican que una cuenta va a ser problemática antes de firmarla. Después sostiene el seguimiento de las propuestas enviadas, que es donde más dinero se pierde por pura falta de constancia. Tú entras solo donde tu criterio aporta algo que el closer no puede aportar.',
+    body: 'Entra en tus discovery con un guion construido sobre tus propios casos: qué preguntar para separar al cliente que valora el trabajo del que solo compara precio, cómo situar tu presupuesto frente a alternativas más baratas y qué señales indican que una cuenta va a ser problemática antes de firmarla. Después sostiene el seguimiento de las propuestas enviadas, contacto a contacto. Tú entras en la fase final de las cuentas grandes; el resto lo lleva el closer.',
   }}
   lectura={{
     href: '/blog/closer-externo-o-comercial-en-plantilla',
