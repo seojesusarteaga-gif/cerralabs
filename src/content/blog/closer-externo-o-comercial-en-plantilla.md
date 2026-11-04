@@ -70,13 +70,13 @@ Con honestidad, hay situaciones en las que la opción interna es claramente mejo
 
 Antes de elegir entre las dos opciones conviene comprobar una cosa: **que el problema sea realmente de cierre**.
 
-Si generas veinte leads calificados al mes y cierras dos, tienes un problema de conversión y cualquiera de las dos opciones ayuda. Si generas tres leads al mes y cierras uno, tu problema es de captación, y contratar a quien cierre —interno o externo— no va a mover el resultado. Vas a pagar por que alguien esté ocioso.
+Si generas veinte leads cualificados al mes y cierras dos, tienes un problema de conversión y cualquiera de las dos opciones ayuda. Si generas tres leads al mes y cierras uno, tu problema es de captación, y contratar a quien cierre —interno o externo— no va a mover el resultado. Vas a pagar por que alguien esté ocioso.
 
 Es la comprobación que hacemos en la primera llamada, y es también la razón por la que decimos que no a una parte de las empresas que nos escriben. No por escrúpulo: es que en ese escenario no hay nada que podamos cobrar.
 
 ## Cómo decidir esta semana
 
-Coge tres números: cuántos leads calificados generas al mes, qué porcentaje acaba en venta y cuál es tu ticket medio.
+Coge tres números: cuántos leads cualificados generas al mes, qué porcentaje acaba en venta y cuál es tu ticket medio.
 
 Con eso calculas cuánta facturación adicional produciría subir tu ratio de cierre unos puntos. Si esa cifra anual supera tu punto de equilibrio con holgura, contrata interno. Si se queda por debajo, o si simplemente no tienes la certeza suficiente para adelantar el dinero, empieza por fuera y contrata cuando el volumen lo justifique.
 

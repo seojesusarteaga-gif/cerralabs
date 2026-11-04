@@ -23,6 +23,9 @@ interface Props {
   fitYes: string[];
   fitNo: string[];
   faqs: { q: string; a: string }[];
+  /** Artículo del blog que amplía el argumento de esta vertical. Opcional:
+   *  solo lo pasan las que tienen uno que encaje de verdad. */
+  lectura?: { href: string; label: string };
   serviceName: string;
   serviceDescription: string;
   /** Encabezado del bloque de encaje. Único por vertical: si se repite entre
@@ -45,6 +48,7 @@ const {
   fitYes,
   fitNo,
   faqs,
+  lectura,
   serviceName,
   serviceDescription,
   profileHeading,
@@ -139,7 +143,15 @@ const schema = [
       <p class="eyebrow">El closer en tu cuenta</p>
       <h2 class="how-title">{how.title}</h2>
       <p class="lede how-body">{how.body}</p>
-      <p><a href="/servicio">Ver la metodología completa</a></p>
+      <p>
+        <a href="/servicio">Ver la metodología completa</a>
+        {lectura && (
+          <>
+            {' · '}
+            <a href={lectura.href}>{lectura.label}</a>
+          </>
+        )}
+      </p>
     </div>
   </section>
 

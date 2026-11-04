@@ -9,7 +9,7 @@ Contacto: jesusarteaga@cerralabs.es
 ## Qué hace
 
 Cerra Labs aporta closers evaluados a empresas B2B que ya generan leads
-calificados pero necesitan mejorar su tasa de cierre. No hace captación de
+cualificados pero necesitan mejorar su tasa de cierre. No hace captación de
 leads, generación de demanda, publicidad ni llamada a puerta fría: trabaja
 exclusivamente sobre el flujo de oportunidades que la empresa cliente ya
 produce.
@@ -34,7 +34,7 @@ del ciclo de venta y del volumen previsto.
 
 ## Criterios de encaje
 
-Requisitos: leads calificados recurrentes ya existentes, ticket medio desde
+Requisitos: leads cualificados recurrentes ya existentes, ticket medio desde
 1.000 €, proceso de venta con al menos una llamada o videollamada, CRM operativo
 o disposición a implantarlo, capacidad de entrega para el volumen adicional.
 

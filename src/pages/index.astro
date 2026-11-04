@@ -8,7 +8,14 @@ import CtaBand from '../components/CtaBand.astro';
 import FunnelDiagram from '../components/FunnelDiagram.astro';
 import ProcessDiagram from '../components/ProcessDiagram.astro';
 import VerticalIcon from '../components/VerticalIcon.astro';
+import { getCollection } from 'astro:content';
 import { TICKET_MINIMO, VERTICALS, SITE_URL } from '../config/site';
+
+// Los dos artículos más recientes. Se leen de la colección para que publicar
+// un tercero lo traiga aquí solo, sin tocar esta página.
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
 
 const pains = [
   {
@@ -61,7 +68,7 @@ const funnel = [
 ];
 
 const fitYes = [
-  'Ya generas leads calificados de forma recurrente. No hacemos captación: trabajamos sobre lo que entra.',
+  'Ya generas leads cualificados de forma recurrente. No hacemos captación: trabajamos sobre lo que entra.',
   `Tu ticket medio está por encima de ${TICKET_MINIMO}.`,
   'Tu venta incluye al menos una llamada o videollamada. Si se compra desde la web sin hablar, no aportamos nada.',
   'Tienes un CRM en marcha, o estás dispuesto a implantarlo durante el onboarding.',
@@ -92,7 +99,7 @@ const faqs = [
   },
   {
     q: '¿Los leads los generáis vosotros?',
-    a: 'No. Trabajamos sobre los leads calificados que tu empresa ya genera. Si tu problema es de volumen y no de cierre, no somos el proveedor adecuado y te lo diremos en la primera llamada.',
+    a: 'No. Trabajamos sobre los leads cualificados que tu empresa ya genera. Si tu problema es de volumen y no de cierre, no somos el proveedor adecuado y te lo diremos en la primera llamada.',
   },
   {
     q: '¿Cuánto tardáis en arrancar?',
@@ -128,7 +135,7 @@ const schema = [
 
 <BaseLayout
   title="Agencia de closing B2B a rev-share"
-  description="Ponemos closers evaluados a cerrar los leads calificados que tu empresa ya genera. Cobramos un porcentaje de lo cobrado, sin cuota de entrada."
+  description="Ponemos closers evaluados a cerrar los leads cualificados que tu empresa ya genera. Cobramos un porcentaje de lo cobrado, sin cuota de entrada."
   schema={schema}
 >
   <section class="hero">
@@ -137,7 +144,7 @@ const schema = [
         <p class="eyebrow">Closing B2B · Agencias, SaaS, infoproductores y clínicas</p>
         <h1>Cerramos las ventas que tus leads ya te están pidiendo</h1>
         <p class="lede">
-          Si tu empresa genera leads calificados pero el cierre depende de ti o
+          Si tu empresa genera leads cualificados pero el cierre depende de ti o
           de un equipo que no da abasto, ponemos closers con experiencia a
           trabajar sobre ese flujo. Cobramos un porcentaje de lo que cobras por
           esas ventas.
@@ -182,7 +189,7 @@ const schema = [
       <p>
         Cerra Labs es una agencia de closing B2B con sede en España que aporta
         closers evaluados a empresas de agencia, SaaS, infoproducto y clínicas
-        privadas que ya generan leads calificados pero necesitan mejorar su tasa
+        privadas que ya generan leads cualificados pero necesitan mejorar su tasa
         de cierre. Su modelo es de rev-share puro, sin cuota de entrada: cobra
         únicamente un porcentaje del importe cobrado de las ventas cerradas.
         Trabaja con tickets desde {TICKET_MINIMO} y ciclos de venta consultivos que
@@ -258,6 +265,12 @@ const schema = [
         Somos una agencia joven y preferimos decirlo a inventarnos un historial.
         Lo que sí podemos enseñarte desde el primer día es exactamente cómo
         medimos el trabajo, porque es el mismo embudo que verás en tu informe.
+      </p>
+      <p class="muted measure-extra">
+        Si quieres calcular tu ratio actual antes de hablar con nosotros,{' '}
+        <a href="/blog/calcular-ratio-de-cierre-real">
+          aquí explicamos cómo medirlo sin inflarlo
+        </a>.
       </p>
 
       <FunnelDiagram stages={funnel} />
@@ -372,6 +385,31 @@ const schema = [
         Nombres y perfiles concretos se comparten en la llamada de diagnóstico.
         No publicamos fotos ni biografías de personas que no formen parte real
         del equipo.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Blog</p>
+      <h2>Lo que escribimos</h2>
+      <p class="lede blog-lede">
+        Para fundadores que prefieren decidir con números. Poco volumen y cero
+        contenido motivacional.
+      </p>
+      <div class="grid grid-2 blog-grid">
+        {
+          posts.map((post) => (
+            <a class="card blog-card" href={`/blog/${post.id}`}>
+              <h3>{post.data.metaTitle ?? post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span class="blog-meta muted">{post.data.readingTime} de lectura</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="blog-todos">
+        <a href="/blog">Ver todos los artículos</a>
       </p>
     </div>
   </section>
@@ -619,8 +657,52 @@ const schema = [
   .process-lede,
   .measure-lede,
   .vertical-lede,
+  .blog-lede,
   .stack-lede {
     max-width: 62ch;
+  }
+
+  .blog-grid {
+    margin-top: 2.25rem;
+  }
+
+  .blog-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--ink);
+    color: inherit;
+  }
+
+  .blog-card h3 {
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
+  .blog-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  .blog-meta {
+    font-size: 0.875rem;
+  }
+
+  .blog-todos {
+    margin-top: 1.5rem;
+  }
+
+  .measure-extra {
+    max-width: 62ch;
+    margin-top: -0.75rem;
+    font-size: 0.9375rem;
   }
 
   .process-more {

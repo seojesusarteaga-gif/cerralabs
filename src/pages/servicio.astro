@@ -11,7 +11,7 @@ import { SITE_URL, VERTICALS } from '../config/site';
 const steps = [
   {
     title: 'Diagnóstico',
-    body: 'Una llamada de treinta minutos en la que revisamos cuántos leads calificados generas al mes, qué porcentaje acaba en venta hoy, cuál es tu ticket medio y cuánto dura tu ciclo. Con esos cuatro números se calcula qué margen de mejora existe y si compensa a las dos partes.',
+    body: 'Una llamada de treinta minutos en la que revisamos cuántos leads cualificados generas al mes, qué porcentaje acaba en venta hoy, cuál es tu ticket medio y cuánto dura tu ciclo. Con esos cuatro números se calcula qué margen de mejora existe y si compensa a las dos partes.',
     detail: 'Si el encaje no está claro, lo decimos en esa misma llamada. Preferimos perder un cliente potencial a entrar donde no vamos a poder mover el dato.',
   },
   {
@@ -34,7 +34,7 @@ const steps = [
 const funnel = [
   {
     label: 'Llamadas agendadas',
-    body: 'Sobre los leads calificados que tu empresa ya genera. No hacemos captación.',
+    body: 'Sobre los leads cualificados que tu empresa ya genera. No hacemos captación.',
   },
   {
     label: 'Llamadas celebradas',
@@ -151,7 +151,7 @@ const crumbs = [{ label: 'Cómo trabajamos', href: '/servicio' }];
         <div class="card">
           <h3>Sí hacemos</h3>
           <ul class="list-check">
-            <li>Llamadas de descubrimiento sobre tus leads calificados.</li>
+            <li>Llamadas de descubrimiento sobre tus leads cualificados.</li>
             <li>Seguimiento sistemático de propuestas enviadas.</li>
             <li>Reactivación de oportunidades paradas en tu pipeline.</li>
             <li>Registro completo en tu CRM, incluidos motivos de pérdida.</li>
@@ -180,6 +180,14 @@ const crumbs = [{ label: 'Cómo trabajamos', href: '/servicio' }];
         La metodología es la misma; el guion, el perfil del closer y los
         criterios de cualificación no.
       </p>
+      <p class="muted vert-extra">
+        También escribimos sobre cómo se mide y se decide esto:{' '}
+        <a href="/blog">nuestros artículos</a>, empezando por{' '}
+        <a href="/blog/calcular-ratio-de-cierre-real">
+          cómo calcular tu ratio de cierre real
+        </a>. Y si eres closer y quieres trabajar así, la información está en{' '}
+        <a href="/unete-como-closer">únete como closer</a>.
+      </p>
       <div class="grid grid-4">
         {
           VERTICALS.map((v) => (
@@ -202,8 +210,14 @@ const crumbs = [{ label: 'Cómo trabajamos', href: '/servicio' }];
 <style>
   .funnel-lede,
   .vert-lede,
+  .vert-extra,
   .phases-lede {
     max-width: 62ch;
+  }
+
+  .vert-extra {
+    margin-top: -0.5rem;
+    font-size: 0.9375rem;
   }
 
   .funnel-detail {

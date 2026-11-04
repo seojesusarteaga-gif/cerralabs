@@ -21,14 +21,16 @@ export default defineConfig({
   trailingSlash: 'never',
 
   // Fuera del sitemap: las páginas de confirmación (/gracias*) van con
-  // noindex, /admin es el panel privado y /cerrar-mas-ventas es la landing de
-  // campaña, que también va con noindex por ser tráfico de pago.
+  // noindex, /admin es el panel privado, /cerrar-mas-ventas es la landing de
+  // campaña y /casos va con noindex mientras no haya ningún caso publicado:
+  // hoy su contenido principal es la explicación de una ausencia.
   integrations: [
     sitemap({
       filter: (page) =>
         !page.includes('/gracias') &&
         !page.includes('/admin') &&
-        !page.includes('/cerrar-mas-ventas'),
+        !page.includes('/cerrar-mas-ventas') &&
+        !page.includes('/casos'),
     }),
   ],
 
