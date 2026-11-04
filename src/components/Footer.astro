@@ -33,7 +33,7 @@ const year = new Date().getFullYear();
       <nav class="footer-social" aria-label="Redes sociales">
         <h3>Síguenos</h3>
         {REDES_PIE.map((r) => (
-          <a href={r.url} rel="me noopener" target="_blank">
+          <a href={r.url} rel={r.personal ? 'me noopener' : 'noopener'} target="_blank">
             {r.etiqueta}
           </a>
         ))}

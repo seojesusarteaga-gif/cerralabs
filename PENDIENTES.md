@@ -82,7 +82,9 @@ idénticos antes y después.
    `SITE_URL`, `astro.config.mjs` y `robots.txt`, desplegar, y comprobar que el
    canonical resuelve antes de tocar Search Console.
 3. **RD5** — dashboard.
-4. **RD6** — LinkedIn Company Page, mínimo 2 posts por semana.
+4. **RD6** — ~~crear la LinkedIn Company Page~~ **hecha**:
+   <https://www.linkedin.com/company/cerra-labs/>, ya en `BRAND.sameAs` y en el
+   pie. Queda la parte de publicar, mínimo 2 posts por semana.
 
 ## Reglas aplicadas en esta construcción
 

@@ -154,8 +154,9 @@ export const BRAND = {
   mark: '/mark-cerra-labs.svg',
   // Tarjeta social. Se regenera con `node scripts/generate-og.mjs`.
   ogImage: '/og-cerra-labs.png',
-  // TBD REDES: añadir la URL de LinkedIn Company Page cuando se cree (RD6).
-  sameAs: [] as string[],
+  // Perfiles de la marca. Los personales de Jesús van en la Person del
+  // JSON-LD, no aquí.
+  sameAs: ['https://www.linkedin.com/company/cerra-labs/'] as string[],
 } as const;
 
 /* ─── Fundador ─────────────────────────────────────────────────────────────
@@ -170,16 +171,20 @@ export const BRAND = {
  */
 /* Enlaces de la línea «Síguenos» del pie.
  *
- * Hoy solo el perfil personal de Jesús. Cuando exista la página de empresa en
- * LinkedIn (RD6), se añade aquí una entrada
- *   { etiqueta: 'Cerra Labs', url: '…/company/…' }
- * y aparece sola en el pie, sin tocar el componente. Esa URL irá además en
- * BRAND.sameAs, que es donde corresponde a la marca.
+ * `personal` distingue el perfil de una persona del de la marca: solo los
+ * primeros llevan rel="me", que es la convención para decir «esta cuenta es
+ * mía». En la página de empresa esa marca no tiene sentido.
  */
 export const REDES_PIE = [
   {
+    etiqueta: 'Cerra Labs',
+    url: 'https://www.linkedin.com/company/cerra-labs/',
+    personal: false,
+  },
+  {
     etiqueta: 'Jesús Arteaga',
     url: 'https://www.linkedin.com/in/jesus-arteaga-fernandez79/',
+    personal: true,
   },
 ] as const;
 
