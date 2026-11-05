@@ -39,6 +39,22 @@ idénticos antes y después.
 | Cambiar `SITE_URL` | `src/config/site.ts` y `astro.config.mjs` | Las dos líneas ya están escritas y comentadas: basta con intercambiarlas. También `public/robots.txt`. |
 | ~~Crear el buzón del dominio~~ | Hecho | `jesusarteaga@cerralabs.es`, activo y enlazado como `mailto:` en toda la web. |
 
+## Abierto con la página ya publicada
+
+- **Consulta legal sobre el cobro en despachos de abogados.** `/abogados` está
+  en producción, pero **sin respuesta jurídica todavía**. Los artículos 14.2 y
+  14.3 del Código Deontológico de 2019 prohíben repartir honorarios con quien
+  no ejerce la abogacía, y el 18 prohíbe pagar comisiones por captación; los
+  dos admiten la misma excepción, «salvo que se informe al cliente de esta
+  circunstancia». El Estatuto General tipifica el incumplimiento como
+  infracción grave (art. 125.o), y la sanción recae sobre el colegiado, no
+  sobre Cerra Labs.
+  Por eso la FAQ de cobro de esa página **solo dice que las condiciones se
+  fijan por escrito y se revisan antes de empezar**. No afirma compatibilidad
+  con la normativa y no debe hacerlo hasta que haya respuesta por escrito de
+  un abogado o de un Colegio. Si la respuesta obliga a informar al cliente
+  final en cada encargo, hay que revisar esa FAQ y la conversación de venta.
+
 ## Defectos conocidos, sin urgencia
 
 - ~~**Franja de ticket sin criterio en `/agencias`.**~~ **RESUELTO.** El perfil
