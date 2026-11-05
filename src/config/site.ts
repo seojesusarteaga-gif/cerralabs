@@ -67,6 +67,16 @@ export const CONTACT_FIELDS = [
  */
 export const TICKET_MINIMO = '1.000 €';
 
+/**
+ * Excepción para /abogados, y solo para esa página.
+ *
+ * En un despacho el encargo no se mide como una operación suelta: una iguala
+ * de 500 € al mes vale por su recurrencia, no por su importe. Por eso tiene su
+ * propio mínimo. No sustituye a TICKET_MINIMO ni se usa en ninguna otra
+ * página.
+ */
+export const TICKET_MINIMO_ABOGADOS = '500 € al mes';
+
 /* ─── Landing de campaña ───────────────────────────────────────────────────
  *
  * Página de destino de la campaña de ChatGPT Ads. Vive aparte del embudo
@@ -229,6 +239,14 @@ export const VERTICALS = [
     summary:
       'El sistema de captación funciona, pero el cierre depende del fundador o de un freelance sin método.',
     fit: `Facturación desde 20.000 € al mes, tickets entre ${TICKET_MINIMO} y 10.000 €.`,
+  },
+  {
+    slug: 'abogados',
+    nav: 'Abogados',
+    card: 'Despachos de abogados',
+    summary:
+      'Entran consultas, pero una parte se queda sin encargo entre la primera visita y la aceptación de los honorarios.',
+    fit: `Encargos desde ${TICKET_MINIMO_ABOGADOS}, de particulares o de empresa, con propuestas de honorarios pendientes de respuesta.`,
   },
   {
     slug: 'clinicas',
