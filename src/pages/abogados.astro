@@ -20,15 +20,15 @@ import { TICKET_MINIMO_ABOGADOS } from '../config/site';
 const diagnosis = [
   {
     title: 'La consulta entra y el encargo no llega a firmarse',
-    body: 'El cliente potencial llama, se le atiende y se queda en «mándame el presupuesto». El despacho pasa al siguiente asunto y esa conversación no se retoma. El encargo no se pierde por honorarios: se pierde entre la primera visita y la aceptación.',
+    body: 'El cliente potencial llama, se le atiende y se queda en «mándame el presupuesto». El despacho pasa al siguiente asunto y esa conversación no se retoma. Entre la primera visita y la aceptación hay un tramo que a menudo nadie tiene asignado.',
   },
   {
     title: 'La propuesta de honorarios se manda y ahí se queda',
-    body: 'Se envía la hoja de encargo y nadie hace el segundo contacto. Cuando se retoma, semanas después, el asunto ya está en otro despacho o el cliente ha decidido no hacer nada.',
+    body: 'Se envía la hoja de encargo y nadie hace el segundo contacto. Cuando se retoma, semanas después, puede que el cliente ya haya decidido otra cosa.',
   },
   {
     title: 'El socio es quien atiende, y su tiempo es facturable',
-    body: 'Cada hora que el socio dedica a explicar honorarios y a perseguir respuestas es una hora que no factura. Delegarlo en el equipo jurídico traslada el problema, no lo resuelve.',
+    body: 'Cada hora que el socio dedica a explicar honorarios y a perseguir respuestas es una hora que no factura.',
   },
   {
     title: 'No hay registro de qué pasó con cada presupuesto',
@@ -63,7 +63,7 @@ const fitNo = [
 const faqs = [
   {
     q: '¿El closer va a dar asesoramiento jurídico?',
-    a: 'Nunca. La primera visita, el criterio sobre el asunto y todo el trabajo jurídico son del abogado o del despacho. El closer interviene solo en la venta del servicio: explica el alcance que le habéis definido, resuelve dudas de honorarios y plazos y acompaña la decisión. Si en una conversación aparece una pregunta jurídica, la devuelve al despacho.',
+    a: 'Nunca. La primera visita, el criterio sobre el asunto y todo el trabajo jurídico son del abogado o del despacho. Cuando atiende una consulta nueva, el closer solo organiza la cita y recoge los datos que necesitéis. En el seguimiento posterior explica el alcance que le habéis definido, resuelve dudas de honorarios y plazos y acompaña la decisión. Si aparece una pregunta jurídica, la devuelve al despacho.',
   },
   {
     q: '¿Cómo encaja esto con el secreto profesional?',
@@ -102,7 +102,7 @@ const faqs = [
   profileHeading="Con qué despachos encaja"
   how={{
     title: 'Hasta dónde llega el closer y dónde empieza el abogado',
-    body: 'El closer entra después de la primera visita, sobre un servicio que el despacho ya ha definido y unos honorarios que el despacho ya ha fijado. Retoma al cliente potencial, resuelve lo que frena la decisión —importe, forma de pago, plazos, qué incluye el encargo— y registra el estado de cada propuesta y su motivo de rechazo. Lo que no hace, en ningún caso, es opinar sobre el asunto: si la conversación se desvía a lo jurídico, para y lo devuelve al despacho.',
+    body: 'Antes de la primera visita, atiende la consulta para organizar la cita con el abogado y recoger los datos que necesitéis. No valora el asunto ni orienta sobre él. La primera visita la hace el abogado. Después, el closer se ocupa del seguimiento de los honorarios: retoma al cliente potencial, resuelve lo que frena la decisión —importe, forma de pago, plazos, qué incluye el encargo— y registra el estado de cada propuesta y su motivo de rechazo. Si en cualquier momento la conversación se desvía a lo jurídico, para y la devuelve al despacho.',
   }}
   fitYes={fitYes}
   fitNo={fitNo}

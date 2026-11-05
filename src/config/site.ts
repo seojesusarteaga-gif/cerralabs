@@ -268,6 +268,23 @@ export const NAV = [
   { href: '/unete-como-closer', label: 'Únete como closer' },
 ] as const;
 
+/* Columna «Servicio» del pie.
+ *
+ * Es NAV más la vertical de abogados. El menú de cabecera ya tiene siete
+ * enlaces y un botón; un octavo lo desborda en pantallas intermedias. En el
+ * pie no hay esa limitación y las cinco verticales deben estar juntas.
+ */
+export const FOOTER_SERVICIO = [
+  { href: '/servicio', label: 'Cómo trabajamos' },
+  { href: '/agencias', label: 'Agencias' },
+  { href: '/saas', label: 'SaaS' },
+  { href: '/infoproductores', label: 'Infoproductores' },
+  { href: '/abogados', label: 'Abogados' },
+  { href: '/clinicas', label: 'Clínicas' },
+  { href: '/sobre-nosotros', label: 'Quiénes somos' },
+  { href: '/unete-como-closer', label: 'Únete como closer' },
+] as const;
+
 // /casos existe y es rastreable, pero se mantiene fuera de la navegación
 // principal hasta que haya dos casos con métricas reales publicables.
 /* Páginas legales. Viven aparte de la navegación: no son servicio, pero
