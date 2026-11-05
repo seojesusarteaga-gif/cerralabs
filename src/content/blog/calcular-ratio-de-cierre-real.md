@@ -48,7 +48,7 @@ Con el ratio global bien calculado ya tienes un punto de partida, pero el númer
 
 **De llamada celebrada a propuesta enviada.** Si esta fase es muy alta, es probable que estés mandando presupuestos a quien no está cualificado, lo cual ensucia todo lo que viene después.
 
-**De propuesta enviada a venta cerrada.** Es la fase que todo el mundo mira, y suele ser la que menos margen de mejora tiene, porque a estas alturas la decisión ya está bastante tomada.
+**De propuesta enviada a venta cerrada.** Es la fase que todo el mundo mira, y suele ser la que menos margen de mejora tiene, porque a estas alturas la decisión ya está bastante tomada. En algunos sectores esta fase tiene nombre propio: así es [cómo se trabaja ese tramo en un despacho de abogados](/abogados), donde lo que queda sin respuesta es la propuesta de honorarios.
 
 Cuando abres el embudo así, casi siempre aparece que la mayor fuga no está donde se creía. En la mayoría de empresas que revisamos, el problema no es que no sepan cerrar: es que la mitad de las oportunidades nunca llega a tener una conversación real.
 

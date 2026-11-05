@@ -1,5 +1,5 @@
 ---
-import { BRAND, NAV, FOOTER_EXTRA, LEGAL, REDES_PIE } from '../config/site';
+import { BRAND, FOOTER_EXTRA, FOOTER_SERVICIO, LEGAL, REDES_PIE } from '../config/site';
 
 const year = new Date().getFullYear();
 ---
@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
 
     <nav class="footer-nav" aria-label="Servicio">
       <h2>Servicio</h2>
-      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+      {FOOTER_SERVICIO.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
 
     <nav class="footer-nav" aria-label="Más">

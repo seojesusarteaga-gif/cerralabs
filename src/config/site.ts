@@ -67,6 +67,16 @@ export const CONTACT_FIELDS = [
  */
 export const TICKET_MINIMO = '1.000 €';
 
+/**
+ * Excepción para /abogados, y solo para esa página.
+ *
+ * En un despacho el encargo no se mide como una operación suelta: una iguala
+ * de 500 € al mes vale por su recurrencia, no por su importe. Por eso tiene su
+ * propio mínimo. No sustituye a TICKET_MINIMO ni se usa en ninguna otra
+ * página.
+ */
+export const TICKET_MINIMO_ABOGADOS = '500 € al mes';
+
 /* ─── Landing de campaña ───────────────────────────────────────────────────
  *
  * Página de destino de la campaña de ChatGPT Ads. Vive aparte del embudo
@@ -231,6 +241,14 @@ export const VERTICALS = [
     fit: `Facturación desde 20.000 € al mes, tickets entre ${TICKET_MINIMO} y 10.000 €.`,
   },
   {
+    slug: 'abogados',
+    nav: 'Abogados',
+    card: 'Despachos de abogados',
+    summary:
+      'Entran consultas, pero una parte se queda sin encargo entre la primera visita y la aceptación de los honorarios.',
+    fit: `Encargos desde ${TICKET_MINIMO_ABOGADOS}, de particulares o de empresa, con propuestas de honorarios pendientes de respuesta.`,
+  },
+  {
     slug: 'clinicas',
     nav: 'Clínicas',
     card: 'Clínicas privadas y salud premium',
@@ -245,6 +263,23 @@ export const NAV = [
   { href: '/agencias', label: 'Agencias' },
   { href: '/saas', label: 'SaaS' },
   { href: '/infoproductores', label: 'Infoproductores' },
+  { href: '/clinicas', label: 'Clínicas' },
+  { href: '/sobre-nosotros', label: 'Quiénes somos' },
+  { href: '/unete-como-closer', label: 'Únete como closer' },
+] as const;
+
+/* Columna «Servicio» del pie.
+ *
+ * Es NAV más la vertical de abogados. El menú de cabecera ya tiene siete
+ * enlaces y un botón; un octavo lo desborda en pantallas intermedias. En el
+ * pie no hay esa limitación y las cinco verticales deben estar juntas.
+ */
+export const FOOTER_SERVICIO = [
+  { href: '/servicio', label: 'Cómo trabajamos' },
+  { href: '/agencias', label: 'Agencias' },
+  { href: '/saas', label: 'SaaS' },
+  { href: '/infoproductores', label: 'Infoproductores' },
+  { href: '/abogados', label: 'Abogados' },
   { href: '/clinicas', label: 'Clínicas' },
   { href: '/sobre-nosotros', label: 'Quiénes somos' },
   { href: '/unete-como-closer', label: 'Únete como closer' },
