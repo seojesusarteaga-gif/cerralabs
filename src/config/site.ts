@@ -258,14 +258,19 @@ export const VERTICALS = [
   },
 ] as const;
 
+/* Menú de cabecera. Las cinco páginas de servicio van enlazadas de forma
+ * directa, sin desplegables: son las que tienen que recibir enlace desde
+ * todas las páginas. «Únete como closer» sale de aquí para que el menú quepa
+ * en una fila; sigue en el pie y en los enlaces de contenido de /servicio y
+ * /sobre-nosotros. */
 export const NAV = [
   { href: '/servicio', label: 'Cómo trabajamos' },
   { href: '/agencias', label: 'Agencias' },
   { href: '/saas', label: 'SaaS' },
   { href: '/infoproductores', label: 'Infoproductores' },
+  { href: '/abogados', label: 'Abogados' },
   { href: '/clinicas', label: 'Clínicas' },
   { href: '/sobre-nosotros', label: 'Quiénes somos' },
-  { href: '/unete-como-closer', label: 'Únete como closer' },
 ] as const;
 
 /* Columna «Servicio» del pie.
